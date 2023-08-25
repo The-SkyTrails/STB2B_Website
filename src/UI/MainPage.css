@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+.mainBox {
+  background-image: url("../Images/mainImage.png");
+  background-repeat: no-repeat;
+  width: 100%;
+  padding-top: 40px;
+  height: auto;
+  background-size: cover;
+}
+.componentsContainer {
+  margin: auto;
+  display: grid;
+  margin-top: 10px;
+  width: 85%;
+  height: auto;
+  border-radius: 10px;
+  opacity: 1;
+}

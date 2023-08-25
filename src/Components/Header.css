@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 10px;
+  width: 85%;
+  height: 80px;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1;
+  background-color: white;
+}
+.travvolt {
+  width: 30%;
+  height: 50%;
+  margin: left;
+  margin: auto;
+  /* margin-bottom: 20px; */
+}
+.travvolt > h4 {
+  margin-left: 105px;
+  margin-bottom: 20px;
+}
+.welcome {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 55%;
+  height: 50%;
+  margin: auto;
+}
+.welPrice {
+  color: #ff8900;
+}
+.skd {
+  font-size: larger;
+  font-weight: 700;
+  color: #0052d0;
+}
+.welcome > p {
+  margin: auto;
+  font-size: medium;
+  font-weight: 700;
+}
