@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import tra from "../Images/tra.png";
+import STLOGO from "../Images/ST-Main-Logo.png";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 
@@ -41,11 +41,11 @@ const Header = () => {
   return (
     <div className="header">
       <a href="/">
-        <img src={tra} style={{ width: "70px", height: "70px" }} />
+        <img src={STLOGO} style={{ width: "200px", height: "70px" }} className="mt-2 ms-2" />
       </a>
-      <div className="travvolt">
+      {/* <div className="travvolt">
         <h1 className="heading">SKY TRAILS  </h1>
-      </div>
+      </div> */}
       <div className="welcome">
         <p>Contect Your Representative</p>
         <p className="welPrice">

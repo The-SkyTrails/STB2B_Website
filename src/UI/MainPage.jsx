@@ -83,13 +83,13 @@ const MainPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (
-    //   !reducerState?.logIn?.loginData?.data &&
-    //   location.pathname !== "/Registration" &&
-    //   location.pathname !== "/adminLogin"
-    // ) {
-    //   navigate("/Login");
-    // } else
+    if (
+      !reducerState?.logIn?.loginData?.data &&
+      location.pathname !== "/Registration" &&
+      location.pathname !== "/adminLogin"
+    ) {
+      navigate("/Login");
+    } else
      if (location.pathname == "/admin/dashboard") {
       if (!reducerState?.adminAuth?.adminData?.data) {
         navigate("/admin/dashboard");
@@ -112,7 +112,7 @@ const MainPage = () => {
 
   return (
     <>
-      {/* {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && ( */}
+      {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
         <div className="mainBox">
           {/* header of main dashboard */}
           <Header />
@@ -330,7 +330,7 @@ const MainPage = () => {
           {/* main page footer */}
           {!isLoginRoute && <Footer />}
         </div>
-      {/* )} */}
+       )} 
 
       <div>
         <Routes>
