@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import { Flex, space, Spacer, Text } from "@chakra-ui/react";
 import Popularfilter from "../Flight/flightresult/Popularfilter";
-import tra from "../../Images/tra.png";
+import StLogo from "../../Images/ST-Main-Logo.png";
 import LockIcon from "@mui/icons-material/Lock";
 import { InnerBarLogo } from "../../data";
 import { logindata } from "../../logindata";
@@ -63,7 +63,7 @@ const Login = () => {
                   justifyContant="center"
                   alignItems="center"
                   textAlign="center"
-                  marginTop="20px"
+                  // marginTop="10px"
                   font="Quicksand, Bold"
                 >
                   <Box
@@ -72,9 +72,9 @@ const Login = () => {
                       height: "69px",
                     }}
                   >
-                    <img src={tra} style={{ width: "100%" }}></img>
+                    <img src={StLogo} style={{ width: "250px" }}></img>
                   </Box>
-                  <Typography className="logo_text">Travvolt</Typography>
+                  {/* <Typography className="logo_text">Travvolt</Typography> */}
                 </Box>
                 <Box
                   sx={{ displayf: "flex", justifyContent: "center" }}

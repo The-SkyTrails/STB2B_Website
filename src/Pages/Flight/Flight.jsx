@@ -11,6 +11,7 @@ import { NavLink, Routes, Route } from "react-router-dom";
 import FlightAllRoute from "./FlightAllRoute/FlightAllRought";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import StyledTabs from "./FlightFormContainer";
 
 const Flight = () => {
   const navigate = useNavigate();
@@ -123,11 +124,15 @@ const Flight = () => {
             </Flex>
           </Flex>
           <div className="flightNavBar">
-            <FlightNavBar />
+            {/* <FlightNavBar /> */}
           </div>
           <div className="flightNavBarContainer">
             <FlightAllRoute />
           </div>
+
+        {/* 👍Tabs of flight */}
+          <StyledTabs/>
+
         </div>
       )}
     </>

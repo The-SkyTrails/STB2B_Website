@@ -32,6 +32,7 @@ import { fontWeight } from "@mui/system";
 import { signUpAction } from "../../Redux/Auth/SignUp/actionSignUp";
 import { getUserAction } from "../../Redux/Auth/UserData/actionUserData";
 import { adminAuthAction } from "../../Redux/Auth/AdminAuth/actionAdminAuth";
+import StLogo from "../../Images/ST-Main-Logo.png";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -76,7 +77,11 @@ const AdminLogin = () => {
         margin: "0 auto",
       }}
     >
+      <span className="d-flex justify-content-between align-items-center ">
+      <img src={StLogo} style={{ width: "180px",marginTop:'13px' }}></img>
       <h1 style={{ marginTop: "20px" }}>Admin Login </h1>
+      </span>
+      
       <form onSubmit={handleSubmit}>
         <Box pt={5} className="login_field">
           <Typography className="Login_min" font="Quicksand, Bold">
