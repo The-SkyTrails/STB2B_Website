@@ -108,16 +108,29 @@ function api() {
 
   //Flight API's Start
 
-  const oneWaySearch = (payload) => {
-    return axios({
+  const oneWaySearch = async (payload) => {
+    let response1 = await axios({
       method: "POST",
-      url: "/Flight.svc/json/FlightSearch",
-      baseURL: `${apiURL.baseURL}`,
+      url: "/travvolt/flight/search/oneway",
+      baseURL: `${apiURL.baseURL_Local}`,
       data: payload,
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     });
+    // let response2 = await axios({
+    //   method: "POST",
+    //   url: "/emt/flight/search/oneway",
+    //   baseURL: `${apiURL.baseURL_Local}`,
+    //   data: payload,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Access-Control-Allow-Origin": "*",
+    //   },
+    // });
+    console.log("response: ", response1);
+    return response1;
   };
 
   const flightRuleSearch = (payload) => {

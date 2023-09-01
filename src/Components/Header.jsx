@@ -38,13 +38,14 @@ const Header = () => {
   const editPackage = () => {
     navigate("/EditHolidayPackage");
   };
+  console.log("reducerState", reducerState);
   return (
     <div className="header">
       <a href="/">
         <img src={tra} style={{ width: "70px", height: "70px" }} />
       </a>
       <div className="travvolt">
-        <h1 className="heading">SKY TRAILS  </h1>
+        <h1 className="heading">SKY TRAILS </h1>
       </div>
       <div className="welcome">
         <p>Contect Your Representative</p>
