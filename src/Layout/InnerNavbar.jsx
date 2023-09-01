@@ -7,7 +7,7 @@ import NavBarBox from "../Components/NavBarBox";
 
 function InnerNavbar() {
   return (
-    <Flex className="innerNav">
+    <Flex className="innerNav" >
       {InnerBarLogo.map(({ avatar, name, path }, index) => {
         return (
           <Flex
