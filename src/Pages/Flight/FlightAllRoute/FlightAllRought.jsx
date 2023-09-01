@@ -17,14 +17,12 @@ const FlightAllRoute = () => {
   return (
     <div>
       <Routes>
-        <Route exact path="/" element={<OneWay />} />
+        {/* <Route exact path="/" element={<OneWay />} />
         <Route exact path="/oneway/*" element={<OneWay />}>
           {/* 
           <Route exact path="flightresult" element={<Flightresult />} /> */}
 
-
-
-        </Route>
+        {/* </Route>  */}
 
         <Route exact path="offshare" element={<OffShare />} />
         <Route exact path="multiStop" element={<MultiStop />} />

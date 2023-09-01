@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./Header.css";
 import Menu from "@mui/material/Menu";
@@ -6,11 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import tra from "../Images/tra.png";
+import STLOGO from "../Images/ST-Main-Logo.png";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 
 const Header = () => {
+  const [scrollYvalue, setScrollYValue] = useState(0);
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,14 +40,41 @@ const Header = () => {
   const editPackage = () => {
     navigate("/EditHolidayPackage");
   };
+  useEffect(() => {
+    const updateSrollYPosition = () => {
+      setScrollYValue(window.scrollY);
+    };
+    window.addEventListener("scroll", updateSrollYPosition);
+
+    return () => window.removeEventListener("scroll", updateSrollYPosition);
+  });
   return (
-    <div className="header">
-      <a href="/">
-        <img src={tra} style={{ width: "70px", height: "70px" }} />
-      </a>
-      <div className="travvolt">
-        <h1 className="heading">SKY TRAILS  </h1>
+    <div
+      className="header"
+      style={
+        scrollYvalue > 45
+          ? {
+              position: "fixed",
+              top: "1px",
+              left: "95px",
+              width: "85%",
+              marginTop: "0px",
+              zIndex: "10",
+              backgroundColor: "#E5E4E2",
+            }
+          : {}
+      }
+    >
+      <div>
+        <a href="/">
+          <img
+            src={STLOGO}
+            style={{ width: "200px", height: "70px" }}
+            className="mt-2 ms-2"
+          />
+        </a>
       </div>
+
       <div className="welcome">
         <p>Contect Your Representative</p>
         <p className="welPrice">
@@ -54,7 +83,7 @@ const Header = () => {
         <p>Recharge</p>
 
         <div style={{ marginBottom: "15px" }}>
-          <Box>
+          <Box marginTop={3}>
             <Typography
               sx={{
                 color: "#2525250",
@@ -79,7 +108,7 @@ const Header = () => {
         </div>
         <div
           style={{
-            margin: "auto",
+            marginLeft: "-25px",
           }}
         >
           <ArrowDropDownIcon

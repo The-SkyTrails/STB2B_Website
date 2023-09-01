@@ -258,6 +258,7 @@ export default function VerticalTabs() {
           {/* <TabPanel value={value} index={6}>
             Item Seven
           </TabPanel> */}
+          {/* </TabPanel> */}
         </Box>
         {/* <TabPanel value={value} index={0}>
           <AdminWelcome />

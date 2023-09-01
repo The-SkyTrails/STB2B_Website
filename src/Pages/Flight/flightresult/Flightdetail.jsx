@@ -24,6 +24,7 @@ const Flightdetail = () => {
   }, [results]);
 
   return results?.map((result) => {
+    console.log("Results result", result);
     return (
       <Box
         mt={3}

@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Typography } from "@mui/material";
+import { apiURL } from "../../../Constants/constant";
 
 const OneWay = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const OneWay = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `https://api.travvolt.com/travvolt/city/searchCityData?keyword=${fromQuery}`
+        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${fromQuery}`
       );
       if (mounted) {
         setFromSearchResults(results?.data?.data);
@@ -95,7 +96,7 @@ const OneWay = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `https://api.travvolt.com/travvolt/city/searchCityData?keyword=${toQuery}`
+        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${toQuery}`
       );
       if (mounted) {
         setToSearchResults(results?.data?.data);
@@ -194,6 +195,7 @@ const OneWay = () => {
       ],
       Sources: null,
     };
+    console.log(payload);
     dispatch(oneWayAction(payload));
   }
 
@@ -201,7 +203,7 @@ const OneWay = () => {
     <form onSubmit={handleSubmit} className="formFlightSearch">
       <div className="container">
         <div className="row">
-          <div className="col-xs-12 col-md-3">
+          <div className="col-xs-12 col-md-3 pe-0">
             <div className="form_input">
               <label className="form_lable">FROM</label>
               <input
@@ -253,10 +255,10 @@ const OneWay = () => {
               )}
             </div>
           </div>
-          <div className="col-md-1">
-            <img src={transfer} alt="name" />
+          <div className="col-md-1 d-flex justify-content-center">
+            <img src={transfer} alt="name" className="align-self-center" />
           </div>
-          <div className="col-xs-12 col-md-3">
+          <div className="col-xs-12 col-md-3 ps-0">
             <div className="form_input">
               <label className="form_lable">TO</label>
               <input
@@ -337,69 +339,71 @@ const OneWay = () => {
           </div>
         </div>
 
-        <div className="row" style={{marginTop:'32px'}}>
-          <div className="col-xs-3 col-md-3 ">
-            <Typography mt={1} variant="h6">Select A Fair of Type:</Typography>
+        <div className="row" style={{ marginTop: "32px" }}>
+          <div className="col-xs-3 col-md-3">
+            <Typography mt={1} variant="h6">
+              Select A Fair of Type:
+            </Typography>
           </div>
-          <div className="col-xs-3 col-md-8 ">
-            <div style={{display:'flex'}}>
-            <span
-              style={{
-                width: "30%",
-                height: "50%",
-                display: "flex",
-                padding:'10px',
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                borderRadius: "10px",
-                color:'white',
-                opacity: 1,
-                backgroundColor:
-                  selectedOption === "option1" ? "#00BDC4" : "#8D8985",
-                border: "none",
-              }}
-              onClick={(e) => setSelectedOption("option1")}
-            >
-              <input
-                type="radio"
-                value="2"
-                checked={selectedOption === "option1"}
-              />
-              Regular Fares
-            </span>
-            <button
-              style={{
-                width: "30%",
-                height: "50%",
-                display: "flex",
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                borderRadius: "10px",
-                color:'white',
-                opacity: 1,
-                marginLeft: "8px",
-                backgroundColor:
-                  selectedOption === "option2" ? "#00BDC4" : "#8D8985",
-                border: "none",
-              }}
-              onClick={(e) => setSelectedOption("option2")}
-            >
-              <input
-                type="radio"
-                value="3"
-                checked={selectedOption === "option2"}
-              />
-              Student Fares
-            </button>
+          <div className="col-xs-3 col-md-8">
+            <div style={{ display: "flex" }}>
+              <span
+                style={{
+                  width: "30%",
+                  height: "50%",
+                  display: "flex",
+                  padding: "10px",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                  color: "white",
+
+                  opacity: 1,
+                  backgroundColor:
+                    selectedOption === "option1" ? "#00BDC4" : "#8D8985",
+                  border: "none",
+                }}
+                onClick={(e) => setSelectedOption("option1")}
+              >
+                <input
+                  type="radio"
+                  value="2"
+                  checked={selectedOption === "option1"}
+                />
+                Regular Fares
+              </span>
+              <button
+                style={{
+                  width: "30%",
+                  height: "50%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                  color: "white",
+                  opacity: 1,
+                  marginLeft: "8px",
+                  backgroundColor:
+                    selectedOption === "option2" ? "#00BDC4" : "#8D8985",
+                  border: "none",
+                }}
+                onClick={(e) => setSelectedOption("option2")}
+              >
+                <input
+                  type="radio"
+                  value="3"
+                  checked={selectedOption === "option2"}
+                />
+                Student Fares
+              </button>
             </div>
-            
           </div>
         </div>
 
         <div className="row">
           <div className="col-xs-9">
             <div className="row">
-              <div className="col-3 col-md-3 col-lg-3 mb-3">
+              <div className="col-3 col-md-3 col-lg-2 mb-3">
                 <div className="form_input">
                   <label className="form_lable">Adult(12+)</label>
 
@@ -417,7 +421,7 @@ const OneWay = () => {
                 </div>
               </div>
 
-              <div className="col-3 col-md-3 col-lg-3 mb-3">
+              <div className="col-3 col-md-3 col-lg-2 mb-3">
                 <div className="form_input">
                   <label className="form_lable">Child(2-11)</label>
                   <select name="child" id="" className="form_input_select">
@@ -435,7 +439,7 @@ const OneWay = () => {
               </div>
               <div className="col-3 col-md-3 col-lg-3 mb-3">
                 <div className="form_input">
-                  <label className="form_lable">Infant (Under 2 Yrs)</label>
+                  <label className="form_lable">Infant(Under 2 Yrs)</label>
                   <select name="infant" id="" className="form_input_select">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -450,7 +454,7 @@ const OneWay = () => {
                 </div>
               </div>
 
-              <div className="col-3 col-md-3 col-lg-3 mb-3">
+              <div className="col-3 col-md-3 col-lg-2 mb-3">
                 <div className="form_input">
                   <label className="form_lable">Class</label>
                   <select name="class" id="" className="form_input_select">
@@ -475,24 +479,23 @@ const OneWay = () => {
         <div className="row">
           <div className="col-12 col-md-3 col-lg-3 mb-3">
             <div className="showDirectFligthDiv">
-              <input name="direct" type="radio" />{" "}
-              <span>Show direct flight</span>
+              <input name="direct" type="checkbox" />{" "}
+              <span>Show direct flights</span>
             </div>
           </div>
         </div>
 
-        <label style={{ fontSize: "20px", fontWeight: "400" }} 
-        >
-
+        <label style={{ fontSize: "20px", fontWeight: "400" }}>
           Restrict my Search to:{" "}
           <span style={{ color: "#00BDC4" }}>
             <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAllChange}
-                style={{marginRight:'5px'}}
-              />
-            Select All / Unselect All</span>
+              type="checkbox"
+              checked={selectAll}
+              onChange={handleSelectAllChange}
+              style={{ marginRight: "5px" }}
+            />
+            Select All / Unselect All
+          </span>
         </label>
 
         <Box>

@@ -14,9 +14,16 @@ const MultipleData = (props) => {
   const flight = props.flight;
   console.log("flight multiple", flight);
   const indexKey = props.index;
-  const fare = `${Math.round(
-    props.fare + reducerState?.logIn?.loginData?.data?.data?.markup?.flight
-  )}`;
+  const fare =
+    reducerState?.logIn?.loginData.length > 0
+      ? `${Math.round(
+          Number(props.fare) +
+            Number(reducerState?.logIn?.loginData?.data?.data?.markup?.flight)
+        )}`
+      : Math.round(Number(props.fare));
+  // const fare = `${Math.round(
+  //   props.fare + reducerState?.logIn?.loginData?.data?.data?.markup?.flight
+  // )}`;
   const img = flight?.Airline?.AirlineCode;
   const stop = props.stop;
   const results =
@@ -63,6 +70,7 @@ const MultipleData = (props) => {
           });
           const year2 = date2.getFullYear();
           const formattedDate2 = `${day2} ${month2} ${year2}`;
+          console.log("flightDetails: ", data);
           return (
             <div>
               <Box display="flex" justifyContent="space-between">

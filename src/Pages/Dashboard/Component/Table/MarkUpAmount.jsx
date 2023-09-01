@@ -84,7 +84,7 @@ export default function MarkUpAmount() {
 
   // Table data to be rendered
   const tableData = reducerState?.userTableData?.userData?.data?.data;
-
+  console.log(reducerState, "tableData", tableData);
   return (
     <TableContainer
       style={{
@@ -109,6 +109,7 @@ export default function MarkUpAmount() {
           </TableRow>
         </TableHead>
         <TableBody>
+          {/* {tableData.map((row, index) => (
           {/* {tableData.map((row, index) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell align="center" component="th" scope="row">
