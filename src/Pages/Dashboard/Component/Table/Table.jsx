@@ -328,7 +328,8 @@ export default function Tables() {
 <TableContainer
         style={{ width: "85%" }}
         sx={{
-          marginTop: "15%",
+          marginTop: "7%",
+          marginBottom:"8%",
           marginLeft: "15%",
           overflowX: "scroll",
           overflowY: "hidden",

@@ -9,6 +9,44 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
 
+const markup = [
+  {
+    _id: 1,
+    flight: 0.1,
+    hotel: 0.15,
+    holiday: 0.12,
+    bus: 0.08,
+  },
+  {
+    _id: 2,
+    flight: 0.08,
+    hotel: 0.12,
+    holiday: 0.1,
+    bus: 0.06,
+  },
+  {
+    _id: 3,
+    flight: 0.12,
+    hotel: 0.18,
+    holiday: 0.15,
+    bus: 0.1,
+  },
+  {
+    _id: 4,
+    flight: 0.09,
+    hotel: 0.14,
+    holiday: 0.11,
+    bus: 0.07,
+  },
+  {
+    _id: 5,
+    flight: 0.11,
+    hotel: 0.16,
+    holiday: 0.13,
+    bus: 0.09,
+  },
+];
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -49,8 +87,15 @@ export default function MarkUpAmount() {
 
   return (
     <TableContainer
-      style={{ width: "90%" }}
-      sx={{ marginTop: "15%", marginLeft: "10%", overflowY: "scroll" }}
+      style={{
+        width: "85%",
+      }}
+      sx={{
+        marginTop: "7%",
+        marginBottom: "8%",
+        marginLeft: "15%",
+        overflowY: "scroll",
+      }}
       component={Paper}
     >
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -64,13 +109,13 @@ export default function MarkUpAmount() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableData.map((row, index) => (
+          {/* {tableData.map((row, index) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell align="center" component="th" scope="row">
                 {row._id}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {row.markup.hotel ? row.markup.hotel : "0"}
+                {row.markup.flight ? row.markup.flight : "0"}
               </StyledTableCell>
               <StyledTableCell align="right">
                 {row.markup.hotel ? row.markup.hotel : "0"}
@@ -80,6 +125,25 @@ export default function MarkUpAmount() {
               </StyledTableCell>
               <StyledTableCell align="right">
                 {row.markup.bus ? row.markup.bus : "0"}
+              </StyledTableCell>
+            </StyledTableRow>
+          ))} */}
+          {markup.map((row, index) => (
+            <StyledTableRow key={row._id}>
+              <StyledTableCell align="center" component="th" scope="row">
+                {row._id}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.flight ? row.flight : "0"}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.hotel ? row.hotel : "0"}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.holiday ? row.holiday : "0"}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.bus ? row.bus : "0"}
               </StyledTableCell>
             </StyledTableRow>
           ))}
