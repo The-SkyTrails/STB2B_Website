@@ -339,8 +339,8 @@ const OneWay = () => {
         </div>
 
         <div className="row" style={{ marginTop: "32px" }}>
-          <div className="col-xs-3 col-md-3" >
-            <Typography mt={1} variant="h6">
+          <div className="col-xs-3 col-md-3  pe-0" >
+            <Typography mt={1} variant="h6" paddingRight={0}>
               Select A Fair of Type:
             </Typography>
           </div>
