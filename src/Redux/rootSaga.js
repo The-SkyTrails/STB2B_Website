@@ -4,6 +4,7 @@ import { loginWatcher } from "./Saga/logInSaga";
 import { signUpWatcher } from "./Saga/signUpSaga";
 import { ipWatcher } from "./Saga/ipSaga";
 import { oneWayWatcher } from "./Saga/oneWaySaga";
+import { oneWayEMTWatcher } from "./Saga/oneWayEMTSaga";
 import { flightFareWatcher } from "./Saga/flightFareSaga";
 import { flightBookWatcher } from "./Saga/flightBookSaga";
 import { userDataTableWatcher } from "./Saga/userSaga";
@@ -31,6 +32,7 @@ export function* rootSaga() {
     signUpWatcher(),
     ipWatcher(),
     oneWayWatcher(),
+    oneWayEMTWatcher(),
     flightFareWatcher(),
     flightBookWatcher(),
     userDataTableWatcher(),
@@ -54,6 +56,6 @@ export function* rootSaga() {
     userVisaWatcher(),
     getHolidayBookingWatcher(),
     hotelSearchWatcher(),
-    getHolidayBookingWatcher()
+    getHolidayBookingWatcher(),
   ]);
 }
