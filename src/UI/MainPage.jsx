@@ -89,8 +89,7 @@ const MainPage = () => {
       location.pathname !== "/adminLogin"
     ) {
       navigate("/Login");
-    } else
-     if (location.pathname == "/admin/dashboard") {
+    } else if (location.pathname == "/admin/dashboard") {
       if (!reducerState?.adminAuth?.adminData?.data) {
         navigate("/admin/dashboard");
       } else {
@@ -330,7 +329,7 @@ const MainPage = () => {
           {/* main page footer */}
           {!isLoginRoute && <Footer />}
         </div>
-       )} 
+      )}
 
       <div>
         <Routes>
@@ -344,6 +343,12 @@ const MainPage = () => {
           <Route exact path="/adminLogin" element={<AdminLogin />}></Route>
         </Routes>
       </div>
+      {/* main page footer */}
+      {/* {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
+        <FooterAdmin />
+      ) : ( */}
+      <Footer />
+      {/* )} */}
     </>
   );
 };
