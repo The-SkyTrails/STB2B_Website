@@ -55,7 +55,8 @@ export default function VerticalTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const editHolidayPackage = location.pathname === "/admin/dashboard/EditHolidayPackage";
+  const editHolidayPackage =
+    location.pathname === "/admin/dashboard/EditHolidayPackage";
 
   return (
     <>
@@ -112,29 +113,23 @@ export default function VerticalTabs() {
               label="Edit Holiday Package"
               {...a11yProps(2)}
             />
-            <Tab
-              style={{ color: "white" }}
-              label="Forex"
-              {...a11yProps(3)}
-            />
+            <Tab style={{ color: "white" }} label="Forex" {...a11yProps(3)} />
             <Tab
               style={{ color: "white" }}
               label="Visa Request"
               {...a11yProps(4)}
             />
           </Tabs>
-          
 
-         
           {/* <TabPanel value={value} index={4}>
             Item Five
           </TabPanel> */}
-          <TabPanel value={value} index={5}>
+          {/* <TabPanel value={value} index={5}>
             Item Six
           </TabPanel>
           <TabPanel value={value} index={6}>
             Item Seven
-          </TabPanel>
+          </TabPanel> */}
         </Box>
         <TabPanel value={value} index={0}>
           <Tables />
@@ -143,17 +138,15 @@ export default function VerticalTabs() {
           <MarkUpAmount />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          {editHolidayPackage ?  <EditHolidayPackage />  : <PackageDetails /> } 
-          </TabPanel>
-          <TabPanel value={value} index={3}>
+          {editHolidayPackage ? <EditHolidayPackage /> : <PackageDetails />}
+        </TabPanel>
+        <TabPanel value={value} index={3}>
           <ForexData />
         </TabPanel>
 
         <TabPanel value={value} index={4}>
           <VisaData />
         </TabPanel>
-       
-        
       </div>
     </>
   );

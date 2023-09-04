@@ -15,6 +15,14 @@ export const oneWayAction = (data) => {
     };
   }
 };
+// export const oneWayEMTAction = (data) => {
+//   if (data) {
+//     return {
+//       type: types.ONE_WAY_REQUEST,
+//       payload: data,
+//     };
+//   }
+// };
 
 export const clearOneWayReducer = () => {
   return {

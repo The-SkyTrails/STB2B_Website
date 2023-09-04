@@ -3,6 +3,7 @@ import { logInReducer } from "./Auth/logIn/logInReducer";
 import { signUpReducer } from "./Auth/SignUp/signUpReducer";
 import { ipReducer } from "./IP/ipReducer";
 import { oneWayReducer } from "./FlightSearch/OneWay/oneWayReducer";
+import { oneWayEMTReducer } from "./FlightSearch/OneWayEMT/oneWayEMTReducer";
 import storage from "redux-persist/lib/storage/session";
 import { LOGOUT_REQUEST } from "./Auth/logIn/actionType";
 import { flightFareReducer } from "./FlightFareQuoteRule/flightFareReducer";
@@ -34,6 +35,7 @@ const appReducer = combineReducers({
   signUp: signUpReducer,
   ip: ipReducer,
   oneWay: oneWayReducer,
+  oneWayEMT: oneWayEMTReducer,
   flightFare: flightFareReducer,
   flightBook: flightBookReducer,
   userTableData: UserTableDataReducer,
@@ -42,7 +44,7 @@ const appReducer = combineReducers({
   addMarkUp: MarkUpReducer,
   vendorAmount: vendorReducer,
   createPackage: createPackageReducer,
-  packageBookingRequest: packageBookingReducer ,
+  packageBookingRequest: packageBookingReducer,
   searchResult: searchPackageReducer,
   searchOneResult: searchOnePackageReducer,
   hotelSearchResult: hotelReducer,
@@ -73,6 +75,11 @@ const rootReducer = (state, action) => {
     return {
       ...state,
       oneWay: oneWayReducer(undefined, action),
+    };
+  } else if (action.type === "CLEAR_ONEWAY_EMT_REDUCER") {
+    return {
+      ...state,
+      oneWay: oneWayEMTReducer(undefined, action),
     };
   } else if (action.type === "CLEAR_BUS_SEARCH_REDUCER") {
     return {

@@ -108,14 +108,30 @@ function api() {
 
   //Flight API's Start
 
-  const oneWaySearch = (payload) => {
+  const oneWaySearch = async (payload) => {
+    // console.log({ payload, emtPayload });
     return axios({
       method: "POST",
-      url: "/Flight.svc/json/FlightSearch",
+      url: "/travvolt/flight/search/oneway",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
+  };
+
+  const oneWayEMTSearch = (payload) => {
+    console.log("Paayload EMT Search", payload);
+    return axios({
+      method: "POST",
+      url: "/emt/flight/search/oneway",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     });
   };
@@ -379,6 +395,7 @@ function api() {
     activeStatus,
     markUpStatus,
     oneWaySearch,
+    oneWayEMTSearch,
     userB2BLogin,
     flightRuleSearch,
     flightQuoteSearch,

@@ -18,9 +18,15 @@ function SingleData(props) {
   console.log("flight single", flight);
 
   const indexKey = props.index;
-  const fare = `${Math.round(
-    props.fare + reducerState?.logIn?.loginData?.data?.data?.markup?.flight
-  )}`;
+  const fare =
+    reducerState?.logIn?.loginData.length > 0
+      ? `${Math.round(
+          Number(props.fare) +
+            Number(reducerState?.logIn?.loginData?.data?.data?.markup?.flight)
+        )}`
+      : Math.round(Number(props.fare));
+
+  console.log(fare);
   const img = flight?.Airline?.AirlineCode;
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
