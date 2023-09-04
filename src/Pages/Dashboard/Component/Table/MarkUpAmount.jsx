@@ -93,7 +93,7 @@ export default function MarkUpAmount() {
       sx={{
         marginTop: "7%",
         marginBottom: "8%",
-        marginLeft: "15%",
+
         overflowY: "scroll",
       }}
       component={Paper}

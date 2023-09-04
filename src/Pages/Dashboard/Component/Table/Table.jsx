@@ -136,55 +136,48 @@ export default function Tables() {
   // const [selected, setSelected] = useState([]);
   // const [activeSwitch, setActiveSwitch] = useState(true);
 
-  useEffect(()=>{
+  useEffect(() => {
     axios.get("https://api.travvolt.com/travvolt/user/getallusers");
-  },[])
-  
-  
+  }, []);
+
   // -------- Activate or Deactivate--------//
   const [activeUsers, setActive] = useState({});
 
   const [value, setValue] = React.useState("");
 
-  const handleToggle  = async(value,userId) => {
+  const handleToggle = async (value, userId) => {
     setLoading(true);
     // Get the current status of the user
     const currentStatus = activeUsers[userId];
     // Invert the current status to get the updated status
     const updatedStatus = !currentStatus;
     // Update the activeUsers state with the new status
-    console.log("undated status",updatedStatus);
+    console.log("undated status", updatedStatus);
     setActive({ ...activeUsers, [userId]: updatedStatus });
-  
-    console.log("value",value);
 
-    if(value == 'active'){
+    console.log("value", value);
+
+    if (value == "active") {
       const payload = {
         user_id: userId,
-        is_active:  1,
-    };
-    dispatch(activeStatusAction(payload));
-   
-    }
-
-    else if(value == 'inactive'){
+        is_active: 1,
+      };
+      dispatch(activeStatusAction(payload));
+    } else if (value == "inactive") {
       const payload = {
         user_id: userId,
-        is_active:  0,
-    };
-    setLoading(false)
-    dispatch(activeStatusAction(payload));
-    
+        is_active: 0,
+      };
+      setLoading(false);
+      dispatch(activeStatusAction(payload));
     }
-    setValue(value)
+    setValue(value);
     window.location.reload();
-    
   };
- console.log("value",value);
-  useEffect(()=>{
-    dispatch(getUserAction())
-  },[value])
-
+  console.log("value", value);
+  useEffect(() => {
+    dispatch(getUserAction());
+  }, [value]);
 
   // Input field of markup
   const [inputMarkUp, setInputMarkUp] = useState("");
@@ -209,8 +202,6 @@ export default function Tables() {
     setInputMarkUp(newValue);
     setId(id);
   };
-
-  
 
   // Handle update status For flight
 
@@ -274,8 +265,6 @@ export default function Tables() {
   const [currency, setCurrency] = React.useState("INR");
   const [amount, setAmount] = React.useState("");
 
-  
-
   const adminCheck = reducerState?.adminAuth?.adminData?.data?.id;
   console.log("adminCheck", adminCheck);
 
@@ -292,10 +281,8 @@ export default function Tables() {
         wallet_Id: id,
       },
     };
-     dispatch(vendorAction(payload));
+    dispatch(vendorAction(payload));
   };
-
-
 
   // React - modal
   const [show, setShow] = useState(false);
@@ -310,27 +297,25 @@ export default function Tables() {
     setShow(true);
   };
 
-//  Img Modal POP Up
+  //  Img Modal POP Up
   const [showImg, setImgShow] = useState(false);
   const [documentImgUrl, setDocumentImgUrl] = useState("");
 
   const handleImgClose = () => setImgShow(false);
 
-  const handleImgShow =(img)=>{
-   console.log("imgUrl",img);
-   setDocumentImgUrl(img)
-   setImgShow(true)
-  }
+  const handleImgShow = (img) => {
+    console.log("imgUrl", img);
+    setDocumentImgUrl(img);
+    setImgShow(true);
+  };
 
   return (
     <>
-   
-<TableContainer
-        style={{ width: "85%" }}
+      <TableContainer
         sx={{
           marginTop: "7%",
-          marginBottom:"8%",
-          marginLeft: "15%",
+          marginBottom: "8%",
+
           overflowX: "scroll",
           overflowY: "hidden",
         }}
@@ -371,12 +356,9 @@ export default function Tables() {
                       <StyledTableRow key={index}>
                         {/* <img src={ele.agency_details.document_details.pan_card_document}  alt={index} /> */}
                         <StyledTableCell align="right">
-                          
-                        <Modal show={showImg} onHide={handleImgClose}>
+                          <Modal show={showImg} onHide={handleImgClose}>
                             <Modal.Header closeButton>
-                              <Modal.Title>
-                                Document Image 
-                              </Modal.Title>
+                              <Modal.Title>Document Image</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                               <Box
@@ -387,22 +369,25 @@ export default function Tables() {
                                   padding: "20px",
                                 }}
                               >
-                              <img
-                              style={{
-                                width: "100%",
-                                height: "165px",
-                              }}
-                              src={documentImgUrl}
-                              alt={index}
-                            />
+                                <img
+                                  style={{
+                                    width: "100%",
+                                    height: "165px",
+                                  }}
+                                  src={documentImgUrl}
+                                  alt={index}
+                                />
                               </Box>
                             </Modal.Body>
                           </Modal>
 
-
-                           <Button
-                            
-                            onClick={(e) => handleImgShow(ele?.agency_details?.document_details?.pan_card_document)}
+                          <Button
+                            onClick={(e) =>
+                              handleImgShow(
+                                ele?.agency_details?.document_details
+                                  ?.pan_card_document
+                              )
+                            }
                           >
                             <img
                               style={{
@@ -416,10 +401,6 @@ export default function Tables() {
                               alt={index}
                             />
                           </Button>
-
-
-
-
                         </StyledTableCell>
                         <StyledTableCell component="th" scope="row">
                           {ele.personal_details.first_name}
@@ -468,52 +449,48 @@ export default function Tables() {
                         </td>
 
                         <StyledTableCell align="right">
+                          <div style={{ display: "flex" }}>
+                            {ele.is_active == 1 && (
+                              <span
+                                style={{
+                                  backgroundColor: "green",
+                                  padding: "5px 10px",
+                                  borderRadius: "7px",
+                                  color: "white",
+                                  marginRight: "8px",
+                                }}
+                              >
+                                Active
+                              </span>
+                            )}
+                            {ele.is_active == 0 && (
+                              <span
+                                style={{
+                                  backgroundColor: "red",
+                                  padding: "5px 10px",
+                                  borderRadius: "7px",
+                                  color: "white",
+                                  marginRight: "8px",
+                                }}
+                              >
+                                Inactive
+                              </span>
+                            )}
 
-                        <div style={{ display: "flex" }}>
-                          {ele.is_active == 1 && (
-                            <span
-                              style={{
-                                backgroundColor: "green",
-                                padding: "5px 10px",
-                                borderRadius: "7px",
-                                color:'white',
-                                marginRight:'8px'
-                              }}
+                            <select
+                              value={ele.is_active}
+                              onChange={(e) =>
+                                handleToggle(e.target.value, ele._id)
+                              }
                             >
-                              Active
-                            </span>
-                          )}
-                          {ele.is_active == 0 && (
-                            <span
-                              style={{
-                                backgroundColor: "red",
-                                padding: "5px 10px",
-                                borderRadius: "7px",
-                                color:'white',
-                                marginRight:'8px'
-                              }}
-                            >
-                              Inactive
-                            </span>
-                          )}
-
-                          <select
-                            value={ele.is_active}
-                            onChange={(e) =>
-                              handleToggle(e.target.value, ele._id)
-                            }
-                          >
-                            {/* <option >Change</option> */}
-                            <option>Update</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                          </select>
+                              {/* <option >Change</option> */}
+                              <option>Update</option>
+                              <option value="active">Active</option>
+                              <option value="inactive">Inactive</option>
+                            </select>
                           </div>
-                          
 
-
-                         
-                        {/* {loading ? <div>Loading</div> :(
+                          {/* {loading ? <div>Loading</div> :(
                           
                         )
                       } */}
@@ -530,9 +507,6 @@ export default function Tables() {
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select> */}
-
-                        
-                     
                         </StyledTableCell>
                         <StyledTableCell align="center">
                           <Box
@@ -702,7 +676,6 @@ export default function Tables() {
                                 }}
                               >
                                 <TextField
-                                
                                   size="large"
                                   id="standard-basic"
                                   label="Vendor Amount"
@@ -718,7 +691,7 @@ export default function Tables() {
                                   }
                                 >
                                   Add Amount
-                                 </Button>
+                                </Button>
                               </Box>
                             </Modal.Body>
                           </Modal>
@@ -731,8 +704,6 @@ export default function Tables() {
           </TableBody>
         </Table>
       </TableContainer>
-      
-      
     </>
   );
 }

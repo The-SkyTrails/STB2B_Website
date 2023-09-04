@@ -55,11 +55,10 @@ import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import WifiPasswordIcon from "@mui/icons-material/WifiPassword";
 
-
 // React-bootstrap
 import Modal from "react-bootstrap/Modal";
 
-import Accordion from 'react-bootstrap/Accordion';
+import Accordion from "react-bootstrap/Accordion";
 import { createPackageAction } from "../../../../../Redux/CreatePackage/actionCreatePackage";
 import Loader from "../../../../Loader/Loader";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -83,16 +82,16 @@ function PackageDetails() {
     dispatch(searchPackageAction(payload));
   }, []);
 
-  const [package_id,setPackage_id] = useState("")
+  const [package_id, setPackage_id] = useState("");
 
   const handleEdit = (ele) => {
-    console.log("package_id",ele);
+    console.log("package_id", ele);
     setPackage_id(ele);
     sessionStorage.setItem("package_id", ele);
-    navigate('/admin/dashboard/EditHolidayPackage')
+    navigate("/admin/dashboard/EditHolidayPackage");
   };
 
-  console.log("package_id",package_id);
+  console.log("package_id", package_id);
 
   return (
     <Table
@@ -102,7 +101,7 @@ function PackageDetails() {
       responsive
       style={{
         marginTop: "150px",
-        marginLeft: "17%",
+
         textAlign: "center",
         width: "500px",
       }}
@@ -167,15 +166,7 @@ function PackageDetails() {
                 <td>{ele?.term_Conditions}</td>
                 <td>{ele?.cancellation_Policy}</td>
                 <td>
-                  <button onClick={(e) => handleEdit(ele._id)}>
-                    Edit
-                  </button>
-                   
-                      
-                    
-                       
-                     
-                
+                  <button onClick={(e) => handleEdit(ele._id)}>Edit</button>
                 </td>
                 <td>
                   <button>Delete</button>

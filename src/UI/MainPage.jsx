@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Layout/Footer";
-import FooterAdmin from "../Layout/FooterAdmin";
 import InnerNavbar from "../Layout/InnerNavbar";
 import Active from "../Pages/Activities/Active";
 import Banner from "../Pages/Banner/Banner";
@@ -345,11 +344,11 @@ const MainPage = () => {
         </Routes>
       </div>
       {/* main page footer */}
-      {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
+      {/* {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
         <FooterAdmin />
-      ) : (
-        <Footer />
-      )}
+      ) : ( */}
+      <Footer />
+      {/* )} */}
     </>
   );
 };
