@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,7 +22,6 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import "./Table.css";
 import { markUpAction } from "../../../../Redux/Auth/markUp/actionMarkUp";
 import { activeStatusAction } from "../../../../Redux/Auth/activeStatus/actionActiveStatus";
@@ -157,7 +157,7 @@ export default function Tables() {
 
     console.log("value", value);
 
-    if (value == "active") {
+    if (value === "active") {
       const payload = {
         user_id: userId,
         is_active: 1,
@@ -311,11 +311,11 @@ export default function Tables() {
 
   return (
     <>
+      <Box height={100} />
       <TableContainer
+        style={{ width: "85%" }}
         sx={{
-          marginTop: "7%",
-          marginBottom: "8%",
-
+          margin: "auto",
           overflowX: "scroll",
           overflowY: "hidden",
         }}
@@ -463,7 +463,7 @@ export default function Tables() {
                                 Active
                               </span>
                             )}
-                            {ele.is_active == 0 && (
+                            {ele.is_active === 0 && (
                               <span
                                 style={{
                                   backgroundColor: "red",

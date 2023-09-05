@@ -1,9 +1,90 @@
 import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getForexAction } from "../../../../../Redux/Auth/forexData/actionForexData";
 import { getForex4CustomerAction } from "../../../../../Redux/Auth/ForexData4Customer/actionForex4CustomerData";
 
+const ForexDataWithMe = [
+  { field: "id", headerName: "User ID", width: 90 },
+  {
+    field: "amount	",
+    headerName: "Amount",
+    width: 90,
+    editable: true,
+  },
+  {
+    field: "commissionType",
+    headerName: "Commission Type",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "enterCity",
+    headerName: "Enter City",
+    width: 100,
+    editable: true,
+  },
+  {
+    field: "enterLocation",
+    headerName: "Enter Location",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "mobile",
+    headerName: "Mobile",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "services",
+    headerName: "Services",
+    width: 110,
+    editable: true,
+  },
+];
+const forexDataWithCustomer = [
+  { field: "id", headerName: "User ID", width: 90 },
+  {
+    field: "amount	",
+    headerName: "Amount",
+    width: 90,
+    editable: true,
+  },
+  {
+    field: "commissionType",
+    headerName: "Commission Type",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "enterCity",
+    headerName: "Enter City",
+    width: 100,
+    editable: true,
+  },
+  {
+    field: "enterLocation",
+    headerName: "Enter Location",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "mobile",
+    headerName: "Mobile",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "services",
+    headerName: "Services",
+    width: 110,
+    editable: true,
+  },
+];
 const ForexData = () => {
   const reducerState = useSelector((state) => state);
   console.log(reducerState);
@@ -22,75 +103,45 @@ const ForexData = () => {
   }, []);
   return (
     <>
-      <div
-        style={{
-          marginTop: "150px",
+      <Box height={100} />
+      <h3 style={{ textAlign: "center" }}>Forex Data With Me</h3>
+      <Box sx={{ height: "auto", width: "100%" }}>
+        <DataGrid
+          rows={[]}
+          columns={ForexDataWithMe}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
 
-          textAlign: "center",
-          width: "80%",
-        }}
-      >
-        <h3>Forex Data With Me</h3>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>amount</th>
-              <th>commissionType</th>
-              <th>currency</th>
-              <th>enterCity</th>
-              <th>enterLocation</th>
-              <th>mobile</th>
-              <th>services</th>
-            </tr>
-          </thead>
-          <tbody>
-            {forexData?.map((item, index) => {
-              return (
-                <tr>
-                  <td>{item?.amount}</td>
-                  <td>{item?.commissionType}</td>
-                  <td>{item?.currency}</td>
-                  <td>{item?.enterCity}</td>
-                  <td>{item?.enterLocation}</td>
-                  <td>{item?.mobile}</td>
-                  <td>{item?.services}</td>
-                </tr>
-              );
-            })}
-            <tr></tr>
-          </tbody>
-        </Table>
-
-        <h3 className="mt-5">Forex Data With Customer</h3>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>amount</th>
-              <th>commissionType</th>
-              <th>currency</th>
-              <th>enterCity</th>
-
-              <th>mobile</th>
-              <th>services</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ForexData4Customer?.map((item, index) => {
-              return (
-                <tr>
-                  <td>{item?.name}</td>
-                  <td>{item?.amount}</td>
-                  <td>{item?.commissionType}</td>
-                  <td>{item?.currency}</td>
-                  <td>{item?.mobile}</td>
-                  <td>{item?.service}</td>
-                </tr>
-              );
-            })}
-            <tr></tr>
-          </tbody>
-        </Table>
-      </div>
+      <h3 className="mt-5" style={{ textAlign: "center" }}>
+        Forex Data With Customer
+      </h3>
+      <Box height={50} />
+      <Box sx={{ height: "auto", width: "100%" }}>
+        <DataGrid
+          rows={[]}
+          columns={forexDataWithCustomer}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
     </>
   );
 };
