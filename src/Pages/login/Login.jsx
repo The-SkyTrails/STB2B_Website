@@ -336,15 +336,6 @@ const Login = () => {
             </Grid>
           </div>
         </Box>
-        <div style={{ position: "absolute", bottom: "0px" }}>
-          <h6>
-            &copy; All Rights Reserved{" "}
-            <a href="https://gbunny.online/" style={{ textDecoration: "none" }}>
-              GrowthBunny
-            </a>{" "}
-            @2023
-          </h6>
-        </div>
       </div>
     </React.Fragment>
   );

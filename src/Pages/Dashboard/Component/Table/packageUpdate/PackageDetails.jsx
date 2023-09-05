@@ -94,89 +94,91 @@ function PackageDetails() {
   console.log("package_id", package_id);
 
   return (
-    <Table
-      striped
-      bordered
-      hover
-      responsive
-      style={{
-        marginTop: "150px",
+    <>
+      <Box height={100} />
+      <Table
+        striped
+        bordered
+        hover
+        responsive
+        style={{
+          margin: "auto",
+          textAlign: "center",
+          width: "500px",
+        }}
+      >
+        <thead>
+          <tr>
+            <th>IMG</th>
+            <th>Package Title</th>
+            <th>Days</th>
+            <th>Package Amount</th>
+            <th>Hotel Detail</th>
+            <th>Inclusion Note</th>
+            <th>Exclusion Note</th>
+            <th>Overview</th>
+            <th>Detailed Itinerary</th>
+            <th>Select Tags</th>
+            <th>Term And Condition</th>
+            <th>Cancellation Policy</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {holidayPackage?.map((ele, index) => {
+            return (
+              <>
+                <tr>
+                  <td>
+                    <img
+                      style={{
+                        width: "120px",
+                        height: "90px",
+                        border: "1px solid black",
+                      }}
+                      src={ele.pakage_img}
+                    />{" "}
+                  </td>
+                  <td>{ele?.pakage_title}</td>
+                  <td>{ele?.days}</td>
+                  <td>{ele?.pakage_amount?.amount}</td>
+                  <td>{ele?.hotel_details}</td>
+                  <td>{ele?.insclusion_note}</td>
+                  <td>{ele?.exclusion_note}</td>
+                  <td>
+                    <div style={{ width: "350px" }}>{ele?.overview}</div>{" "}
+                  </td>
+                  <td>{ele?.detailed_ltinerary[0]?.slice(7, 55) + "..."}</td>
+                  <td>
+                    <div>
+                      {ele?.select_tags?.map((tag, index) => {
+                        // console.log("tag",tag);
 
-        textAlign: "center",
-        width: "500px",
-      }}
-    >
-      <thead>
-        <tr>
-          <th>IMG</th>
-          <th>Package Title</th>
-          <th>Days</th>
-          <th>Package Amount</th>
-          <th>Hotel Detail</th>
-          <th>Inclusion Note</th>
-          <th>Exclusion Note</th>
-          <th>Overview</th>
-          <th>Detailed Itinerary</th>
-          <th>Select Tags</th>
-          <th>Term And Condition</th>
-          <th>Cancellation Policy</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {holidayPackage?.map((ele, index) => {
-          return (
-            <>
-              <tr>
-                <td>
-                  <img
-                    style={{
-                      width: "120px",
-                      height: "90px",
-                      border: "1px solid black",
-                    }}
-                    src={ele.pakage_img}
-                  />{" "}
-                </td>
-                <td>{ele?.pakage_title}</td>
-                <td>{ele?.days}</td>
-                <td>{ele?.pakage_amount?.amount}</td>
-                <td>{ele?.hotel_details}</td>
-                <td>{ele?.insclusion_note}</td>
-                <td>{ele?.exclusion_note}</td>
-                <td>
-                  <div style={{ width: "350px" }}>{ele?.overview}</div>{" "}
-                </td>
-                <td>{ele?.detailed_ltinerary[0]?.slice(7, 55) + "..."}</td>
-                <td>
-                  <div>
-                    {ele?.select_tags?.map((tag, index) => {
-                      // console.log("tag",tag);
-
-                      return (
-                        <>
-                          {tag?.domestic && <span>Domestic</span>}
-                          {tag?.anniversary && <span>Anniversary</span>}
-                        </>
-                      );
-                    })}
-                  </div>
-                </td>
-                <td>{ele?.term_Conditions}</td>
-                <td>{ele?.cancellation_Policy}</td>
-                <td>
-                  <button onClick={(e) => handleEdit(ele._id)}>Edit</button>
-                </td>
-                <td>
-                  <button>Delete</button>
-                </td>
-              </tr>
-            </>
-          );
-        })}
-      </tbody>
-    </Table>
+                        return (
+                          <>
+                            {tag?.domestic && <span>Domestic</span>}
+                            {tag?.anniversary && <span>Anniversary</span>}
+                          </>
+                        );
+                      })}
+                    </div>
+                  </td>
+                  <td>{ele?.term_Conditions}</td>
+                  <td>{ele?.cancellation_Policy}</td>
+                  <td>
+                    <button onClick={(e) => handleEdit(ele._id)}>Edit</button>
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+              </>
+            );
+          })}
+        </tbody>
+      </Table>
+    </>
   );
 }
 

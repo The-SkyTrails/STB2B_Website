@@ -192,11 +192,16 @@ export default function VerticalTabs() {
         <CssBaseline />
         <AppBar
           position="fixed"
-          elevation={4}
+          elevation={0}
           sx={{
-            display: "flex",
-            backgroundColor: "#E5E4E2",
+            backgroundColor: "rgba(229, 228, 226, 0.7)",
             color: "#2f2f2f",
+            borderBottom: "none",
+            fontSize: "1.2rem",
+            height: "64px",
+            padding: "0 16px",
+            backdropFilter: "blur(5px)",
+            transition: "background-color 0.3s ease-in-out",
           }}
         >
           <Toolbar>
@@ -486,7 +491,7 @@ export default function VerticalTabs() {
           </List>
           <Divider />
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: "hidden" }}>
           {menuData === "Home" && <AdminWelcome />}
           {menuData === "User Table" && <Tables />}
           {menuData === "User MarkUp Amount" && <MarkUpAmount />}
