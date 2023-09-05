@@ -343,6 +343,12 @@ const MainPage = () => {
           <Route exact path="/adminLogin" element={<AdminLogin />}></Route>
         </Routes>
       </div>
+      {/* main page footer */}
+      {/* {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
+        <FooterAdmin />
+      ) : ( */}
+      <Footer />
+      {/* )} */}
     </>
   );
 };

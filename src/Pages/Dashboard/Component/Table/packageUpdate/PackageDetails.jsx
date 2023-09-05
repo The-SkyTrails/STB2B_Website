@@ -55,11 +55,10 @@ import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import WifiPasswordIcon from "@mui/icons-material/WifiPassword";
 
-
 // React-bootstrap
 import Modal from "react-bootstrap/Modal";
 
-import Accordion from 'react-bootstrap/Accordion';
+import Accordion from "react-bootstrap/Accordion";
 import { createPackageAction } from "../../../../../Redux/CreatePackage/actionCreatePackage";
 import Loader from "../../../../Loader/Loader";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -83,109 +82,103 @@ function PackageDetails() {
     dispatch(searchPackageAction(payload));
   }, []);
 
-  const [package_id,setPackage_id] = useState("")
+  const [package_id, setPackage_id] = useState("");
 
   const handleEdit = (ele) => {
-    console.log("package_id",ele);
+    console.log("package_id", ele);
     setPackage_id(ele);
     sessionStorage.setItem("package_id", ele);
-    navigate('/admin/dashboard/EditHolidayPackage')
+    navigate("/admin/dashboard/EditHolidayPackage");
   };
 
-  console.log("package_id",package_id);
+  console.log("package_id", package_id);
 
   return (
-    <Table
-      striped
-      bordered
-      hover
-      responsive
-      style={{
-        marginTop: "150px",
-        marginLeft: "17%",
-        textAlign: "center",
-        width: "500px",
-      }}
-    >
-      <thead>
-        <tr>
-          <th>IMG</th>
-          <th>Package Title</th>
-          <th>Days</th>
-          <th>Package Amount</th>
-          <th>Hotel Detail</th>
-          <th>Inclusion Note</th>
-          <th>Exclusion Note</th>
-          <th>Overview</th>
-          <th>Detailed Itinerary</th>
-          <th>Select Tags</th>
-          <th>Term And Condition</th>
-          <th>Cancellation Policy</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {holidayPackage?.map((ele, index) => {
-          return (
-            <>
-              <tr>
-                <td>
-                  <img
-                    style={{
-                      width: "120px",
-                      height: "90px",
-                      border: "1px solid black",
-                    }}
-                    src={ele.pakage_img}
-                  />{" "}
-                </td>
-                <td>{ele?.pakage_title}</td>
-                <td>{ele?.days}</td>
-                <td>{ele?.pakage_amount?.amount}</td>
-                <td>{ele?.hotel_details}</td>
-                <td>{ele?.insclusion_note}</td>
-                <td>{ele?.exclusion_note}</td>
-                <td>
-                  <div style={{ width: "350px" }}>{ele?.overview}</div>{" "}
-                </td>
-                <td>{ele?.detailed_ltinerary[0]?.slice(7, 55) + "..."}</td>
-                <td>
-                  <div>
-                    {ele?.select_tags?.map((tag, index) => {
-                      // console.log("tag",tag);
+    <>
+      <Box height={100} />
+      <Table
+        striped
+        bordered
+        hover
+        responsive
+        style={{
+          margin: "auto",
+          textAlign: "center",
+          width: "500px",
+        }}
+      >
+        <thead>
+          <tr>
+            <th>IMG</th>
+            <th>Package Title</th>
+            <th>Days</th>
+            <th>Package Amount</th>
+            <th>Hotel Detail</th>
+            <th>Inclusion Note</th>
+            <th>Exclusion Note</th>
+            <th>Overview</th>
+            <th>Detailed Itinerary</th>
+            <th>Select Tags</th>
+            <th>Term And Condition</th>
+            <th>Cancellation Policy</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {holidayPackage?.map((ele, index) => {
+            return (
+              <>
+                <tr>
+                  <td>
+                    <img
+                      style={{
+                        width: "120px",
+                        height: "90px",
+                        border: "1px solid black",
+                      }}
+                      src={ele.pakage_img}
+                    />{" "}
+                  </td>
+                  <td>{ele?.pakage_title}</td>
+                  <td>{ele?.days}</td>
+                  <td>{ele?.pakage_amount?.amount}</td>
+                  <td>{ele?.hotel_details}</td>
+                  <td>{ele?.insclusion_note}</td>
+                  <td>{ele?.exclusion_note}</td>
+                  <td>
+                    <div style={{ width: "350px" }}>{ele?.overview}</div>{" "}
+                  </td>
+                  <td>{ele?.detailed_ltinerary[0]?.slice(7, 55) + "..."}</td>
+                  <td>
+                    <div>
+                      {ele?.select_tags?.map((tag, index) => {
+                        // console.log("tag",tag);
 
-                      return (
-                        <>
-                          {tag?.domestic && <span>Domestic</span>}
-                          {tag?.anniversary && <span>Anniversary</span>}
-                        </>
-                      );
-                    })}
-                  </div>
-                </td>
-                <td>{ele?.term_Conditions}</td>
-                <td>{ele?.cancellation_Policy}</td>
-                <td>
-                  <button onClick={(e) => handleEdit(ele._id)}>
-                    Edit
-                  </button>
-                   
-                      
-                    
-                       
-                     
-                
-                </td>
-                <td>
-                  <button>Delete</button>
-                </td>
-              </tr>
-            </>
-          );
-        })}
-      </tbody>
-    </Table>
+                        return (
+                          <>
+                            {tag?.domestic && <span>Domestic</span>}
+                            {tag?.anniversary && <span>Anniversary</span>}
+                          </>
+                        );
+                      })}
+                    </div>
+                  </td>
+                  <td>{ele?.term_Conditions}</td>
+                  <td>{ele?.cancellation_Policy}</td>
+                  <td>
+                    <button onClick={(e) => handleEdit(ele._id)}>Edit</button>
+                  </td>
+                  <td>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+              </>
+            );
+          })}
+        </tbody>
+      </Table>
+    </>
   );
 }
 

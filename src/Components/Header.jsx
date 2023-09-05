@@ -129,7 +129,7 @@ const Header = () => {
             onClose={handleClose}
             TransitionComponent={Fade}
           >
-            <MenuItem onClick={handleSubmit}>Logout</MenuItem>
+            <MenuItem onClick={handleSubmit}>{reducerState?.logIn?.loginData?.data?.data?"Logout":"Login"}</MenuItem>
             <MenuItem onClick={editPackage}>My Package</MenuItem>
           </Menu>
         </div>

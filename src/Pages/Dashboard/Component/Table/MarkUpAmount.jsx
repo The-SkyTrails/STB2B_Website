@@ -8,6 +8,87 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
+
+const columns = [
+  { field: "id", headerName: "User ID", width: 90 },
+  {
+    field: "flight",
+    headerName: "Flight Markup",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "hotel",
+    headerName: "Hotel Markup",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "holiday",
+    headerName: "HHoliday Markup",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "bus",
+    headerName: "Bus Markup",
+    width: 110,
+    editable: true,
+  },
+];
+const markup = [
+  {
+    id: 1,
+    flight: 0.1,
+    hotel: 0.15,
+    holiday: 0.12,
+    bus: 0.08,
+  },
+  {
+    id: 2,
+    flight: 0.08,
+    hotel: 0.12,
+    holiday: 0.1,
+    bus: 0.06,
+  },
+  {
+    id: 3,
+    flight: 0.12,
+    hotel: 0.18,
+    holiday: 0.15,
+    bus: 0.1,
+  },
+  {
+    id: 4,
+    flight: 0.09,
+    hotel: 0.14,
+    holiday: 0.11,
+    bus: 0.07,
+  },
+  {
+    id: 5,
+    flight: 0.11,
+    hotel: 0.16,
+    holiday: 0.13,
+    bus: 0.09,
+  },
+  {
+    id: 6,
+    flight: 0.11,
+    hotel: 0.16,
+    holiday: 0.13,
+    bus: 0.09,
+  },
+  {
+    id: 7,
+    flight: 0.11,
+    hotel: 0.16,
+    holiday: 0.13,
+    bus: 0.09,
+  },
+];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -48,43 +129,24 @@ export default function MarkUpAmount() {
   const tableData = reducerState?.userTableData?.userData?.data?.data;
   console.log(reducerState, "tableData", tableData);
   return (
-    <TableContainer
-      style={{ width: "90%" }}
-      sx={{ marginTop: "15%", marginLeft: "10%", overflowY: "scroll" }}
-      component={Paper}
-    >
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">User ID</StyledTableCell>
-            <StyledTableCell align="right">Flight Markup</StyledTableCell>
-            <StyledTableCell align="right">Hotel Markup</StyledTableCell>
-            <StyledTableCell align="right">Holiday Markup</StyledTableCell>
-            <StyledTableCell align="right">Bus Markup</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {/* {tableData.map((row, index) => (
-            <StyledTableRow key={row._id}>
-              <StyledTableCell align="center" component="th" scope="row">
-                {row._id}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.markup.hotel ? row.markup.hotel : "0"}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.markup.hotel ? row.markup.hotel : "0"}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.markup.holiday ? row.markup.holiday : "0"}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.markup.bus ? row.markup.bus : "0"}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))} */}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <Box height={100} />
+      <Box sx={{ height: 400, width: "100%" }}>
+        <DataGrid
+          rows={markup}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Box>
+    </>
   );
 }

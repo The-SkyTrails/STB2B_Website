@@ -62,6 +62,7 @@ import tra from "../../../Images/tra.png";
 import { useDispatch, useSelector } from "react-redux";
 import { adminSignOut } from "../../../Redux/Auth/AdminSignOut/actionAdminSignOut";
 import { useNavigate } from "react-router-dom";
+import STLOGO from "../../../Images/ST-Main-Logo.png";
 
 // const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -112,12 +113,12 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} /> */}
-          <img src={tra} style={{ width: "70px", height: "70px" }} />
+          {/* <img src={tra} style={{ width: "70px", height: "70px" }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="/admin/dashboard"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -129,7 +130,14 @@ function ResponsiveAppBar() {
             }}
           >
             Travvolt
-          </Typography>
+          </Typography> */}
+          <a href="/admin/dashboard">
+            <img
+              src={STLOGO}
+              style={{ width: "200px", height: "70px" }}
+              className="mt-2 ms-2"
+            />
+          </a>
 
           {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
