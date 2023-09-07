@@ -28,7 +28,7 @@ const HolidayPackageResult = () => {
               <Text ml="6px">1</Text>
             </Box>
             <Text ml="10" fontWeight="bold">
-              Holiday Package Search
+              Holiday Package Searchhjjh
             </Text>
           </Flex>
           <Spacer />
