@@ -215,7 +215,7 @@ function api() {
     const { destination, days } = payload;
     // ?filter=${days}&keyword=${destination}
     return axios.get(
-      `https://api.travvolt.com/travvolt/international/getAll?filter=${days}&keyword=${destination}`
+      `http://localhost:8000/travvolt/international/getAll?filter=${days}&keyword=${destination}`
     );
   };
 
@@ -223,7 +223,7 @@ function api() {
     console.log("getOnePacked", payload);
     const { id } = payload;
     return axios.get(
-      `https://api.travvolt.com/travvolt/international/getone/${id}`
+      `http://localhost:8000/travvolt/international/getone/${id}`
     );
   };
 
