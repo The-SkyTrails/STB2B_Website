@@ -49,22 +49,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", updateSrollYPosition);
   });
   return (
-    <div
-      className="header"
-      style={
-        scrollYvalue > 45
-          ? {
-              position: "fixed",
-              top: "1px",
-              left: "95px",
-              width: "85%",
-              marginTop: "0px",
-              zIndex: "10",
-              backgroundColor: "#E5E4E2",
-            }
-          : {}
-      }
-    >
+    <div className={scrollYvalue > 45 ? "header_scroll" : "header"}>
       <div>
         <a href="/">
           <img
@@ -129,7 +114,9 @@ const Header = () => {
             onClose={handleClose}
             TransitionComponent={Fade}
           >
-            <MenuItem onClick={handleSubmit}>{reducerState?.logIn?.loginData?.data?.data?"Logout":"Login"}</MenuItem>
+            <MenuItem onClick={handleSubmit}>
+              {reducerState?.logIn?.loginData?.data?.data ? "Logout" : "Login"}
+            </MenuItem>
             <MenuItem onClick={editPackage}>My Package</MenuItem>
           </Menu>
         </div>

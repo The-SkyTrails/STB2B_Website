@@ -8,6 +8,10 @@ import {
   clearOneWayReducer,
   oneWayAction,
 } from "../../../Redux/FlightSearch/OneWay/oneWay";
+import {
+  clearOneWayEMTReducer,
+  oneWayEMTAction,
+} from "../../../Redux/FlightSearch/OneWayEMT/oneWayEMT";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Typography } from "@mui/material";
@@ -114,6 +118,7 @@ const OneWay = () => {
 
   useEffect(() => {
     dispatch(clearOneWayReducer());
+    dispatch(clearOneWayEMTReducer());
   }, [dispatch]);
 
   const handleFromClick = (result) => {
@@ -195,8 +200,29 @@ const OneWay = () => {
       ],
       Sources: null,
     };
-    console.log(payload);
+    const emtPayload = {
+      Adults: formData.get("adult"),
+      Authentication: {
+        Password: "EMT@uytrFYTREt",
+        UserName: "EMTB2B",
+        IpAddress: reducerState?.ip?.ipData,
+      },
+      Cabin: 0,
+      Childs: formData.get("child"),
+      FlightSearchDetails: [
+        {
+          BeginDate: formData.get("departure"),
+          Origin: formData.get("from"),
+          Destination: formData.get("to"),
+        },
+      ],
+      Infants: formData.get("infant"),
+      TraceId: "EMTB2B73fd0ca9fcf4436cbe8b59fded57e616",
+      TripType: 0,
+    };
+    console.log(payload, emtPayload);
     dispatch(oneWayAction(payload));
+    dispatch(oneWayEMTAction(emtPayload));
   }
 
   return (
@@ -340,8 +366,8 @@ const OneWay = () => {
         </div>
 
         <div className="row" style={{ marginTop: "32px" }}>
-          <div className="col-xs-3 col-md-3">
-            <Typography mt={1} variant="h6">
+          <div className="col-xs-3 col-md-3  pe-0">
+            <Typography mt={1} variant="h6" paddingRight={0}>
               Select A Fair of Type:
             </Typography>
           </div>

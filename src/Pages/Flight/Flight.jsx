@@ -45,13 +45,11 @@ const Flight = () => {
             boxShadow="base"
             border="1px solid gray"
             borderRadius="10px"
-           
           >
             <HStack p="5px">
               <Box
                 display="flex"
                 justifyContent="center"
-                
                 w="25px"
                 h="25px"
                 borderRadius="50%"
@@ -85,7 +83,6 @@ const Flight = () => {
               <Box
                 display="flex"
                 justifyContent="center"
-                // align="center"
                 w="25px"
                 h="25px"
                 borderRadius="50%"

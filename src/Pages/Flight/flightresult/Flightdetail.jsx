@@ -15,7 +15,7 @@ const Flightdetail = () => {
   const navigate = useNavigate();
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
-  console.log("Reducer State", results);
+  // console.log("Reducer State", results);
 
   useEffect(() => {
     if (!results) {
@@ -23,8 +23,8 @@ const Flightdetail = () => {
     }
   }, [results]);
 
+  console.log("Results result", reducerState);
   return results?.map((result) => {
-    console.log("Results result", result);
     return (
       <Box
         mt={3}
@@ -34,9 +34,13 @@ const Flightdetail = () => {
         borderRadius="10px"
       >
         {result?.map((flight1) => {
-          console.log("flight1", flight1);
+          {
+            /* console.log("flight1", flight1); */
+          }
           const ResultIndex = flight1.id || flight1?.ResultIndex;
-          console.log("ResultIndex", ResultIndex);
+          {
+            /* console.log("ResultIndex", ResultIndex); */
+          }
           return (
             <div key={ResultIndex}>
               {flight1?.Segments?.map((flight, Index) => {

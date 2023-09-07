@@ -211,7 +211,7 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} py={2}>
+          <Grid container spacing={3} py={2}  alignItems="center">
             <Grid item md={6} sm={12} xs={12}>
               <Box px={1}>
                 <div className="nhotel_form_input">
@@ -242,7 +242,7 @@ const HotelForm = () => {
                 </div>
               </Box>
             </Grid>
-            <Grid item md={6} sm={12} xs={12}>
+            <Grid item md={6} sm={12} xs={12}  >
               <Box display="flex">
                 <Box mx={3}>
                   <Typography className="or">OR</Typography>
