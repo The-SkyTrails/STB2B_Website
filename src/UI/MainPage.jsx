@@ -327,7 +327,7 @@ const MainPage = () => {
           </div>
 
           {/* main page footer */}
-          {!isLoginRoute && <Footer />}
+          {/* {!isLoginRoute && <Footer />} */}
         </div>
       )}
 

@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Spacer, HStack } from "@chakra-ui/react";
+import { Box, Flex, Spacer } from "@chakra-ui/react";
 import React from "react";
 import "./Footer.css";
 const Footer = () => {
@@ -78,7 +78,7 @@ const Footer = () => {
 
         <div className="containetArticals2Div">
           <div className="skdTravel">
-            <h4>Travvolt - A Unit of SKD Tours & Travels</h4>
+            <h4>The Skytrails - A Unit of SKD Tours & Travels</h4>
           </div>
           <div className="line"></div>
           <div className="copyRightFooter">
