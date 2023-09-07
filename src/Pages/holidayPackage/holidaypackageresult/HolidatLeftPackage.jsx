@@ -193,6 +193,7 @@ const handleHolidayRequest = (event) => {
                         onClick={() =>
                           adult === 0 ? setAdult(0) : setAdult(adult - 1)
                         }
+                        variant="outlined"
                       >
                         <RemoveIcon style={{ fontSize: "16px" }} />
                       </Button>
@@ -204,10 +205,14 @@ const handleHolidayRequest = (event) => {
                           fontSize: "16px",
                           border: "none",
                           width: "55px",
+                          textAlign:"center"
                         }}
                         value={adult}
                       />
-                      <Button onClick={() => setAdult(adult + 1)}>
+                      <Button
+                        onClick={() => setAdult(adult + 1)}
+                        variant="outlined"
+                      >
                         <AddIcon style={{ fontSize: "16px" }} />{" "}
                       </Button>
                     </Box>
@@ -230,6 +235,7 @@ const handleHolidayRequest = (event) => {
                           onClick={() =>
                             child === 0 ? setChild(0) : setChild(child - 1)
                           }
+                          variant="outlined"
                         >
                           <RemoveIcon style={{ fontSize: "16px" }} />
                         </Button>
@@ -241,10 +247,11 @@ const handleHolidayRequest = (event) => {
                             fontSize: "16px",
                             border: "none",
                             width: "55px",
+                            textAlign:"center"
                           }}
                           value={child}
                         />
-                        <Button onClick={() => setChild(child + 1)}>
+                        <Button onClick={() => setChild(child + 1)} variant="outlined">
                           <AddIcon style={{ fontSize: "16px" }} />{" "}
                         </Button>
                       </Box>
@@ -263,8 +270,7 @@ const handleHolidayRequest = (event) => {
                       className="form_input_select"
                       value={formData.selectRoom}
                       onChange={handleChange}
-                      style={{textAlign:"start",paddingLeft:"10px"}}
-                      
+                      style={{ textAlign: "start", paddingLeft: "10px" }}
                     >
                       <option defaultChecked>Select Room Type</option>
                       <option value="Glamping tents x1">
@@ -285,17 +291,21 @@ const handleHolidayRequest = (event) => {
                       className="package_input"
                       placeholder="dd-mm-yy"
                       onChange={handleChange}
-                      style={{paddingLeft:"15px"}}
+                      style={{ paddingLeft: "15px" }}
                     />
                   </div>
                 </div>
               </div>
             </Box>
             <Box
-              sx={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
               p={3}
             >
-              <Box >
+              <Box>
                 <Typography
                   sx={{ fontSize: "12px", color: "black", fontWeight: "bold" }}
                 >
@@ -336,13 +346,13 @@ const handleHolidayRequest = (event) => {
                 Next{" "}
               </Button>
             </Box>
-            <Box display="flex" alignItems="center" textAlign="center" >
+            <Box display="flex" alignItems="center" textAlign="center">
               <Checkbox />
-              <Typography sx={
-                {
-                  fontSize:"13px"
-                }
-              }>
+              <Typography
+                sx={{
+                  fontSize: "13px",
+                }}
+              >
                 Send me updates for this booking on
               </Typography>
             </Box>
