@@ -10,6 +10,13 @@
   height: auto;
   background-size: cover;
 }
+.header_section{
+  position: sticky;
+  top: 0;
+   /* background-color: rgba(255, 255, 255, 0.8); */
+  backdrop-filter: blur(2px);
+  z-index: 10;
+}
 .componentsContainer {
   margin: auto;
   display: grid;

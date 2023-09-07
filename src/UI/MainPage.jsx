@@ -31,6 +31,7 @@ import HolidayconfirmationDetail from "../Pages/holidayPackage/holidaybookingcon
 import Assistanceinssurance from "../Pages/assistance&inssurance/Assistanceinssurance";
 import Sightseeing from "../Pages/sightseeing/Sightseeing";
 import BusResult from "../Pages/Bus/BusResult/BusResult";
+
 import BusPassengerDetail from "../Pages/Bus/busPassengerDetail/BusPassengerDetail";
 import BusReviewBooking from "../Pages/Bus/busreviewbooking/BusReviewBooking";
 import Busbookingconfirmation from "../Pages/Bus/busbookingconfirmation/Busbookingconfirmation";
@@ -114,9 +115,11 @@ const MainPage = () => {
       {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
         <div className="mainBox">
           {/* header of main dashboard */}
-          <Header />
-          {/* inner navbar contain all pages */}
-          <InnerNavbar />
+          <div className="header_section">
+            <Header />
+            {/* inner navbar contain all pages */}
+            <InnerNavbar />
+          </div>
 
           {/* all routes of inner navbar */}
           <div className="componentsContainer">

@@ -7,11 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import Editor from 'react-simple-wysiwyg';
+import { styled } from "@mui/material/styles";
+import Chip from "@mui/material/Chip";
+import Paper from "@mui/material/Paper";
+import TagFacesIcon from "@mui/icons-material/TagFaces";
+
+import Editor from "react-simple-wysiwyg";
 import "./CreatePackage.css";
 //   import "./selectclickbutton.css";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 import CommitIcon from "@mui/icons-material/Commit";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Checkbox from "@mui/material/Checkbox";
@@ -51,49 +58,73 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import WifiPasswordIcon from "@mui/icons-material/WifiPassword";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { createPackageAction } from "../../../Redux/CreatePackage/actionCreatePackage";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import Accordion from 'react-bootstrap/Accordion';
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import Accordion from "react-bootstrap/Accordion";
 import { GrAddCircle } from "react-icons/gr";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const CreateHolidayPackage = () => {
+  // const [inputList, setInputList] = useState([{ addMore: "" }]);
   // Redux- saga
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
   console.log("create Package", reducerState);
+  const ListItem = styled("li")(({ theme }) => ({
+    margin: theme.spacing(0.5),
+  }));
+  const [input, setInput] = React.useState("");
+  const [chipData, setChipData] = React.useState([
+  
+  ]);
+  const handleDelete = (chipToDelete) => () => {
+    setChipData((chips) =>
+      chips.filter((chip) => chip.key !== chipToDelete.key)
+    );
+  };
 
-  const [inputList, setInputList] = useState([{ addMore: "" }]);
+  const handleAddChip = () => {
+    if (input.trim() !== "") {
+      setChipData((chips) => [
+        ...chips,
+        { key:Date.now(), addMore: input },
+      ]);
 
+      setInput("");
+    }
+  }
+  const inputList= chipData.map((item) => ({ addMore: item.addMore }));
 
+console.log("inputList",inputList)
+//  console.log("chipdata", chipData);
   // function textEditorChange(e) {
   //   setHtml(e.target.value);
   // }
 
   // handle input change
-  const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...inputList];
-    list[index][name] = value;
-    setInputList(list);
-  };
+  // const handleInputChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...inputList];
+  //   list[index][name] = value;
+  //   setInputList(list);
+  // };
 
   // handle click event of the Remove button
-  const handleRemoveClick = (index) => {
-    const list = [...inputList];
-    list.splice(index, 1);
-    setInputList(list);
-  };
+  // const handleRemoveClick = (index) => {
+  //   const list = [...inputList];
+  //   list.splice(index, 1);
+  //   setInputList(list);
+  // };
 
   // handle click event of the Add button
-  const handleAddClick = () => {
-    setInputList([...inputList, { addMore: "" }]);
-  };
+  // const handleAddClick = () => {
+  //   setInputList([...inputList, { addMore: "" }]);
+  // };
 
-  console.log("input List", inputList);
+  
 
   const [tag, setTag] = useState({
     domestic: false,
@@ -190,18 +221,17 @@ const CreateHolidayPackage = () => {
 
   const [days, setDays] = useState(1);
 
-    // Text editor Onchange
-    const [html, setHtml] = useState('');
+  // Text editor Onchange
+  const [html, setHtml] = useState("");
   const [daysDetailsValues, setDaysDetails] = useState([]);
 
   const handleDaysDetail = (index, e) => {
-  
     const newValues = [...daysDetailsValues];
     newValues[index] = e.target.value;
     setDaysDetails(newValues);
-      // setHtml(newValues);
+    // setHtml(newValues);
   };
-  console.warn("days",html)
+  console.warn("days", html);
   console.warn("daysDetailsValues", daysDetailsValues);
 
   // Form handle code
@@ -301,47 +331,47 @@ const CreateHolidayPackage = () => {
     formData1.append("data", JSON.stringify(payload));
     console.log(formData1);
     dispatch(createPackageAction(formData1));
-      // event.target.reset();
-      // setDaysDetails([]);
-      // setCheckedItem({
-      //   flexibility: false,
-      //   train: false,
-      //   bus: false,
-      //   cab: false,
-      //   motorbike: false,
-      //   hotel: false,
-      //   homeStays: false,
-      //   guestHouse: false,
-      //   camp: false,
-      //   cruise: false,
-      //   sightSeeing: false,
-      //   guide: false,
-      //   meals: false,
-      //   breakfast: false,
-      //   drink: false,
-      //   visa: false,
-      //   travelInsurance: false,
-      //   safeTravel: false,
-      //   wildlife: false,
-      //   heritage: false,
-      //   adventure: false,
-      //   beach: false,
-      //   hillStation: false,
-      //   nature: false,
-      //   wellness: false,
-      //   hiddenGem: false,
-      //   tax: false,
-      //   discount: false,
-      //   waterActivities: false,
-      //   optionalActivities: false,
-      //   flexibleBooking: false,
-      //   wifi: false,
-      // })
+    // event.target.reset();
+    // setDaysDetails([]);
+    // setCheckedItem({
+    //   flexibility: false,
+    //   train: false,
+    //   bus: false,
+    //   cab: false,
+    //   motorbike: false,
+    //   hotel: false,
+    //   homeStays: false,
+    //   guestHouse: false,
+    //   camp: false,
+    //   cruise: false,
+    //   sightSeeing: false,
+    //   guide: false,
+    //   meals: false,
+    //   breakfast: false,
+    //   drink: false,
+    //   visa: false,
+    //   travelInsurance: false,
+    //   safeTravel: false,
+    //   wildlife: false,
+    //   heritage: false,
+    //   adventure: false,
+    //   beach: false,
+    //   hillStation: false,
+    //   nature: false,
+    //   wellness: false,
+    //   hiddenGem: false,
+    //   tax: false,
+    //   discount: false,
+    //   waterActivities: false,
+    //   optionalActivities: false,
+    //   flexibleBooking: false,
+    //   wifi: false,
+    // })
   };
 
   return (
     <div>
-      <Grid container className="package__Container" >
+      <Grid container className="package__Container">
         <form onSubmit={handleCreatePackage}>
           <Grid item xs={2} md={2}></Grid>
           <Grid item xs={2} md={8}>
@@ -371,7 +401,7 @@ const CreateHolidayPackage = () => {
               </Typography>
               <Box
                 style={{
-                  boxShadow: " 0px 7px 11px #00000029",
+                  boxShadow: " 0px 3px 3px #00000029",
                   paddingTop: "10px",
                   paddingBottom: "10px",
                   borderRadius: "10px",
@@ -383,11 +413,11 @@ const CreateHolidayPackage = () => {
                   type="text"
                   name="pakage_title"
                   placeholder="Unexplored Dubai"
-                 
                   style={{
                     border: "none",
                     textDecoration: "none",
                     width: "100%",
+                    padding: "3px",
                   }}
                 />
               </Box>
@@ -404,10 +434,10 @@ const CreateHolidayPackage = () => {
                   <input
                     style={{
                       border: "1px solid grey",
-                      padding: "25px",
+                      padding: "10px",
                       width: "250px",
                       borderRadius: "10px",
-                      color: "#006FFF",
+                      color: "#000000",
                     }}
                     name="user_card_document"
                     id="user_card_document"
@@ -415,95 +445,103 @@ const CreateHolidayPackage = () => {
                   />
                 </Box>
               </Box>
-
-              <Box style={{ marginTop: "20px" }}>
+              <Box style={{ paddingTop: "10px" }}>
                 <Typography style={{ fontSize: "16px" }}>
                   What destinations does this package cover?
                   <span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Typography style={{ fontSize: "10px" }}>
+                {/* <Typography style={{ fontSize: "10px" }}>
                   Please select from auto suggestions
+                </Typography> */}
+                <Typography style={{ fontSize: "14px", paddingTop: "3px" }}>
+                  Destinations..
                 </Typography>
-                <Typography style={{ fontSize: "14px" }}>
-                  Destination 1...…...
-                </Typography>
-
-                <Box>
-                  {inputList.map((x, i) => {
+                <Paper
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    flexWrap: "wrap",
+                    listStyle: "none",
+                    p: 1,
+                    m: 0,
+                  }}
+                  component="ul"
+                >
+                  {inputList.map((data,index) => {
+                    let icon;
                     return (
-                      <div
-                        style={{
-                          display: "flex",
-                          margin: "10px",
-                          borderRadius: "5px",
-                          color: "#666666",
-                        }}
-                        className="box"
-                      >
-                        <input
-                          style={{
-                            borderRadius: "10px",
-                            padding: "2px",
-                            border: " 1px solid #707070",
-                          }}
-                          name="addMore"
-                          placeholder="+ Add more destinations"
-                          value={x.addMore}
-                          onChange={(e) => handleInputChange(e, i)}
+                      <ListItem key={data.key}>
+                        <Chip
+                          icon={icon}
+                          label={data.addMore}
+                          onDelete={handleDelete(data)}
+                          variant={index%2==0?"outlined":"filled"}
                         />
-
-                        <div >
-                          {inputList.length !== 1 && (
-                            <button className="destination__btn"
-                             
-                           
-                              onClick={() => handleRemoveClick(i)}
-                            >
-                              Delete
-                            </button>
-                          )}
-                          {inputList.length - 1 === i && (
-                            
-                            <button
-                            className="destination__btn"
-                            style={{backgroundColor: "green"}}
-                              onClick={handleAddClick}
-                            >
-                            Add
-                           
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                      </ListItem>
                     );
                   })}
-                </Box>
+                </Paper>
+                <div
+                  style={{
+                    display: "flex",
+                    paddingTop: "8px",
+                    gap: "5px",
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Add Destination"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleAddChip();
+                      }
+                    }}
+                    style={{ padding: "3px" }}
+                  />
+                  <Button
+                    onClick={handleAddChip}
+                    variant="contained"
+                    endIcon={<AddIcon />}
+                  >
+                    Add
+                  </Button>
+                </div>
               </Box>
 
               <Box my={2}>
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   How Many Days?
                 </Typography>
-                <Box style={{ display: "flex", fontSize: "14px" }}>
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    paddingLeft: "0px",
+                  }}
+                >
                   <Button
                     onClick={() =>
                       days === 0 ? setDays(0) : setDays(days - 1)
                     }
+                    variant="contained"
                   >
                     <RemoveIcon style={{ fontSize: "16px" }} />
                   </Button>
                   <input
                     style={{
-                      color: "#006FFF",
+                      color: "#00",
                       paddingLeft: "15px",
                       paddingRight: "15px",
                       fontSize: "16px",
                       border: "none",
                       width: "55px",
+                      textAlign: "center",
                     }}
                     value={days}
                   />
-                  <Button onClick={() => setDays(days + 1)}>
+                  <Button onClick={() => setDays(days + 1)} variant="contained">
                     <AddIcon style={{ fontSize: "16px" }} />{" "}
                   </Button>
                 </Box>
@@ -513,31 +551,32 @@ const CreateHolidayPackage = () => {
                 <Typography style={{ fontSize: "16px" }}>
                   What is the schedule?<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Box display="flex">
-                  <Box style={{ display: "flex" }}>
+                <Box display="flex" gap="15px">
+                  <Box display="flex" alignItems="center" gap="5px">
                     <Box>
                       <input
                         type="radio"
                         name="schedule"
                         id="schedule"
                         value="fixed departure"
+                        width="32px"
                       />
                     </Box>
-                    <Box ml={3}>
+                    <Box>
                       <Typography
                         style={{ fontSize: "14px", color: "#252525" }}
                       >
-                        Fixed Departure
+                        Flexible
                       </Typography>
                       <Typography
                         style={{ fontSize: "10px", color: "#666666" }}
                       >
-                        Departure are scheduled
+                        can be booked anytime
                       </Typography>
                     </Box>
                   </Box>
 
-                  <Box style={{ display: "flex" }}>
+                  <Box display="flex" alignItems="center" gap="5px">
                     <Box>
                       <input
                         type="radio"
@@ -546,7 +585,7 @@ const CreateHolidayPackage = () => {
                         value="flexible departure"
                       />
                     </Box>
-                    <Box ml={3}>
+                    <Box>
                       <Typography
                         style={{ fontSize: "14px", color: "#252525" }}
                       >
@@ -566,13 +605,15 @@ const CreateHolidayPackage = () => {
                   Set up package pricing<span style={{ color: "red" }}>*</span>
                 </Typography>
                 <Box display="flex">
-                  <Box className="" ml={1}>
+                  <Box ml={1}>
                     <FormControl>
                       <NativeSelect>
+                        <option value={10} style={{ padding: "4px" }}>
+                          INR
+                        </option>
+                        {/* <option value={10}>INR</option>
                         <option value={10}>INR</option>
-                        <option value={10}>INR</option>
-                        <option value={10}>INR</option>
-                        <option value={10}>INR</option>
+                        <option value={10}>INR</option> */}
                       </NativeSelect>
                     </FormControl>
                   </Box>
@@ -584,7 +625,15 @@ const CreateHolidayPackage = () => {
                       style={{ textDecoration: "none" }}
                       onChange={handleAmount}
                     />
-                    <span>Per Person</span>
+                    <span
+                      style={{
+                        display: "block",
+                        alignSelf: "end",
+                        paddingLeft: "3px",
+                      }}
+                    >
+                      Per Person
+                    </span>
                   </Box>
                 </Box>
               </Box>
@@ -606,6 +655,7 @@ const CreateHolidayPackage = () => {
                       display="flex"
                       justifyContent="space-between"
                       alignItems="center"
+                
                     >
                       <Box
                         display="flex"
@@ -644,7 +694,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <TramIcon />
                         <Typography
@@ -678,7 +732,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <DirectionsBusIcon />
                         <Typography
@@ -712,7 +770,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <DirectionsCarIcon />
                         <Typography
@@ -746,7 +808,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <TwoWheelerIcon />
                         <Typography
@@ -780,7 +846,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <ApartmentIcon />
                         <Typography
@@ -814,7 +884,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <HolidayVillageIcon />
                         <Typography
@@ -848,7 +922,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <LocationCityIcon />
                         <Typography
@@ -882,7 +960,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <CabinIcon />
                         <Typography
@@ -916,7 +998,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <BlurOnIcon />
                         <Typography
@@ -950,7 +1036,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <DeckIcon />
                         <Typography
@@ -984,7 +1074,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <EngineeringIcon />
                         <Typography
@@ -1018,7 +1112,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <FastfoodIcon />
                         <Typography
@@ -1053,7 +1151,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <DinnerDiningIcon />
                         <Typography
@@ -1087,7 +1189,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <LiquorIcon />
                         <Typography
@@ -1121,7 +1227,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <ArticleIcon />
                         <Typography
@@ -1159,7 +1269,11 @@ const CreateHolidayPackage = () => {
                 </Grid>
                 <Grid item lg={5} mt={3}>
                   <Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <AccountBalanceIcon />
                         <Typography
@@ -1193,7 +1307,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <ParaglidingIcon />
                         <Typography
@@ -1227,7 +1345,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <NaturePeopleIcon />
                         <Typography
@@ -1261,7 +1383,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <LandslideIcon />
                         <Typography
@@ -1295,7 +1421,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <KitesurfingIcon />
                         <Typography
@@ -1329,7 +1459,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <PoolIcon />
                         <Typography
@@ -1363,7 +1497,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <DownhillSkiingIcon />
                         <Typography
@@ -1397,7 +1535,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <ForestIcon />
                         <Typography
@@ -1431,7 +1573,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <SelfImprovementIcon />
                         <Typography
@@ -1465,7 +1611,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <FitnessCenterIcon />
                         <Typography
@@ -1499,7 +1649,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <FolderDeleteIcon />
                         <Typography
@@ -1533,7 +1687,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <LocalOfferIcon />
                         <Typography
@@ -1567,7 +1725,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <KayakingIcon />
                         <Typography
@@ -1601,7 +1763,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <SportsKabaddiIcon />
                         <Typography
@@ -1635,7 +1801,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <BookmarkAddIcon />
                         <Typography
@@ -1669,7 +1839,11 @@ const CreateHolidayPackage = () => {
                         />
                       </Box>
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Box display="flex">
                         <WifiPasswordIcon />
                         <Typography
@@ -1765,31 +1939,31 @@ const CreateHolidayPackage = () => {
                 </Typography>
                 {Array.from({ length: days }, (_, i) => (
                   <>
-                    
+                    <Accordion style={{ width: "700px" }}>
+                      <Accordion.Item eventKey={i}>
+                        <Accordion.Header>
+                          <p>{`Days ${i + 1}`}</p>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          {/* ⬇️⬇️⬇️⬇️⬇️ Text editor */}
 
-                    <Accordion style={{width:'700px'}}>
-      <Accordion.Item eventKey={i}>
-        <Accordion.Header><p>{`Days ${i + 1}`}</p></Accordion.Header>
-        <Accordion.Body>
-          {/* ⬇️⬇️⬇️⬇️⬇️ Text editor */}
-        
-        <span
-                      
-                      key={i}
-                      type="text"
-                      name="detailed_ltinerary"
-                      placeholder={`Days ${i + 1}`}
-                      // value={daysDetailsValues[i] || ""}
-                      // onChange={(event) => handleDaysDetail(i, event)}
-                    >
-                       <Editor name="detailed_ltinerary" value={daysDetailsValues[i]} onChange={(event) => handleDaysDetail(i, event)} />
-                    </span>
-                    
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
-
-                   
+                          <span
+                            key={i}
+                            type="text"
+                            name="detailed_ltinerary"
+                            placeholder={`Days ${i + 1}`}
+                            // value={daysDetailsValues[i] || ""}
+                            // onChange={(event) => handleDaysDetail(i, event)}
+                          >
+                            <Editor
+                              name="detailed_ltinerary"
+                              value={daysDetailsValues[i]}
+                              onChange={(event) => handleDaysDetail(i, event)}
+                            />
+                          </span>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    </Accordion>
                   </>
                 ))}
               </Box>
@@ -1797,8 +1971,6 @@ const CreateHolidayPackage = () => {
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Overview<span style={{ color: "red" }}>*</span>
                 </Typography>
-
-
 
                 <textarea
                   className="style_Textarea"
@@ -1868,8 +2040,6 @@ const CreateHolidayPackage = () => {
                     <div class="checkmark"></div>
                     <span className="tag__title">Luxury</span>
                   </label>
-
-                  
                 </div>
 
                 <div className="relevant__tag">
@@ -1912,8 +2082,6 @@ const CreateHolidayPackage = () => {
                     <div class="checkmark"></div>
                     <span className="tag__title">Solo</span>
                   </label>
-
-                 
                 </div>
 
                 <div className="relevant__tag">
@@ -1946,7 +2114,7 @@ const CreateHolidayPackage = () => {
                     <span className="tag__title">Boy Only</span>
                   </label>
 
-                   <label class="label__container">
+                  <label class="label__container">
                     <input
                       type="checkbox"
                       name="anniversary"
@@ -1986,7 +2154,7 @@ const CreateHolidayPackage = () => {
                     <div class="checkmark"></div>
                     <span className="tag__title">Nature</span>
                   </label>
-                  
+
                   <label class="label__container">
                     <input
                       type="checkbox"
@@ -2038,7 +2206,6 @@ const CreateHolidayPackage = () => {
                     <span className="tag__title">Mid-Range</span>
                   </label>
 
-                 
                   <label class="label__container">
                     <input
                       type="checkbox"
@@ -2048,8 +2215,6 @@ const CreateHolidayPackage = () => {
                     <div class="checkmark"></div>
                     <span className="tag__title">Family With Children</span>
                   </label>
-
-                 
                 </div>
               </div>
               <Box my={2}>
