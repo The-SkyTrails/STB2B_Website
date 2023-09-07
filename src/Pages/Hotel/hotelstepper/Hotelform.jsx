@@ -213,7 +213,7 @@ const HotelForm = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} py={2}  alignItems="center">
             <Grid item md={6} sm={12} xs={12}>
-              <Box px={1}>
+              <Box>
                 <div className="nhotel_form_input">
                   <label className="form_lable">City</label>
                   <select

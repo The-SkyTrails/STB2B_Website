@@ -467,7 +467,7 @@ console.log("inputList",inputList)
                   }}
                   component="ul"
                 >
-                  {inputList.map((data,index) => {
+                  {chipData.map((data,index) => {
                     let icon;
                     return (
                       <ListItem key={data.key}>
