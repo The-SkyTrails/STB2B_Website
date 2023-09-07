@@ -41,6 +41,7 @@ import AdminWelcome from "./Table/AdminWelcome";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { adminSignOut } from "../../../Redux/Auth/AdminSignOut/actionAdminSignOut";
 import STLOGO from "../../../Images/ST-Main-Logo.png";
+import RiseLoader from "react-spinners/RiseLoader";
 
 const drawerWidth = 240;
 
@@ -146,11 +147,20 @@ export default function VerticalTabs() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [menuData, setMenuData] = useState("Home");
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleMenuItemClick = (menuItem) => {
+    setLoading(true);
+    setMenuData(menuItem);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   };
   const [anchorEl, setAnchorEl] = useState(null);
   const openAccountMenu = Boolean(anchorEl);
@@ -314,7 +324,7 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenuData("Home")}
+              onClick={() => handleMenuItemClick("Home")}
               className={
                 menuData === "Home" ? "active-menu-item" : "inactive-menu-item"
               }
@@ -344,7 +354,7 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenuData("User Table")}
+              onClick={() => handleMenuItemClick("User Table")}
             >
               <ListItemButton
                 sx={{
@@ -374,7 +384,7 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenuData("User MarkUp Amount")}
+              onClick={() => handleMenuItemClick("User MarkUp Amount")}
             >
               <ListItemButton
                 sx={{
@@ -404,7 +414,7 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenuData("Edit Holiday Package")}
+              onClick={() => handleMenuItemClick("Edit Holiday Package")}
             >
               <ListItemButton
                 sx={{
@@ -434,7 +444,7 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenuData("Forex")}
+              onClick={() => handleMenuItemClick("Forex")}
             >
               <ListItemButton
                 sx={{
@@ -461,7 +471,7 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
-              onClick={() => setMenuData("Visa Request")}
+              onClick={() => handleMenuItemClick("Visa Request")}
             >
               <ListItemButton
                 sx={{
@@ -492,12 +502,33 @@ export default function VerticalTabs() {
           <Divider />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: "hidden" }}>
-          {menuData === "Home" && <AdminWelcome />}
-          {menuData === "User Table" && <Tables />}
-          {menuData === "User MarkUp Amount" && <MarkUpAmount />}
-          {menuData === "Edit Holiday Package" && <PackageDetails />}
-          {menuData === "Forex" && <ForexData />}
-          {menuData === "Visa Request" && <VisaData />}
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}
+            >
+              <RiseLoader
+                color="#35C7AB"
+                loading={loading}
+                size={30}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
+          ) : (
+            <div>
+              {menuData === "Home" && <AdminWelcome />}
+              {menuData === "User Table" && <Tables />}
+              {menuData === "User MarkUp Amount" && <MarkUpAmount />}
+              {menuData === "Edit Holiday Package" && <PackageDetails />}
+              {menuData === "Forex" && <ForexData />}
+              {menuData === "Visa Request" && <VisaData />}
+            </div>
+          )}
         </Box>
       </Box>
     </>
