@@ -8,6 +8,7 @@ import { oneWayEMTWatcher } from "./Saga/oneWayEMTSaga";
 import { flightFareWatcher } from "./Saga/flightFareSaga";
 import { flightBookWatcher } from "./Saga/flightBookSaga";
 import { userDataTableWatcher } from "./Saga/userSaga";
+import { passengersWatcher } from "./Saga/passengersDetailSaga";
 import { getAdminWatcher } from "./Saga/adminAuth";
 import { activeSegaWatcher } from "./Saga/activeStatusSega";
 import { markUpWatcher } from "./Saga/markUpSaga";
@@ -32,6 +33,7 @@ export function* rootSaga() {
     signUpWatcher(),
     ipWatcher(),
     oneWayWatcher(),
+    passengersWatcher(),
     oneWayEMTWatcher(),
     flightFareWatcher(),
     flightBookWatcher(),

@@ -220,6 +220,9 @@ const OneWay = () => {
       TraceId: "EMTB2B73fd0ca9fcf4436cbe8b59fded57e616",
       TripType: 0,
     };
+    sessionStorage.setItem("adults", formData.get("adult"));
+    sessionStorage.setItem("childs", formData.get("child"));
+    sessionStorage.setItem("infants", formData.get("infant"));
     console.log(payload, emtPayload);
     dispatch(oneWayAction(payload));
     dispatch(oneWayEMTAction(emtPayload));

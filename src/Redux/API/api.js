@@ -35,6 +35,10 @@ function api() {
     });
   };
 
+  const passengerData = (payload) => {
+    console.log("Passenger payload", payload);
+    return payload;
+  };
   const userB2BLogin = (payload) => {
     return axios({
       method: "POST",
@@ -394,6 +398,7 @@ function api() {
     adminSignOut,
     activeStatus,
     markUpStatus,
+    passengerData,
     oneWaySearch,
     oneWayEMTSearch,
     userB2BLogin,

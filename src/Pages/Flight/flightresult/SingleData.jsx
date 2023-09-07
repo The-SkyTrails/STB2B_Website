@@ -8,6 +8,7 @@ import LuggageIcon from "@mui/icons-material/Luggage";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { tokenAction } from "../../../Redux/ResultIndex/resultIndex";
 import Luggage from "./Luggage";
+import { filterProps } from "framer-motion";
 
 function SingleData(props) {
   console.log("Props", props);
@@ -15,6 +16,7 @@ function SingleData(props) {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
+  const IsLCC = props.IsLCC;
   console.log("flight single", flight);
 
   const indexKey = props.index;
@@ -116,6 +118,23 @@ function SingleData(props) {
                   <Typography className="flight_class">
                     {flight?.Airline?.AirlineCode}{" "}
                     {flight?.Airline?.FlightNumber}
+                  </Typography>
+                  <Typography className="mt-2">
+                    {IsLCC ? (
+                      <span
+                        className="text-danger"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Not Available
+                      </span>
+                    ) : (
+                      <span
+                        className="text-success"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Available
+                      </span>
+                    )}
                   </Typography>
                 </Box>
               </Box>
