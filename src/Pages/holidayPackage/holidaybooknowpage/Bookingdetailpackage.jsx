@@ -65,13 +65,17 @@ const Bookingdetailpackage = () => {
   };
   return (
     <>
-      <Box className="header_top">
-        <Box mt={3} alignItems="center">
+      <Box className="header_top" border="1px solid gray" mt={1}>
+        <Box mt={1} alignItems="center">
           <Grid container alignItems="center">
             <Grid md={7} sm={6}>
               <Box display="flex" alignItems="center">
-                <Box sx={{ width: "20%", height: "30%" }}>
-                  <img src={onePackage?.pakage_img} className="flight_img" />
+                <Box sx={{ width: "20%", height: "20%" }}>
+                  <img
+                    src={onePackage?.pakage_img}
+                    className="flight_img"
+                    style={{ borderRadius: "8px" }}
+                  />
                 </Box>
                 <Box px={1}>
                   <Typography className="hotel_name">
@@ -360,13 +364,24 @@ const Bookingdetailpackage = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid md={5} sm={6} display="flex" justifyContent="space-between">
-              <Box display="flex" justifyContent="space-between" width="100%">
+            <Grid
+              md={5}
+              sm={6}
+              justifyContent="space-between"
+            
+            >
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                width="100%"
+                // border="1px solid red"
+              >
                 <Box
                   display="flex"
                   justifyContent="space-around"
                   width="50%"
-                  mt={3}
+                  mt="16%"
+                  marginLeft="-38%"
                 >
                   {onePackage?.insclusions?.map((item, index) => {
                     return (

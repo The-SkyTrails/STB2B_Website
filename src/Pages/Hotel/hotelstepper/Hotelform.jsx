@@ -244,11 +244,11 @@ const HotelForm = () => {
             </Grid>
             <Grid item md={6} sm={12} xs={12}  >
               <Box display="flex">
-                <Box mx={3}>
+                <Box mx={1}>
                   <Typography className="or">OR</Typography>
                 </Box>
                 <PinDropIcon style={{ color: "#00BDC4" }} />
-                <Box mx={3}>
+                <Box mx={0}>
                   <Typography className="search_map">
                     <Link
                       href="https://www.google.co.in/maps/@27.2219713,92.0887287,7z"
