@@ -53,6 +53,7 @@ const Flightdetail = () => {
                     stop={length}
                     index={ResultIndex}
                     fare={flight1?.Fare?.PublishedFare}
+                    IsLCC={flight1.IsLCC}
                   />
                 ) : (
                   <MultipleData
@@ -60,6 +61,7 @@ const Flightdetail = () => {
                     stop={length}
                     index={ResultIndex}
                     fare={flight1?.Fare?.PublishedFare}
+                    IsLCC={flight1.IsLCC}
                   />
                 );
               })}
