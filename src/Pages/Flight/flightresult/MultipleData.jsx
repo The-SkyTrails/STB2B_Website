@@ -12,6 +12,7 @@ const MultipleData = (props) => {
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
+  const IsLCC = props.IsLCC;
   console.log("flight multiple", flight);
   const indexKey = props.index;
   const fare =
@@ -111,6 +112,23 @@ const MultipleData = (props) => {
                         <Typography className="flight_class">
                           {data?.Airline?.AirlineCode}{" "}
                           {data?.Airline?.FlightNumber}
+                        </Typography>
+                        <Typography>
+                          {IsLCC ? (
+                            <span
+                              className="text-danger"
+                              style={{ fontSize: "12px" }}
+                            >
+                              Not Available
+                            </span>
+                          ) : (
+                            <span
+                              className="text-success"
+                              style={{ fontSize: "12px" }}
+                            >
+                              Available
+                            </span>
+                          )}
                         </Typography>
                       </Box>
                     </Box>

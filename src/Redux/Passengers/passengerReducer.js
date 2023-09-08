@@ -1,7 +1,7 @@
-import * as types from "./oneWayEMTActionType";
+import * as types from "./passengerActionType";
 
 const initState = {
-  oneWayEMTData: [],
+  passengersData: [],
 
   isLoading: false,
 
@@ -10,20 +10,20 @@ const initState = {
   showSuccessMessage: false,
 };
 
-export const oneWayEMTReducer = (state = initState, action) => {
+export const passengersReducer = (state = initState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case types.ONE_WAY_EMT_REQUEST:
+    case types.PASSENGERS_REQUEST:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
 
-    case types.ONE_WAY_EMT_SUCCESS:
+    case types.PASSENGERS_SUCCESS:
       return {
         ...state,
-        oneWayEMTData: payload,
+        passengersData: payload,
         isLoading: false,
         isError: false,
         showSuccessMessage: true,
