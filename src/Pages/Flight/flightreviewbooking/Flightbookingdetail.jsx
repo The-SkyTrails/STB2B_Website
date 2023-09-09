@@ -648,7 +648,13 @@ const Flightbookingdetail = () => {
               className="btn_booknow"
               variant="contained"
               type="submit"
-              disabled={!passengerAgreement || !paymentOption ? true : false}
+              disabled={
+                !passengerAgreement || !paymentOption
+                  ? true
+                  : loading
+                  ? true
+                  : false
+              }
             >
               {" "}
               {loading ? "Loading..." : "Generate Ticket"}{" "}
@@ -656,7 +662,7 @@ const Flightbookingdetail = () => {
           </Box>
         </form>
         <Typography color="#005778" fontWeight="bold" fontSize="18px" mt={5}>
-          Copyright © 2022 TRAVVOLT All Rights Reserved
+          Copyright © 2023 THE SKY TRAILS All Rights Reserved
         </Typography>
       </Box>
     </Box>
