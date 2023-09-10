@@ -13,6 +13,7 @@ import { tokenAction } from "../../../Redux/ResultIndex/resultIndex";
 const Flightdetail = () => {
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
+  const [filter, setFilter] = useState(1);
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
   // console.log("Reducer State", results);
@@ -24,15 +25,52 @@ const Flightdetail = () => {
   }, [results]);
 
   console.log("Results result", reducerState);
-  return results?.map((result) => {
+  return results?.map((res) => {
+    let result = res;
+    result =
+      filter === 1
+        ? res.sort((a, b) => a.Fare.OfferedFare - b.Fare.OfferedFare)
+        : res.sort(
+            (a, b) =>
+              a.Segments[0].map((i) => i.Duration) -
+              b.Segments[0].map((i) => i.Duration)
+          );
+    // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
     return (
       <Box
         mt={3}
-        p={2}
+        pb={2}
+        px={2}
         backgroundColor="#F5F5F5"
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
       >
+        <div className="row">
+          <div
+            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
+              filter === 1 ? "active" : ""
+            }`}
+            onClick={() => setFilter(1)}
+          >
+            Cheapest
+          </div>
+          <div
+            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
+              filter === 2 ? "active" : ""
+            }`}
+            onClick={() => setFilter(2)}
+          >
+            Fastest
+          </div>
+          <div
+            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
+              filter === 3 ? "active" : ""
+            }`}
+            onClick={() => setFilter(3)}
+          >
+            Best
+          </div>
+        </div>
         {result?.map((flight1) => {
           {
             /* console.log("flight1", flight1); */
@@ -53,6 +91,7 @@ const Flightdetail = () => {
                     stop={length}
                     index={ResultIndex}
                     fare={flight1?.Fare?.PublishedFare}
+                    IsLCC={flight1.IsLCC}
                   />
                 ) : (
                   <MultipleData
@@ -60,6 +99,7 @@ const Flightdetail = () => {
                     stop={length}
                     index={ResultIndex}
                     fare={flight1?.Fare?.PublishedFare}
+                    IsLCC={flight1.IsLCC}
                   />
                 );
               })}

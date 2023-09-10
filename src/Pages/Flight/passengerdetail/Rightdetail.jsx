@@ -23,10 +23,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const KeyValue = ({ data, value }) => {
- console.log("----------------------");
- console.log(data);
- console.log(value);
- console.log("----------------------");
+  console.log("----------------------");
+  console.log(data);
+  console.log(value);
+  console.log("----------------------");
   return (
     <>
       <Grid item xs={12} md={6}>
@@ -506,7 +506,6 @@ export default function Popularfilter() {
                         </Grid>
                       </>
                     )}
-                    
                   </>
                 );
               })}

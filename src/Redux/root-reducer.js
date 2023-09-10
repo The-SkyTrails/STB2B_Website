@@ -12,7 +12,7 @@ import { UserTableDataReducer } from "./Auth/UserData/userDataReducer";
 import { AdminAuthReducer } from "./Auth/AdminAuth/AdminAuthReducer";
 import { vendorReducer } from "./Auth/VendorAmount/vendorReducer";
 import { createPackageReducer } from "./CreatePackage/createPackageReducer";
-
+import { passengersReducer } from "./Passengers/passengerReducer";
 import { ActiveStatusReducer } from "./Auth/activeStatus/activeStatusReducer";
 import { MarkUpReducer } from "./Auth/markUp/markUpReducer";
 import { ADMIN_SIGN_OUT_REQUEST } from "./Auth/AdminSignOut/actionType";
@@ -34,6 +34,7 @@ const appReducer = combineReducers({
   logIn: logInReducer,
   signUp: signUpReducer,
   ip: ipReducer,
+  passengers: passengersReducer,
   oneWay: oneWayReducer,
   oneWayEMT: oneWayEMTReducer,
   flightFare: flightFareReducer,
@@ -79,8 +80,13 @@ const rootReducer = (state, action) => {
   } else if (action.type === "CLEAR_ONEWAY_EMT_REDUCER") {
     return {
       ...state,
-      oneWay: oneWayEMTReducer(undefined, action),
+      oneWayEMT: oneWayEMTReducer(undefined, action),
     };
+    // } else if (action.type === "CLEAR_PASSENGERS_REDUCER") {
+    //   return {
+    //     ...state,
+    //     passengers: passengersReducer(undefined, action),
+    //   };
   } else if (action.type === "CLEAR_BUS_SEARCH_REDUCER") {
     return {
       ...state,

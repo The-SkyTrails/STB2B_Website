@@ -8,14 +8,16 @@ import LuggageIcon from "@mui/icons-material/Luggage";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { tokenAction } from "../../../Redux/ResultIndex/resultIndex";
 import Luggage from "./Luggage";
+import { filterProps } from "framer-motion";
 
 function SingleData(props) {
-  console.log("Props", props);
+  // console.log("Props", props);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
-  console.log("flight single", flight);
+  const IsLCC = props.IsLCC;
+  // console.log("flight single", flight);
 
   const indexKey = props.index;
   const fare =
@@ -30,10 +32,19 @@ function SingleData(props) {
   const img = flight?.Airline?.AirlineCode;
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
-  console.log("Redux State", results);
-  const date = new Date(flight?.Duration);
-  const time = date.toTimeString().slice(0, 5);
-  console.log("Index Key", indexKey);
+  // console.log("Redux State", results);
+  const time = `${Math.floor(flight?.Duration / 60)}hr ${
+    flight.Duration % 60
+  }min`;
+  // console.log(
+  //   flight?.Duration,
+  //   "Hours:",
+  //   Math.floor(flight?.Duration / 60),
+  //   "Minutes:",
+  //   flight.Duration % 60,
+  //   "Index Key",
+  //   indexKey
+  // );
 
   const dateString = flight?.Origin?.DepTime;
   const date1 = new Date(dateString);
@@ -116,6 +127,23 @@ function SingleData(props) {
                   <Typography className="flight_class">
                     {flight?.Airline?.AirlineCode}{" "}
                     {flight?.Airline?.FlightNumber}
+                  </Typography>
+                  <Typography className="mt-2">
+                    {IsLCC ? (
+                      <span
+                        className="text-danger"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Not Available
+                      </span>
+                    ) : (
+                      <span
+                        className="text-success"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Available
+                      </span>
+                    )}
                   </Typography>
                 </Box>
               </Box>

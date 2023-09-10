@@ -11,129 +11,210 @@ import {
   bookAction,
   bookActionGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
-
+import { PassengersAction } from "../../../Redux/Passengers/passenger";
 const Leftdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const adults = sessionStorage.getItem("adults");
+  const childs = sessionStorage.getItem("childs");
+  const infants = sessionStorage.getItem("infants");
   const reducerState = useSelector((state) => state);
   console.log("reducerState", reducerState);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
-
+  const [farePrice, setFarePrice] = useState("");
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
   console.log("fareValue", fareValue);
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
+  const passengerTemplate = {
+    Title: "Mr",
+    FirstName: "Unit",
+    LastName: "test",
+    PaxType: 1,
+    DateOfBirth: "1987-12-06T00:00:00",
+    Gender: 1,
+    PassportNo: "",
+    PassportExpiry: "",
+    AddressLine1: "123, Test",
+    AddressLine2: "",
+    Fare: farePrice,
+    City: "Gurgaon",
+    CountryCode: "IN",
+    CellCountryCode: "+91-",
+    ContactNo: "1234567890",
+    Nationality: "IN",
+    Email: "harsh@tbtq.in",
+    IsLeadPax: true,
+    FFAirlineCode: null,
+    FFNumber: "",
+    GSTCompanyAddress: "",
+    GSTCompanyContactNumber: "",
+    GSTCompanyName: "",
+    GSTNumber: "",
+    GSTCompanyEmail: "",
+  };
+  const childPassenger = {
+    Title: "Mr",
+    FirstName: "Raj",
+    LastName: "test",
+    PaxType: 2,
+    DateOfBirth: "",
+    Gender: 1,
+    PassportNo: "",
+    PassportExpiry: "",
+    Fare: farePrice,
+    IsLeadPax: false,
+    FFAirlineCode: null,
+    FFNumber: "",
+  };
+  const infantPassenger = {
+    Title: "Mr",
+    FirstName: "Raj",
+    LastName: "test",
+    PaxType: 3,
+    DateOfBirth: "",
+    Gender: 1,
+    PassportNo: "",
+    PassportExpiry: "",
+    Fare: farePrice,
+    IsLeadPax: false,
+    FFAirlineCode: null,
+    FFNumber: "",
+  };
+  let totalPassenger = Number(adults) + Number(childs) + Number(infants);
+  const passengerLists = [];
+  const passengerChildLists = [];
+  const passengerInfantLists = [];
+  useEffect(() => {
+    if (fareValue) {
+      let fareDetails = fareValue?.Fare;
+      let fareBreakdown = fareValue?.FareBreakdown;
+      console.log("fareDetails: ", fareDetails);
+      let arr = [];
+      fareBreakdown.map((price, key) => {
+        let obj1 = {
+          Currency: price?.Currency,
+          BaseFare: price?.BaseFare / price?.PassengerCount,
+          Tax: price?.Tax / price?.PassengerCount,
+          YQTax: price?.YQTax / price?.PassengerCount,
+          AdditionalTxnFeePub:
+            price?.AdditionalTxnFeePub / price?.PassengerCount,
+          AdditionalTxnFeeOfrd:
+            price?.AdditionalTxnFeeOfrd / price?.PassengerCount,
+          // OtherCharges: price?.OtherCharges / price?.PassengerCount,
+          // Discount: price?.Discount / price?.PassengerCount,
+          // PublishedFare: +price?.BaseFare + +price?.Tax / price?.PassengerCount,
+          // OfferedFare: price?.OfferedFare / price?.PassengerCount,
+          // TdsOnCommission: price?.TdsOnCommission / price?.PassengerCount,
+          // TdsOnPLB: price?.TdsOnPLB / price?.PassengerCount,
+          // TdsOnIncentive: price?.TdsOnIncentive / price?.PassengerCount,
+          // ServiceFee: price?.ServiceFee / price?.PassengerCount,
+        };
+        arr.push(obj1);
+        console.log(arr[1]);
+        setFarePrice(arr);
+      });
 
+      // let obj = {
+      //   Currency: fareDetails.Currency,
+      //   BaseFare: fareDetails.BaseFare / totalPassenger,
+      //   Tax: fareDetails.Tax / totalPassenger,
+      //   YQTax: fareDetails.YQTax / totalPassenger,
+      //   AdditionalTxnFeePub: fareDetails.AdditionalTxnFeePub / totalPassenger,
+      //   AdditionalTxnFeeOfrd: fareDetails.AdditionalTxnFeeOfrd / totalPassenger,
+      //   OtherCharges: fareDetails.OtherCharges / totalPassenger,
+      //   Discount: fareDetails.Discount / totalPassenger,
+      //   PublishedFare: fareDetails.PublishedFare / totalPassenger,
+      //   OfferedFare: fareDetails.OfferedFare / totalPassenger,
+      //   TdsOnCommission: fareDetails.TdsOnCommission / totalPassenger,
+      //   TdsOnPLB: fareDetails.TdsOnPLB / totalPassenger,
+      //   TdsOnIncentive: fareDetails.TdsOnIncentive / totalPassenger,
+      //   ServiceFee: fareDetails.ServiceFee / totalPassenger,
+      // };
+      // setFarePrice(obj);
+    }
+  }, [fareValue]);
+  console.log("farePrice", farePrice);
+  for (let i = 0; i < adults; i++) {
+    passengerLists.push({
+      ...passengerTemplate,
+      IsLeadPax: i === 0, // Set the first passenger as the lead passenger
+    });
+  }
+
+  for (let i = 0; i < childs; i++) {
+    passengerChildLists.push({
+      ...childPassenger,
+      IsLeadPax: false, // Set the first passenger as the lead passenger
+    });
+  }
+  for (let i = 0; i < infants; i++) {
+    passengerInfantLists.push({
+      ...infantPassenger,
+      IsLeadPax: false, // Set the first passenger as the lead passenger
+    });
+  }
   const [serviceList, setServiceList] = useState([{ service: "" }]);
-  const [passengerDetails, setPassengerDetails] = useState([
-    {
-      firstName: "",
-      lastName: "",
-      gender: "",
-      mobileNumber: "",
-      dateOfBirth: "",
-      email: "",
-      address: "",
-      city: "",
-      country: "",
-    },
-  ]);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
+  // const [passengerData,setPassengerData] = useState(allPassenger.flat())
 
-  useEffect(() => {
-    if (
-      reducerState?.flightBook?.flightBookData?.data?.data?.Response?.Results
-    ) {
-      navigate("flightreviewbooking");
+  const [passengerList, setPassengerList] = useState(passengerLists);
+  const allPassenger = [
+    passengerLists,
+    passengerChildLists,
+    passengerInfantLists,
+  ];
+  const [passengerData, setPassengerData] = useState(allPassenger.flat());
+  const handleServiceChange = (e, i) => {
+    const { name, value } = e.target;
+    const list = [...passengerData];
+    if (i < adults) {
+      if (!list[i]["Fare"]) {
+        list[i]["Fare"] = farePrice[0];
+      }
     }
-    // else {
-    //   alert(
-    //     `${reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage}`
-    //   );
-    // }
-  }, [
-    reducerState?.flightBook?.flightBookData?.data?.data?.Response?.Results,
-    navigate,
-  ]);
-
-  useEffect(() => {
-    if (reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode == 0) {
-      navigate("flightreviewbooking");
+    if (i >= adults && i < +adults + +childs) {
+      if (!list[i]["Fare"]) {
+        list[i]["Fare"] = farePrice[1];
+      }
     } else {
-      alert(
-        `${reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage}`
-      );
+      if (!list[i]["Fare"]) {
+        list[i]["Fare"] = farePrice[2];
+      }
     }
-  }, [reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode, navigate]);
+    list[i][name] = value;
+    setPassengerData(list);
+  };
+  console.log("passengerData", passengerData);
+
+  // useEffect(() => {
+  //   if (reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode == 0) {
+  //     navigate("flightreviewbooking");
+  //   } else {
+  //     alert(
+  //       `${reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage}`
+  //     );
+  //   }
+  // }, [reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode, navigate]);
 
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
 
   function handleSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
+    // const payloadGDS = {
+    //   ResultIndex: ResultIndex,
+    //   Passengers: passengerData,
 
-    const payloadGDS = {
-      ResultIndex: ResultIndex,
-      Passengers: [
-        {
-          Title: "Mr",
-          FirstName: formData.get("name"),
-          LastName: formData.get("lastname"),
-          PaxType: 1,
-          DateOfBirth: formData.get("dateofbirth"),
-          Gender: formData.get("gender"),
-          PassportNo: "KJHHJKHKJH",
-          PassportExpiry: "2023-12-06T00:00:00",
-          AddressLine1: formData.get("address"),
-          AddressLine2: "",
-          Fare: {
-            Currency: "INR",
-            BaseFare: 3384.0,
-            Tax: 580,
-            YQTax: 0.0,
-            AdditionalTxnFeePub: 0.0,
-            AdditionalTxnFeeOfrd: 0.0,
-            OtherCharges: 1.92,
-            Discount: 0.0,
-            PublishedFare: 3965.92,
-            OfferedFare: 3965.92,
-            TdsOnCommission: 0,
-            TdsOnPLB: 0,
-            TdsOnIncentive: 0,
-            ServiceFee: 0,
-          },
-          City: formData.get("city"),
-          CountryCode: "IN",
-          CellCountryCode: "+92581-",
-          ContactNo: formData.get("mobilenumber"),
-          Nationality: "IN",
-          Email: formData.get("email"),
-          IsLeadPax: true,
-          FFAirlineCode: null,
-          FFNumber: "",
-          GSTCompanyAddress: "",
-          GSTCompanyContactNumber: "",
-          GSTCompanyName: "",
-          GSTNumber: "",
-          GSTCompanyEmail: "",
-        },
-      ],
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
-    };
+    //   EndUserIp: reducerState?.ip?.ipData,
+    //   TokenId: reducerState?.ip?.tokenData,
+    //   TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+    // };
 
     if (fareValue?.IsLCC == false) {
-      dispatch(bookActionGDS(payloadGDS));
+      dispatch(PassengersAction(passengerData));
+      navigate("/Flightresult/passengerdetail/flightreviewbooking");
+    } else {
+      alert("Book not allowed for LCCs. Please do Ticket directly");
     }
 
     // if()
@@ -239,12 +320,12 @@ const Leftdetail = () => {
 
   // Add form
 
-  const handleServiceChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...serviceList];
-    list[index][name] = value;
-    setServiceList(list);
-  };
+  // const handleServiceChange = (e, index) => {
+  //   const { name, value } = e.target;
+  //   const list = [...serviceList];
+  //   list[index][name] = value;
+  //   setServiceList(list);
+  // };
 
   const handleServiceRemove = (index) => {
     const list = [...serviceList];
@@ -256,7 +337,7 @@ const Leftdetail = () => {
     setServiceList([...serviceList, { service: "" }]);
   };
   // end
-
+  console.log("fareQuoteData", reducerState);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -273,7 +354,312 @@ const Leftdetail = () => {
 
         <Box className="mid_header" p={5} mt={25}>
           <Typography className="Top_txt">Travellers</Typography>
-        
+
+          <div className="services">
+            <form onSubmit={handleSubmit}>
+              <Box className="mid_header" p={5} mt={25}>
+                <Typography className="p-2 Top_txt text-dark">
+                  Adult: {adults}
+                </Typography>
+
+                {Array.from({ length: adults }, (err, i) => {
+                  return (
+                    <div className="mb-2">
+                      <span className=" p-2 ">Passenger {i + 1}</span>
+                      <Box p={15} display="flex">
+                        <Box>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              First name*
+                            </label>
+                            <input
+                              name="FirstName"
+                              placeholder="Enter your name"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              Last name*
+                            </label>
+                            <input
+                              name="LastName"
+                              placeholder="Enter your last name"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                      </Box>
+                      <Box p={15} display="flex">
+                        <Box>
+                          <div className="hotel_form_input">
+                            <label className="form_lable">Gender*</label>
+                            <select
+                              name="Gender"
+                              className="hotel_input_select"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            >
+                              <option value="1">Female</option>
+                              <option value="2">Male</option>
+                              <option value="3">Transgender</option>
+                            </select>
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              Mobile*
+                            </label>
+                            <input
+                              name="ContactNo"
+                              type="text"
+                              placeholder="Enter your number"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              Date Of Birth*
+                            </label>
+                            <input
+                              type="date"
+                              name="DateOfBirth"
+                              className="deaprture_input"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                      </Box>
+                      <Box p={15} display="flex">
+                        <Box>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              Email**
+                            </label>
+                            <input
+                              name="Email"
+                              type="email"
+                              placeholder="Enter your email"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              Address*
+                            </label>
+                            <input
+                              name="AddressLine1"
+                              type="text"
+                              placeholder="Enter your Address"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              City*
+                            </label>
+                            <input
+                              name="City"
+                              type="text"
+                              placeholder="Enter your City"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                      </Box>
+                      <Box p={15} display="flex">
+                        <Box>
+                          <div className="form_input">
+                            <label className="form_lable">Country*</label>
+                            <input
+                              name="Nationality"
+                              type="text"
+                              placeholder="Enter your Country"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                      </Box>
+                    </div>
+                  );
+                })}
+              </Box>
+              {childs > 0 && (
+                <Box className="mid_header" p={5} mt={25}>
+                  <Typography className="p-2 Top_txt text-dark">
+                    Childs: {childs}
+                  </Typography>
+                  {Array.from({ length: childs }, (err, i) => {
+                    return (
+                      <div className="mb-2">
+                        <span className=" p-2 ">Child {i + 1}</span>
+                        <Box p={15} display="flex">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                First name*
+                              </label>
+                              <input
+                                name="FirstName"
+                                placeholder="Enter your name"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                              />
+                            </div>
+                          </Box>
+                          <Box marginLeft={15}>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Last name*
+                              </label>
+                              <input
+                                name="LastName"
+                                placeholder="Enter your last name"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                              />
+                            </div>
+                          </Box>
+                          <Box marginLeft={15}>
+                            <div className="hotel_form_input">
+                              <label className="form_lable">Gender*</label>
+                              <select
+                                name="Gender"
+                                className="hotel_input_select"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                              >
+                                <option value="1">Female</option>
+                                <option value="2">Male</option>
+                                <option value="3">Transgender</option>
+                              </select>
+                            </div>
+                          </Box>
+                          <Box marginLeft={15}>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Date Of Birth*
+                              </label>
+                              <input
+                                type="date"
+                                name="DateOfBirth"
+                                className="deaprture_input"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                              />
+                            </div>
+                          </Box>
+                        </Box>
+                      </div>
+                    );
+                  })}
+                </Box>
+              )}
+              {infants > 0 && (
+                <Box className="mid_header" p={5} mt={25}>
+                  <Typography className="p-2 Top_txt text-dark">
+                    Infants: {infants}
+                  </Typography>
+                  {Array.from({ length: infants }, (err, i) => {
+                    return (
+                      <div className="mb-2">
+                        <span className=" p-2 ">Infant {i + 1}</span>
+                        <Box p={15} display="flex">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                First name*
+                              </label>
+                              <input
+                                name="FirstName"
+                                placeholder="Enter your name"
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              />
+                            </div>
+                          </Box>
+                          <Box marginLeft={15}>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Last name*
+                              </label>
+                              <input
+                                name="LastName"
+                                placeholder="Enter your last name"
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              />
+                            </div>
+                          </Box>
+                          <Box marginLeft={15}>
+                            <div className="hotel_form_input">
+                              <label className="form_lable">Gender*</label>
+                              <select
+                                name="Gender"
+                                className="hotel_input_select"
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              >
+                                <option value="1">Female</option>
+                                <option value="2">Male</option>
+                                <option value="3">Transgender</option>
+                              </select>
+                            </div>
+                          </Box>
+                          <Box marginLeft={15}>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Date Of Birth*
+                              </label>
+                              <input
+                                type="date"
+                                name="DateOfBirth"
+                                className="deaprture_input"
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              />
+                            </div>
+                          </Box>
+                        </Box>
+                      </div>
+                    );
+                  })}
+                </Box>
+              )}
+            </form>
+          </div>
+        </Box>
+        {/* <Box className="mid_header" p={5} mt={25}>
+          <Typography className="Top_txt">Travellers</Typography>
+
           <div className="services">
             <Box className="mid_header" p={5} mt={25}>
               <Box p={15} display="flex">
@@ -382,7 +768,7 @@ const Leftdetail = () => {
               </Box>
             </Box>
           </div>
-        </Box>
+        </Box> */}
 
         <Box className="mid_header" p={5} mt={25}>
           <Box px={20}>
