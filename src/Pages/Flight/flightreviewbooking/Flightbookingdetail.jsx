@@ -8,7 +8,7 @@ import {
   bookAction,
   bookActionGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
-
+import axios from "axios";
 const Flightbookingdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ const Flightbookingdetail = () => {
   //   reducerState?.flightBook?.flightBookDataGDS?.Response;
   const fareRules = reducerState?.flightFare?.flightRuleData?.FareRules;
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
+  console.log(fareValue, "😍Fare value");
   const Passengers = reducerState?.passengers?.passengersData;
   //   const Passengers = sessionStorage.getItem("Passengers");
   //   console.log("Passengers", Passengers);
@@ -74,6 +75,7 @@ const Flightbookingdetail = () => {
     }
     //navigate("/Flightbookingconfirmation");
   };
+
   return (
     <Box>
       <Typography color="#008FCC" fontWeight="bold" fontSize="16px">
@@ -661,6 +663,7 @@ const Flightbookingdetail = () => {
             </Button>
           </Box>
         </form>
+
         <Typography color="#005778" fontWeight="bold" fontSize="18px" mt={5}>
           Copyright © 2023 THE SKY TRAILS All Rights Reserved
         </Typography>

@@ -10,10 +10,34 @@ import { useNavigate } from "react-router-dom";
 import STLOGO from "../Images/ST-Main-Logo.png";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
-
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 const Header = () => {
   const [scrollYvalue, setScrollYValue] = useState(0);
   const reducerState = useSelector((state) => state);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [amount, setAmount] = React.useState("");
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const openLoginpage = () => {
@@ -48,6 +72,41 @@ const Header = () => {
 
     return () => window.removeEventListener("scroll", updateSrollYPosition);
   });
+
+  const handleRazorpay = (data) => {
+    console.log("handleRazorpay called");
+    const options = {
+      key: "rzp_test_rSxJ8wZCLzTJck",
+      amount: amount * 100,
+      currency: "INR",
+      name: "The SkyTrails",
+      description: "Test Transaction",
+      image: STLOGO,
+      order_id: data.id,
+      handler: function (response) {
+        console.log(response);
+      },
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+  const handlePayment = (e) => {
+    e.preventDefault();
+    const data = { amount: amount };
+    axios
+      .post("http://localhost:8000/travvolt/wallet/rechargeWallet", data)
+      .then((res) => {
+        console.log(res.data);
+        handleRazorpay(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    alert(amount);
+    setAmount("");
+    handleCloseModal();
+  };
   return (
     <div className={scrollYvalue > 45 ? "header_scroll" : "header"}>
       <div>
@@ -56,6 +115,7 @@ const Header = () => {
             src={STLOGO}
             style={{ width: "200px", height: "70px" }}
             className="mt-2 ms-2"
+            alt="logo"
           />
         </a>
       </div>
@@ -65,7 +125,7 @@ const Header = () => {
         <p className="welPrice">
           Cash Balance: ₹ {reducerState?.logIn?.loginData?.data?.data?.balance}
         </p>
-        <p>Recharge</p>
+        <button onClick={handleOpenModal}>Recharge</button>
 
         <div style={{ marginBottom: "15px" }}>
           <Box marginTop={3}>
@@ -121,6 +181,72 @@ const Header = () => {
           </Menu>
         </div>
       </div>
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "-1rem",
+            }}
+          >
+            <span>Enter Payment Detail</span>
+            <CloseIcon
+              onClick={handleCloseModal}
+              style={{ cursor: "pointer" }}
+            />
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <form onSubmit={handlePayment}>
+              <FormControl>
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="text"
+                  value={reducerState?.logIn?.loginData?.data?.data?.username}
+                  readOnly
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Email address</FormLabel>
+                <Input
+                  type="email"
+                  value={reducerState?.logIn?.loginData?.data?.data?.email}
+                  readOnly
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Amout</FormLabel>
+                <Input
+                  type="text"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </FormControl>
+
+              <Button variant="contained" type="submit">
+                Recharge Wallet
+              </Button>
+              <Button
+                style={{ background: "red" }}
+                variant="contained"
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </Button>
+            </form>
+          </Typography>
+        </Box>
+      </Modal>
     </div>
   );
 };
