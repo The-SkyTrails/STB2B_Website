@@ -364,12 +364,7 @@ const Bookingdetailpackage = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid
-              md={5}
-              sm={6}
-              justifyContent="space-between"
-            
-            >
+            <Grid md={5} sm={6} justifyContent="space-between">
               <Box
                 display="flex"
                 justifyContent="space-between"
@@ -568,14 +563,19 @@ const Bookingdetailpackage = () => {
                     </Typography>
                   </Box> */}
                 </Box>
-                <Box display="block" alignItems="center" textAlign="end">
-                  <Typography color="#006FFF" fontSize="18px" fontWeight="bold">
-                    ₹ {onePackage?.pakage_amount?.amount}
+                <Box display="block" textAlign="end" alignSelf="center">
+                  <Typography color="#0096FF" fontSize="24px" fontWeight="bold">
+                    ₹{onePackage?.pakage_amount?.amount}
                   </Typography>
-                  <Typography color="#FF8900" fontSize="8px" fontWeight="bold">
-                    Publisher Price: ₹354654
+                  <Typography
+                    color="#FF8900"
+                    fontSize="10px"
+                    fontWeight="bold"
+                    marginTop={-1}
+                  >
+                    per person
                   </Typography>
-                  <form action="/HolidayGuestDetail">
+                  {/* <form action="/HolidayGuestDetail">
                     <Box textAlign="right">
                       <Button
                         variant="contained"
@@ -587,7 +587,7 @@ const Bookingdetailpackage = () => {
                         Book Now
                       </Button>
                     </Box>
-                  </form>
+                  </form> */}
                 </Box>
               </Box>
             </Grid>
@@ -658,7 +658,7 @@ const Bookingdetailpackage = () => {
 
           <Box></Box>
           {/* end */}
-          <form action="/HolidayGuestDetail">
+          {/* <form action="/HolidayGuestDetail">
             <Box textAlign="center" mt={3}>
               <Button
                 variant="contained"
@@ -670,7 +670,7 @@ const Bookingdetailpackage = () => {
                 Book Now
               </Button>
             </Box>
-          </form>
+          </form> */}
         </Box>
         <Box className="header_top" my={3}>
           <Box>

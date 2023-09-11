@@ -116,7 +116,7 @@ const Holidaybooknow = () => {
         </Box>
         <div>
           <Grid container spacing={3}>
-            <Grid sm={12} xs={12} md={8} item>
+            <Grid sm={12} xs={12} md={"full"} item>
               <MuiBox>
                 <Bookingdetailpackage />
               </MuiBox>
@@ -124,7 +124,7 @@ const Holidaybooknow = () => {
             <Grid sm={12} xs={12} md={4} item>
               <MuiBox>
                 {/* <HolidayPackagedetail /> */}
-                <HolidatLeftPackage packageId={packageId} userId={userId} />
+                {/* <HolidatLeftPackage packageId={packageId} userId={userId} /> */}
               </MuiBox>
             </Grid>
           </Grid>

@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { packageBookingAction } from '../../../Redux/HolidayBookingRequest/actionBooking'
+import { packageBookingAction } from "../../../Redux/HolidayBookingRequest/actionBooking";
 
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
@@ -25,7 +25,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -35,66 +34,62 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const HolidatLeftPackage = (props) => {
-
   const dispatch = useDispatch();
 
-  console.log('props',props);
+  console.log("props", props);
 
-  const {packageId,userId  }= props
+  const { packageId, userId } = props;
 
- console.log("package data",packageId)
- console.log("user data", userId )
+  console.log("package data", packageId);
+  console.log("user data", userId);
 
- const [child, setChild] = useState(0);
- const [adult, setAdult] = useState(0);
+  const [child, setChild] = useState(0);
+  const [adult, setAdult] = useState(0);
 
-
- 
   const [formData, setFormData] = useState({
-   email: '',
-   fullName: '',
-   contactNumber: {
-    phone : ''
-   },
-   departureCity: '',
-   adults : adult,
-   child : child,
-   selectRoom : '',
-   checkIndate : ''
-});
-
-const handleChange = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.name]: e.target.value,
+    email: "",
+    fullName: "",
+    contactNumber: {
+      phone: "",
+    },
+    departureCity: "",
+    adults: adult,
+    child: child,
+    selectRoom: "",
+    checkIndate: "",
   });
-};
 
-const handleHolidayRequest = (event) => {
-  event.preventDefault();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const payload = {
-      pakageid: packageId , 
-      userId:  userId, 
-      email: formData.email, 
-      fullName: formData.fullName, 
+  const handleHolidayRequest = (event) => {
+    event.preventDefault();
+
+    const payload = {
+      pakageid: packageId,
+      userId: userId,
+      email: formData.email,
+      fullName: formData.fullName,
       contactNumber: {
-        contryCode:"+91",
-        phone : formData.contactNumber
-       },
-      departureCity: formData.departureCity, 
-      adults: adult, 
-      child: child, 
+        contryCode: "+91",
+        phone: formData.contactNumber,
+      },
+      departureCity: formData.departureCity,
+      adults: adult,
+      child: child,
       selectRoom: 1,
       checkIndate: formData.checkIndate,
-
+    };
+    console.log("payload", payload);
+    dispatch(packageBookingAction(payload));
+    event.target.reset();
+    setAdult(0);
+    setChild(0);
   };
-  console.log("payload", payload);
-  dispatch(packageBookingAction(payload));
-  event.target.reset();
-  setAdult(0);
-  setChild(0);
-};
 
   const navigate = useNavigate();
   const Clickback = () => {
@@ -205,7 +200,7 @@ const handleHolidayRequest = (event) => {
                           fontSize: "16px",
                           border: "none",
                           width: "55px",
-                          textAlign:"center"
+                          textAlign: "center",
                         }}
                         value={adult}
                       />
@@ -247,11 +242,14 @@ const handleHolidayRequest = (event) => {
                             fontSize: "16px",
                             border: "none",
                             width: "55px",
-                            textAlign:"center"
+                            textAlign: "center",
                           }}
                           value={child}
                         />
-                        <Button onClick={() => setChild(child + 1)} variant="outlined">
+                        <Button
+                          onClick={() => setChild(child + 1)}
+                          variant="outlined"
+                        >
                           <AddIcon style={{ fontSize: "16px" }} />{" "}
                         </Button>
                       </Box>
@@ -371,11 +369,4 @@ const handleHolidayRequest = (event) => {
 
 export default HolidatLeftPackage;
 
-
-
-
 //css of this page
-
-
-
-
