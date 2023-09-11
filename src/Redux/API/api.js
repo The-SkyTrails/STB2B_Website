@@ -7,7 +7,7 @@ function api() {
   };
 
   const usersTableData = () => {
-    return axios.get("https://api.travvolt.com/travvolt/user/getallusers");
+    return axios.get("http://localhost:8000/travvolt/user/getallusers");
   };
 
   const userB2BToken = (payload) => {
