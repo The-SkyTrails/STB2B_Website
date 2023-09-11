@@ -65,13 +65,17 @@ const Bookingdetailpackage = () => {
   };
   return (
     <>
-      <Box className="header_top">
-        <Box mt={3} alignItems="center">
+      <Box className="header_top" border="1px solid gray" mt={1}>
+        <Box mt={1} alignItems="center">
           <Grid container alignItems="center">
             <Grid md={7} sm={6}>
               <Box display="flex" alignItems="center">
-                <Box sx={{ width: "20%", height: "30%" }}>
-                  <img src={onePackage?.pakage_img} className="flight_img" />
+                <Box sx={{ width: "20%", height: "20%" }}>
+                  <img
+                    src={onePackage?.pakage_img}
+                    className="flight_img"
+                    style={{ borderRadius: "8px" }}
+                  />
                 </Box>
                 <Box px={1}>
                   <Typography className="hotel_name">
@@ -360,13 +364,19 @@ const Bookingdetailpackage = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid md={5} sm={6} display="flex" justifyContent="space-between">
-              <Box display="flex" justifyContent="space-between" width="100%">
+            <Grid md={5} sm={6} justifyContent="space-between">
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                width="100%"
+                // border="1px solid red"
+              >
                 <Box
                   display="flex"
                   justifyContent="space-around"
                   width="50%"
-                  mt={3}
+                  mt="16%"
+                  marginLeft="-38%"
                 >
                   {onePackage?.insclusions?.map((item, index) => {
                     return (
@@ -553,14 +563,19 @@ const Bookingdetailpackage = () => {
                     </Typography>
                   </Box> */}
                 </Box>
-                <Box display="block" alignItems="center" textAlign="end">
-                  <Typography color="#006FFF" fontSize="18px" fontWeight="bold">
-                    ₹ {onePackage?.pakage_amount?.amount}
+                <Box display="block" textAlign="end" alignSelf="center">
+                  <Typography color="#0096FF" fontSize="24px" fontWeight="bold">
+                    ₹{onePackage?.pakage_amount?.amount}
                   </Typography>
-                  <Typography color="#FF8900" fontSize="8px" fontWeight="bold">
-                    Publisher Price: ₹354654
+                  <Typography
+                    color="#FF8900"
+                    fontSize="10px"
+                    fontWeight="bold"
+                    marginTop={-1}
+                  >
+                    per person
                   </Typography>
-                  <form action="/HolidayGuestDetail">
+                  {/* <form action="/HolidayGuestDetail">
                     <Box textAlign="right">
                       <Button
                         variant="contained"
@@ -572,7 +587,7 @@ const Bookingdetailpackage = () => {
                         Book Now
                       </Button>
                     </Box>
-                  </form>
+                  </form> */}
                 </Box>
               </Box>
             </Grid>
@@ -643,7 +658,7 @@ const Bookingdetailpackage = () => {
 
           <Box></Box>
           {/* end */}
-          <form action="/HolidayGuestDetail">
+          {/* <form action="/HolidayGuestDetail">
             <Box textAlign="center" mt={3}>
               <Button
                 variant="contained"
@@ -655,7 +670,7 @@ const Bookingdetailpackage = () => {
                 Book Now
               </Button>
             </Box>
-          </form>
+          </form> */}
         </Box>
         <Box className="header_top" my={3}>
           <Box>

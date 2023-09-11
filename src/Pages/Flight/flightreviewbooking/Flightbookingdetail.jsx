@@ -1,6 +1,6 @@
 import Divider from "@mui/material/Divider";
 import { Typography, Box, Grid, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "@mui/material/Link";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const Flightbookingdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [passengerAgreement, setPassengerAgreement] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
   const reducerState = useSelector((state) => state);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
@@ -33,11 +34,29 @@ const Flightbookingdetail = () => {
   const Passengers = reducerState?.passengers?.passengersData;
   //   const Passengers = sessionStorage.getItem("Passengers");
   //   console.log("Passengers", Passengers);
+  useEffect(() => {
+    console.log(
+      "reducerState?.flightBook?.flightBookDataGDS",
+      reducerState?.flightBook?.flightBookDataGDS
+    );
+
+    if (reducerState?.flightBook?.flightBookDataGDS?.Response) {
+      setLoading(false);
+      navigate("/Flightbookingconfirmation");
+    } else if (reducerState?.flightBook?.flightBookDataGDS?.Error) {
+      setLoading(false);
+      let error =
+        reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage;
+      alert(error);
+    } else {
+    }
+  }, [reducerState?.flightBook?.flightBookDataGDS]);
   function createMarkup(data) {
     return { __html: data };
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const payloadGDS = {
       ResultIndex: ResultIndex,
       Passengers: Passengers,
@@ -46,7 +65,7 @@ const Flightbookingdetail = () => {
       TokenId: reducerState?.ip?.tokenData,
       TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
     };
-    alert("Submitted");
+    //alert("Submitted");
     if (fareValue?.IsLCC === false) {
       dispatch(bookActionGDS(payloadGDS));
 
@@ -54,7 +73,7 @@ const Flightbookingdetail = () => {
     } else {
       alert("Book not allowed for LCCs. Please do Ticket directly");
     }
-    navigate("/Flightbookingconfirmation");
+    //navigate("/Flightbookingconfirmation");
   };
 
   return (
@@ -631,16 +650,22 @@ const Flightbookingdetail = () => {
               className="btn_booknow"
               variant="contained"
               type="submit"
-              disabled={!passengerAgreement || !paymentOption ? true : false}
+              disabled={
+                !passengerAgreement || !paymentOption
+                  ? true
+                  : loading
+                  ? true
+                  : false
+              }
             >
               {" "}
-              Generate Ticket{" "}
+              {loading ? "Loading..." : "Generate Ticket"}{" "}
             </Button>
           </Box>
         </form>
 
         <Typography color="#005778" fontWeight="bold" fontSize="18px" mt={5}>
-          Copyright © 2022 TRAVVOLT All Rights Reserved
+          Copyright © 2023 THE SKY TRAILS All Rights Reserved
         </Typography>
       </Box>
     </Box>

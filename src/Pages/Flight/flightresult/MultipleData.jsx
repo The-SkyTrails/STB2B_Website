@@ -29,7 +29,7 @@ const MultipleData = (props) => {
   const stop = props.stop;
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
-  console.log("Results", results);
+  // console.log("Results", results);
   const handleClick = (ResultIndex) => {
     console.log("Handel Click Index Key", ResultIndex);
     navigate("passengerdetail");
@@ -47,8 +47,10 @@ const MultipleData = (props) => {
       >
         {flight?.map((data, index) => {
           const img = data?.Airline?.AirlineCode;
-          const date = new Date(data?.Duration);
-          const time = date.toTimeString().slice(0, 5);
+
+          const time = `${Math.floor(data?.Duration / 60)}hr ${
+            data.Duration % 60
+          }min`;
 
           const dateString = data?.Origin?.DepTime;
           const date1 = new Date(dateString);
