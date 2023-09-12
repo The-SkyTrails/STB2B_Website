@@ -16,7 +16,7 @@ const Banner = () => {
     >
       {BanerImage.map(({ avatar }, index) => {
         return (
-          <Box w="100%" h="28%" className="bannerImgBox">
+          <Box w="100%" h="28%" className="bannerImgBox" key={index}>
             <img
               style={{ width: "100%", height: "100%" }}
               src={avatar}
