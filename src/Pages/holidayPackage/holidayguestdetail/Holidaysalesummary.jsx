@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Holidaysalesummary = () => {
   return (
-    <Box sx={{ flexGrow: 1 }} >
+    <Box sx={{ flexGrow: 1 }} marginTop={2}>
       <Box py={1}
         backgroundColor="white"
         boxShadow="1px 1px 8px gray"

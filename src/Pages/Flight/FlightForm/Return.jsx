@@ -1,13 +1,56 @@
-import React from "react";
+import {useState}from "react";
 import { Typography } from "@mui/material";
 import "./Return.css";
 import transfer from "../../../Images/transfer.png";
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
-import { Grid, GridItem, Flex } from "@chakra-ui/react";
+import { Grid, GridItem, Flex,Box } from "@chakra-ui/react";
 
 import { Stack } from "react-bootstrap";
+ const options = [
+   { label: "GPS", value: "1" },
+   { label: "Fly Dubai", value: "2" },
+   { label: "Air Arobia", value: "3" },
+   { label: "Zoom Air", value: "4" },
+   { label: "Other untl LCC", value: "5" },
+   { label: "Air Asia", value: "6" },
+   { label: "Air India Express", value: "7" },
+   { label: "Air Cost", value: "8" },
+   { label: "NokScoot", value: "9" },
+   { label: "Salman Air", value: "10" },
+   { label: "Inter Sky", value: "11" },
+   { label: "Triger Airways", value: "12" },
+   { label: "SpiceJet", value: "13" },
+   { label: "GOFIRTS", value: "14" },
+   { label: "Alliance Air", value: "15" },
+   { label: "Akasa Air", value: "16" },
+   { label: "Fly Scoot", value: "17" },
+   { label: "Indigo", value: "18" },
+   { label: "Bhutan Airlines", value: "19" },
+   { label: "TruJet", value: "20" },
+   { label: "Mega Maldives", value: "21" },
+ ];
 const Return = () => {
+    const [selected, setSelected] = useState([]);
+    const [selectAll, setSelectAll] = useState(false);
+    function handleCheckboxChange(event) {
+      const { value } = event.target;
+      if (selected.includes(value)) {
+        setSelected(selected.filter((item) => item !== value));
+      } else {
+        setSelected([...selected, value]);
+      }
+    }
+
+    function handleSelectAllChange(event) {
+      const { checked } = event.target;
+      setSelectAll(checked);
+      if (checked) {
+        setSelected(options.map((item) => item.label));
+      } else {
+        setSelected([]);
+      }
+    }
   return (
     <form action="" className="formFlightSearch">
       {/* Type of return  */}
@@ -208,189 +251,48 @@ const Return = () => {
         </div>
       </div>
 
-      <label
-        style={{
-          fontSize: "20px",
-          fontWeight: "400",
-          font: "Quicksand, Bold",
-          marginBottom: "20px",
-        }}
-      >
+      <label style={{ fontSize: "20px", fontWeight: "400" }}>
         Restrict my Search to:{" "}
-        <span style={{ color: "#00BDC4" }}>Select All / Unselect All</span>
+        <span style={{ color: "#00BDC4" }}>
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={handleSelectAllChange}
+            style={{ marginRight: "5px" }}
+          />
+          Select All / Unselect All
+        </span>
       </label>
 
-      {/* All select tags start from here */}
-      <Grid templateColumns="repeat(6, 1fr)" gap={6}>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>GPS</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Fly Dubai</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Air Arobia</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>zoom air</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Other intl LCC</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Air Asia</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Air India Express</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Air Cost</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>NokScoot</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Salman Air</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Inter Sky</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Triger Airways</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>SpiceJet</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>GOFIRTS</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Alliance Air</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Akasa Air</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Fly Scoot</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Indigo</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Bhutan Airlines</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>TruJet</span>
-        </GridItem>
-        <GridItem w="100%" h="30">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            defaultChecked="checked"
-          />{" "}
-          <span>Mega Maldives</span>
-        </GridItem>
-      </Grid>
+      <Box>
+        {/* <MultiSelect/> */}
+
+        <div>
+          {/* <label>
+              <input
+                type="checkbox"
+                checked={selectAll}
+                onChange={handleSelectAllChange}
+              />
+              Select All
+            </label> */}
+          <div className="grid-container">
+            {options.map(({ label, value }) => (
+              <label key={value}>
+                <input
+                  type="checkbox"
+                  value={label}
+                  checked={selectAll ? true : selected.includes(label)}
+                  onChange={handleCheckboxChange}
+                  disabled={selectAll}
+                  className="me-1"
+                />
+                {label}
+              </label>
+            ))}
+          </div>
+        </div>
+      </Box>
 
       <div className="row">
         <Flex direction="row" justifyContent="center">

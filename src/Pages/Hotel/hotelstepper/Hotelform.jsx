@@ -211,9 +211,9 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} py={2}>
+          <Grid container spacing={3} py={2}  alignItems="center">
             <Grid item md={6} sm={12} xs={12}>
-              <Box px={1}>
+              <Box>
                 <div className="nhotel_form_input">
                   <label className="form_lable">City</label>
                   <select
@@ -242,13 +242,13 @@ const HotelForm = () => {
                 </div>
               </Box>
             </Grid>
-            <Grid item md={6} sm={12} xs={12}>
+            <Grid item md={6} sm={12} xs={12}  >
               <Box display="flex">
-                <Box mx={3}>
+                <Box mx={1}>
                   <Typography className="or">OR</Typography>
                 </Box>
                 <PinDropIcon style={{ color: "#00BDC4" }} />
-                <Box mx={3}>
+                <Box mx={0}>
                   <Typography className="search_map">
                     <Link
                       href="https://www.google.co.in/maps/@27.2219713,92.0887287,7z"

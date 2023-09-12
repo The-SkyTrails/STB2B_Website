@@ -83,7 +83,6 @@ const Flight = () => {
               <Box
                 display="flex"
                 justifyContent="center"
-                // align="center"
                 w="25px"
                 h="25px"
                 borderRadius="50%"
