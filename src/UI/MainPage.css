@@ -18,6 +18,7 @@
    /* background-color: rgba(255, 255, 255, 0.8); */
   backdrop-filter: blur(1px);
   z-index: 10;
+  /* display: none; */
 }
 .componentsContainer {
   margin: auto;
