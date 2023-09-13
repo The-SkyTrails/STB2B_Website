@@ -1,23 +1,26 @@
-import React from 'react'
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {  Flex, Spacer, Text,HStack ,Box} from "@chakra-ui/react";
+import { Flex, Spacer, Text, HStack, Box } from "@chakra-ui/react";
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
 import HolidatLeftPackage from "../holidaypackageresult/HolidatLeftPackage";
-import Holidayguestinfo from './Holidayguestinfo'
-import Holidaysalesummary from './Holidaysalesummary';
-import './holidayguestdetail.css';
-import { styled } from '@mui/material/styles';
-import {Box as MuiBox} from '@mui/material';
-import Paper from '@mui/material/Paper';
+import Holidayguestinfo from "./Holidayguestinfo";
+import Holidaysalesummary from "./Holidaysalesummary";
+import "./holidayguestdetail.css";
+import { styled } from "@mui/material/styles";
+import { Box as MuiBox } from "@mui/material";
+import Paper from "@mui/material/Paper";
 
-import Divider from '@mui/material/Divider';
-import { Grid, Radio, Typography, Button } from '@mui/material';
-
-
-
+import Divider from "@mui/material/Divider";
+import { Grid, Radio, Typography, Button } from "@mui/material";
 
 
 const HolidayGuestDetail = () => {
+  const [personList, setPersonList] = useState([
+    { name: "", dob: "", gender: "" },
+  ]);
+  const[childCount,setchildCount]=useState(0)
+  const [adultCount,setadultCount]=useState(0)
+  console.log("personListtt",personList)
   return (
     <div>
       <div className="flightContainer">
@@ -116,12 +119,19 @@ const HolidayGuestDetail = () => {
           <Grid container spacing={3}>
             <Grid sm={12} xs={12} md={9} item>
               <MuiBox>
-                <Holidayguestinfo />
+                <Holidayguestinfo
+                  personList={personList}
+                  setPersonList={setPersonList}
+                  childCount={childCount}
+                  adultCount={adultCount}
+                  setchildCount={setchildCount}
+                  setadultCount={setadultCount}
+                />
               </MuiBox>
             </Grid>
             <Grid sm={12} xs={12} md={3} item>
               <MuiBox>
-                <Holidaysalesummary />
+                <Holidaysalesummary childCount={childCount} adultCount={adultCount} personList={personList}/>
               </MuiBox>
             </Grid>
           </Grid>
@@ -129,6 +139,6 @@ const HolidayGuestDetail = () => {
       </div>
     </div>
   );
-}
+};
 
-export default HolidayGuestDetail
+export default HolidayGuestDetail;

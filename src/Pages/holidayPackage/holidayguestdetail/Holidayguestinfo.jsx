@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Grid, } from "@mui/material";
+import { Box, Typography, Button, Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -12,23 +12,32 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import "./holidayguestdetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageBookingAction } from "../../../Redux/getHolidayBooking/packageBookingAction";
+import Custombutton from "../../../Custombuttom/Button";
 
-const Holidayguestinfo = () => {
+const Holidayguestinfo = ({
+  personList,
+  setPersonList,
+  childCount,
+  setchildCount,
+  adultCount,
+  setadultCount,
+}) => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   console.log("package Req", reducerState);
-  console.log("onePackageee",onePackage)
+  console.log("onePackageee", onePackage);
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
 
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
-  const [personList, setPersonList] = useState([
-    { name: "", dob: "", gender: "" },
-  ]);
+  // const [personList, setPersonList] = useState([
+  //   { name: "", dob: "", gender: "" },
+  // ]);
+
 
   const handlePersonChange = (e, index) => {
     const { name, value } = e.target;
@@ -37,16 +46,29 @@ const Holidayguestinfo = () => {
     setPersonList(list);
   };
 
-  console.log("personLIs", personList);
-
   const handlePersonRemove = (index) => {
+    const year = +personList[personList.length - 2].dob.substring(0, 4);
+   
+    console.log(year)
+    if (year < 2018) {
+      setadultCount((prev) => prev - 1);
+    } else {
+      setchildCount((prev) => prev - 1);
+    }
     const list = [...personList];
     list.splice(index, 1);
     setPersonList(list);
+     
   };
 
   const handlePersonAdd = () => {
     setPersonList([...personList, { name: "", dob: "", gender: "" }]);
+    const year = +personList[personList.length - 1].dob.substring(0, 4);
+    if (year < 2018) {
+      setadultCount((prev) => prev + 1);
+    } else {
+      setchildCount((prev) => prev + 1);
+    }
   };
 
   const handleBookingPackage = (event) => {
@@ -85,7 +107,7 @@ const Holidayguestinfo = () => {
     event.target.reset();
   };
 
-  console.log("personList", personList);
+  
 
   return (
     <Box>
@@ -94,29 +116,28 @@ const Holidayguestinfo = () => {
           <Typography className="holiday_txt">
             {onePackage?.pakage_title}
           </Typography>
-          <Typography className="holiday_txt_b">1 Room - 2 Adults</Typography>
-          <Typography className="holiday_txt_b">
+          {/* <Typography className="holiday_txt_b">
             Feb 28, 2023
             <Typography fontSize="10px" color="#FF8900" px={1}>
               4D/3N
             </Typography>
             Mar 3, 2023 / From New Delhi
-          </Typography>
+          </Typography> */}
         </Box>
         <Box className="main-head" mt={2}>
           <Typography className="holiday_txt">Traveller Details</Typography>
           <Typography className="holiday_txt_b" py={1}>
-            2 Travellers
+            {personList.length - 1} Travellers
             <Typography
               fontSize="14px"
               fontWeight="bold"
               color="#006FFF"
               px={1}
             >
-              - 1 Room | 2 Adults
+              {adultCount} Adults || {childCount} childrens
             </Typography>
           </Typography>
-          <Typography className="holiday_txt_v">Traveller 1 (Adult)</Typography>
+
           <Typography className="Top_txt" py={3}>
             Travellers
           </Typography>
@@ -294,7 +315,7 @@ const Holidayguestinfo = () => {
           <Typography className="holiday_txt" textDecoration="underline">
             Package Itinerary & Inclusions
           </Typography>
-          <Typography className="holiday_txt_b" py={1}>
+          {/* <Typography className="holiday_txt_b" py={1}>
             Itinerary
             <Typography
               fontSize="14px"
@@ -304,7 +325,7 @@ const Holidayguestinfo = () => {
             >
               / 2 Flight / 1 Hotel / 2 Transfers
             </Typography>
-          </Typography>
+          </Typography> */}
           {/* <Box border="1px solid red">
             <Box display="flex" justifyContent="space-between">
               <Typography
@@ -657,15 +678,17 @@ const Holidayguestinfo = () => {
               </Box>
             </Box>
           </Box> */}
-          {onePackage.detailed_ltinerary.map((item,index)=>{
-            return(
+          {onePackage.detailed_ltinerary.map((item, index) => {
+            return (
               <>
-              <Box key={index} >
-                  <Typography sx={{color:"orange",fontWeight:"bold"}}>Day{index+1}</Typography>
+                <Box key={index}>
+                  <Typography sx={{ color: "orange", fontWeight: "bold" }}>
+                    Day{index + 1}
+                  </Typography>
                   <Typography>{item}</Typography>
-              </Box>
+                </Box>
               </>
-            )
+            );
           })}
         </Box>
         <Box className="main-head" mt={2}>
@@ -848,15 +871,13 @@ const Holidayguestinfo = () => {
           </Typography>
         </Box>
         {/* <form action="/Holidayreviewbooking"> */}
-        <Box mt={2} textAlign="center">
-          <Button
-            variant="contained"
-            type="submit"
-            style={{ borderRadius: "10px" }}
-          >
-            Proceed to Booking Review
-          </Button>
-        </Box>
+        <Box display="flex" justifyContent="center" width={"100%"} marginTop={2}>
+            {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
+              Proceed to Booking Review
+            </Button> */}
+            <Custombutton title={"Proceed to Bokking Review"} />
+          </Box>
+      
       </form>
     </Box>
   );
