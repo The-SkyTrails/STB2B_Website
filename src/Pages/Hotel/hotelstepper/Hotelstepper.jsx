@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./hotelstepper.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Text,HStack } from "@chakra-ui/react";
 import Loader from "../../Loader/Loader";
 import Hotelform from "./Hotelform";
 
@@ -18,60 +18,95 @@ const Hotelstepper = () => {
     <div className="flightContainer">
       {/* step by step updating part */}
 
-      <Flex
+      <Box
         w="100%"
-        h="50"
-        mb="20"
-        borderRadius="20px"
-        m="auto"
-        className="shadow-sm p-3 mb-5 bg-white rounded "
+        display="flex"
+        justifyContent={"space-around"}
+        boxShadow="base"
+        border="1px solid gray"
+        borderRadius="10px"
       >
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">1</Text>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>1</Text>
           </Box>
-          <Text ml="10" fontWeight="bold">
-            Hotel Search
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">2</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Hotel Result
-          </Text>
-        </Flex>
-        <Spacer />
 
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">3</Text>
+          <Box color="#FDDA0D" fontWeight="bold">
+            Hotel Search
           </Box>
-          <Text ml="10" fontWeight="bold">
-            Guest Details
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">4</Text>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            // align="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>2</Text>
           </Box>
-          <Text ml="10" fontWeight="bold">
-            Review Booking
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">5</Text>
+
+          <Box fontWeight="normal">Hotel Result</Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>3</Text>
           </Box>
-          <Text ml="10" fontWeight="bold">
-            Booking Confirmation
-          </Text>
-        </Flex>
-      </Flex>
+
+          <Box fontWeight="normal">Guest Details</Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            // align="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>4</Text>
+          </Box>
+
+          <Box fontWeight="normal">Review Booking</Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            // align="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>5</Text>
+          </Box>
+
+          <Box fontWeight="normal">Booking Confirmation</Box>
+        </HStack>
+      </Box>
       <div>
         <Hotelform />
       </div>

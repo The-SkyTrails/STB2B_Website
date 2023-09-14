@@ -36,7 +36,7 @@ const Flight = () => {
       {loader ? (
         <Loader />
       ) : (
-        <div className="flightContainer">
+        <div className="flightContainer" style={{border:'2px solid red'}}>
           {/* step by step updating part */}
           <Box
             w="100%"
@@ -83,7 +83,6 @@ const Flight = () => {
               <Box
                 display="flex"
                 justifyContent="center"
-                // align="center"
                 w="25px"
                 h="25px"
                 borderRadius="50%"

@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Flex, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Spacer, Text, HStack, Box } from "@chakra-ui/react";
 
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
 import HolidatLeftPackage from "./HolidatLeftPackage";
@@ -48,22 +48,20 @@ import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import information from "../../../Images/information.png";
 
-import { Grid, Box, Typography, Button } from "@mui/material";
+import { Grid, Box as MuiBox, Typography, Button } from "@mui/material";
 import mainImage from "../../../Images/mainImage.png";
 import FlightIcon from "@mui/icons-material/Flight";
 import { useDispatch, useSelector } from "react-redux";
-import { clearHolidayReducer, searchOnePackageAction } from "../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
+import {
+  clearHolidayReducer,
+  searchOnePackageAction,
+} from "../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
 import { useEffect } from "react";
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
 
-
-
-
-  
-  
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
@@ -78,91 +76,132 @@ const HolidayPackageResult = () => {
     console.log(payload);
     dispatch(searchOnePackageAction(payload));
   };
-  
-  
+
   return (
     <div>
       <div className="flightContainer">
         {/* step by step updating part */}
 
-        <Flex
+        <Box
           w="100%"
-          h="50"
-          mb="20"
-          borderRadius="20px"
-          m="auto"
-          className="shadow-sm p-3 mb-5 bg-white rounded "
+          display="flex"
+          justifyContent={"space-around"}
+          boxShadow="base"
+          border="1px solid gray"
+          borderRadius="10px"
         >
-          <Flex w="19%" h="90%">
-            <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-              <Text ml="6px">1</Text>
+          <HStack p="5px">
+            <Box
+              display="flex"
+              justifyContent="center"
+              w="25px"
+              h="25px"
+              borderRadius="50%"
+              bg="#0096FF"
+              color="white"
+            >
+              <Text>1</Text>
             </Box>
-            <Text ml="10" fontWeight="bold">
-              Holiday Package Search
-            </Text>
-          </Flex>
-          <Spacer />
-          <Flex w="19%" h="90%">
-            <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-              <Text ml="6px">2</Text>
-            </Box>
-            <Text ml="10" fontWeight="bold">
-              Holiday Package Result
-            </Text>
-          </Flex>
-          <Spacer />
 
-          <Flex w="19%" h="90%">
-            <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-              <Text ml="6px">3</Text>
+            <Box color="#FDDA0D" fontWeight="bold">
+              Holiday Package Search
             </Box>
-            <Text ml="10" fontWeight="bold">
-              Guest Details
-            </Text>
-          </Flex>
-          <Spacer />
-          <Flex w="19%" h="90%">
-            <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-              <Text ml="6px">4</Text>
+          </HStack>
+          <HStack p="5px">
+            <Box
+              display="flex"
+              justifyContent="center"
+              // align="center"
+              w="25px"
+              h="25px"
+              borderRadius="50%"
+              bg="#0096FF"
+              color="white"
+            >
+              <Text>2</Text>
             </Box>
-            <Text ml="10" fontWeight="bold">
-              Review Booking
-            </Text>
-          </Flex>
-          <Spacer />
-          <Flex w="19%" h="90%">
-            <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-              <Text ml="6px">5</Text>
+
+            <Box fontWeight="normal">Holiday package Result</Box>
+          </HStack>
+          <HStack p="5px">
+            <Box
+              display="flex"
+              justifyContent="center"
+              w="25px"
+              h="25px"
+              borderRadius="50%"
+              bg="#0096FF"
+              color="white"
+            >
+              <Text>3</Text>
             </Box>
-            <Text ml="10" fontWeight="bold">
-              Booking Confirmation
-            </Text>
-          </Flex>
-        </Flex>
+
+            <Box fontWeight="normal">Guest Details</Box>
+          </HStack>
+          <HStack p="5px">
+            <Box
+              display="flex"
+              justifyContent="center"
+              // align="center"
+              w="25px"
+              h="25px"
+              borderRadius="50%"
+              bg="#0096FF"
+              color="white"
+            >
+              <Text>4</Text>
+            </Box>
+
+            <Box fontWeight="normal">Review Booking</Box>
+          </HStack>
+          <HStack p="5px">
+            <Box
+              display="flex"
+              justifyContent="center"
+              // align="center"
+              w="25px"
+              h="25px"
+              borderRadius="50%"
+              bg="#0096FF"
+              color="white"
+            >
+              <Text>5</Text>
+            </Box>
+
+            <Box fontWeight="normal">Booking Confirmation</Box>
+          </HStack>
+        </Box>
         <div>
           <Grid container spacing={3}>
             <Grid sm={12} xs={12} md={12} item>
-              <Box
+              <MuiBox
                 display="flex"
-                px={5}
+                alignItems="center"
+                justifyContent="flex-start"
                 backgroundColor="#F5F5F5"
                 boxShadow="1px 1px 8px gray"
+                borderRadius="10px"
+                paddingTop="6px"
+                paddingBottom="6px"
+                margin="15px 0px 15px 0px"
               >
-                <Box>
+                <MuiBox>
                   <Button sx={{ color: "black" }}>Sorting By :</Button>
-                </Box>
+                </MuiBox>
 
-                <Box>
-                  <Button sx={{ color: "black",marginLeft:'35px' }}>Price</Button>
-                </Box>
-              </Box>
-              <Box>
+                <MuiBox>
+                  <Button sx={{ color: "black" }} variant="outlined">
+                    Price
+                  </Button>
+                </MuiBox>
+              </MuiBox>
+              <MuiBox>
                 {/* HolidayPackagedetail  */}
                 {filteredPackage?.map((item, index) => {
                   return (
                     <>
-                      <Box
-                        p={5}
+                      <MuiBox
+                        p={4}
                         mt={3}
                         backgroundColor="#F5F5F5"
                         boxShadow="1px 1px 8px gray"
@@ -183,23 +222,24 @@ const HolidayPackageResult = () => {
                           }}
                         >
                           <Grid key={index}>
-                            <Box
+                            <MuiBox
                               display="flex"
                               sx={{
                                 justifyContent: "space-between",
                                 width: "50%",
                               }}
                             >
-                              <Box>
+                              <MuiBox>
                                 <img
                                   src={item?.pakage_img}
                                   style={{
                                     width: "100px",
                                     border: "1px solid gray",
+                                    borderRadius: "10px",
                                   }}
                                 />
-                              </Box>
-                              <Box
+                              </MuiBox>
+                              <MuiBox
                                 px={1}
                                 sx={{
                                   paddingRight: "35px",
@@ -226,8 +266,8 @@ const HolidayPackageResult = () => {
                                 >
                                   Details
                                 </Typography>
-                              </Box>
-                            </Box>
+                              </MuiBox>
+                            </MuiBox>
                           </Grid>
                           <Grid>
                             <div
@@ -384,21 +424,23 @@ const HolidayPackageResult = () => {
                             </div>
                           </Grid>
                           <Grid display="flex" justifyContent="space-between">
-                            <Box
+                            <MuiBox
                               display="flex"
                               justifyContent="space-between"
                               width="100%"
                             >
-                              <Box
+                              <MuiBox
                                 display="block"
                                 alignItems="center"
-                                textAlign="end"
+                                textAlign="center"
                               >
                                 <Typography
                                   color="#006FFF"
                                   fontSize="18px"
                                   fontWeight="bold"
                                 >
+                                  
+                                  <span>&#8377;</span>
                                   {item?.pakage_amount?.amount}
                                 </Typography>
                                 <Typography
@@ -420,15 +462,15 @@ const HolidayPackageResult = () => {
                                     </Typography>
                                   </Button>
                                 </form>
-                              </Box>
-                            </Box>
+                              </MuiBox>
+                            </MuiBox>
                           </Grid>
                         </Grid>
-                      </Box>
+                      </MuiBox>
                     </>
                   );
                 })}
-              </Box>
+              </MuiBox>
             </Grid>
           </Grid>
         </div>

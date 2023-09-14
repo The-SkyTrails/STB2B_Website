@@ -20,7 +20,7 @@ const Holidaystepper = () => {
             <Text ml="6px">1</Text>
           </Box>
           <Text ml="10" fontWeight="bold">
-            Holiday Package Search
+            Holiday Package Searchhhhhhhhhhhhhhhhhhhhhhhhhhhhhhgffhhgf
           </Text>
         </Flex>
         <Spacer />
