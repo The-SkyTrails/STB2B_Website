@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Holidaysalesummary = ({ childCount, adultCount, personList }) => {
+const Holidaysalesummary = ({ childCount, adultCount }) => {
   const [grandTotal, setgrandTotal] = useState(0);
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
@@ -70,10 +70,7 @@ const Holidaysalesummary = ({ childCount, adultCount, personList }) => {
               }}
             >
               ₹
-              {((personList.length - 1) *
-                onePackage?.pakage_amount?.amount *
-                0.05) +(
-                (personList.length - 1) * onePackage?.pakage_amount?.amount)}
+             943809
             </Typography>
             <Typography
               sx={{
@@ -108,10 +105,7 @@ const Holidaysalesummary = ({ childCount, adultCount, personList }) => {
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
               ₹
-              {(personList.length - 1) *
-                onePackage?.pakage_amount?.amount *
-                0.05 +
-                (personList.length - 1) * onePackage?.pakage_amount?.amount}
+              854u8
             </Typography>
           </Box>
         </Box>
@@ -134,16 +128,15 @@ const Holidaysalesummary = ({ childCount, adultCount, personList }) => {
               sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold" }}
             >
               {" "}
-              ₹{(personList.length - 1) *
-                onePackage?.pakage_amount?.amount} x {personList.length - 1}
-              Travellers
+              ₹
+              Travellers87478
             </Typography>
           </Box>
           <Box>
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹{(personList.length - 1) * onePackage?.pakage_amount?.amount}
+              ₹98543
             </Typography>
           </Box>
         </Box>
@@ -203,17 +196,13 @@ const Holidaysalesummary = ({ childCount, adultCount, personList }) => {
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
               ₹
-              {(personList.length - 1) *
-                onePackage?.pakage_amount?.amount *
-                0.05}
+              875498
             </Typography>
             <Typography
               sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold" }}
             >
               ₹
-              {(personList.length - 1) *
-                onePackage?.pakage_amount?.amount *
-                0.05}
+              9405354
             </Typography>
           </Box>
         </Box>
@@ -240,9 +229,7 @@ const Holidaysalesummary = ({ childCount, adultCount, personList }) => {
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
               ₹
-              {(personList.length - 1) *
-                onePackage?.pakage_amount?.amount *
-                0.05}
+              9554
             </Typography>
           </Box>
         </Box>

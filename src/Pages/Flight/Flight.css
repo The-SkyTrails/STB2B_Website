@@ -17,12 +17,3 @@
     margin: 20px;
 }
 
-@media screen and (min-width: 600px) {
-    .flightContainer {
-      /* Add styles specific to screens with a minimum width of 566px */
-      margin-left: -40px;
-      width: 100%;
-      
-    }
-    
-  }

@@ -13,12 +13,8 @@ import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
 const HolidayGuestDetail = () => {
-  const [personList, setPersonList] = useState([
-    { name: "", dob: "", gender: "" },
-  ]);
   const[childCount,setchildCount]=useState(0)
   const [adultCount,setadultCount]=useState(0)
-  console.log("personListtt",personList)
   return (
     <div>
       <div className="flightContainer">
@@ -122,7 +118,7 @@ const HolidayGuestDetail = () => {
             </Grid>
             <Grid sm={12} xs={12} md={3} item>
               <MuiBox>
-                <Holidaysalesummary childCount={childCount} adultCount={adultCount} personList={personList}/>
+                <Holidaysalesummary childCount={childCount} adultCount={adultCount} />
               </MuiBox>
             </Grid>
           </Grid>

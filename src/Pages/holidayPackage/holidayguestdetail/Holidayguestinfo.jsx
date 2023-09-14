@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import { Box, Typography, Button, Grid, TextField } from "@mui/material";
+import { VStack,Input,Select,HStack } from "@chakra-ui/react";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -9,12 +10,21 @@ import mainImage from "../../../Images/mainImage.png";
 import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
-import { MdDeleteForever } from 'react-icons/md';
+import { MdDeleteForever } from "react-icons/md";
 import "./holidayguestdetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageBookingAction } from "../../../Redux/getHolidayBooking/packageBookingAction";
-import { FaPlus } from 'react-icons/fa';
-const Holidayguestinfo = () => {
+import { deleteFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction";
+import { addFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction";
+import { FaPlus } from "react-icons/fa";
+import Custombutton from "../../../Custombuttom/Button";
+
+const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    dob: "",
+    gender: "male",
+  });
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const onePackage =
@@ -22,64 +32,40 @@ const Holidayguestinfo = () => {
   const reducerForm = reducerState?.form?.formEntries;
   console.log("package Req", reducerState);
   console.log("onePackageee", onePackage);
-  console.log("reducerForm",reducerForm)
+  console.log("reducerForm", reducerForm);
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
-
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
-  // const [personList, setPersonList] = useState([
-  //   { name: "", dob: "", gender: "" },
-  // ]);
-
-
-  
-    const handlePersonChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    };
-
+  const handlePersonChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handlePersonRemove = (index) => {
-    const year = +personList[personList.length - 2].dob.substring(0, 4);
-   
-    console.log(year)
-    if (year < 2018) {
-      setadultCount((prev) => prev - 1);
-    } else {
-      setchildCount((prev) => prev - 1);
-    }
-    const list = [...personList];
-    list.splice(index, 1);
-    setPersonList(list);
-     
+    // Dispatch an action to delete the form entry from Redux
+    dispatch(deleteFormEntry(index));
   };
-    const handlePersonDelete = (index) => {
-      // Dispatch an action to delete the form entry from Redux
-      dispatch(deleteFormEntry(index));
-    };
 
- 
-   const handlePersonAdd = () => {
-     dispatch(addFormEntry(formData));
-     const year= reducerForm[1].dob;
-     console.log(year)
-     if(year<2018){
-      setadultCount((prev)=>prev+1)
-     }
-     else{
-      setchildCount((prev)=>prev+1)
-     }
-     setFormData({
-       name: "",
-       dob: "",
-       gender: "",
-     });
-   };
+  const handlePersonAdd = () => {
+    dispatch(addFormEntry(formData));
+    const year = reducerForm[1].dob;
+    console.log(year);
+    if (year < 2018) {
+      setadultCount((prev) => prev + 1);
+    } else {
+      setchildCount((prev) => prev + 1);
+    }
+    setFormData({
+      name: "",
+      dob: "",
+      gender: "",
+    });
+  };
 
   const handleBookingPackage = (event) => {
     event.preventDefault();
@@ -88,7 +74,7 @@ const Holidayguestinfo = () => {
     const payload = {
       pakageid: packageId,
       userId: userId,
-      travellers: [personList],
+      travellers: [reducerForm],
       contact_details: {
         email: formData.get("email"),
         fullName: formData.get("fullName"),
@@ -117,15 +103,12 @@ const Holidayguestinfo = () => {
     event.target.reset();
   };
 
-  
-
   return (
     <Box>
       <form onSubmit={handleBookingPackage}>
         <Box className="main-head" marginTop={2}>
           <Typography className="holiday_txt">
             {onePackage?.pakage_title}
-          
           </Typography>
           {/* <Typography className="holiday_txt_b">
             Feb 28, 2023
@@ -149,149 +132,132 @@ const Holidayguestinfo = () => {
             </Typography> */}
           </Typography>
 
-          <Typography className="Top_txt" py={3}>
+          <Typography className="Top_txt" marginBottom={1}>
             Travellers
           </Typography>
-          {personList.map((singleService, index) => (
-        <div key={index} className="services">
-        <Box>
-          <Grid container spacing={1} my={1} style={{ marginBottom: '8px' }}>
-            <Grid item xs={12} sm={12} lg={4} mx={-1.7}>
-              <Box className="topest_field">
-                <label className="label_field">
-                  Name<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                    className="input_decor"
-                    type="text"
-                    placeholder="Enter your name"
-                    name="name"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={12} lg={4} mx={0}>
-              <Box className="topest_field">
-                <label className="label_field">
-                  Date of Birth<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                    className="input_decor"
-                    type="date"
-                    name="dob"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={12} lg={3} mx={-2}>
-              <Box className="topest_field">
-                <label className="label_field">
-                  Gender<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" style={{ display: 'flex', alignItems: 'center' }}>
-                  <select
-                    name="gender"
-                    className="input_decor"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px', backgroundColor: 'transparent' }}
-                  >
-                    <option>Select</option>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                    <option value="other">Other</option>
-                  </select>
-                </Box>
-              </Box>
-            </Grid>
-            <Box
-              className="second_division"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              {personList.length - 1 === index && personList.length < 9 && (
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={handlePersonAdd}
-                  style={{height:'35px',marginTop:'14px',marginRight:'3px',width: '25px'}}
-                >
-                  <FaPlus />
-                </Button>
-              )}
-              {personList.length !== 1 && (
-            
-                 <MdDeleteForever onClick={() => handlePersonRemove(index)} style={{fontSize:'30px',marginTop:'18px'}}/>
-                
-              )}
+          <HStack spacing={4}>
+            <Box>
+              <Input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handlePersonChange}
+                placeholder="Name"
+              />
             </Box>
-          </Grid>
-        </Box>
-      </div>
-      
-         
-          ))}
+            <Box>
+              <Input
+                type="text"
+                name="dob"
+                type="date"
+                value={formData.dob}
+                onChange={handlePersonChange}
+                placeholder="Date of Birth"
+              />
+            </Box>
+            <Box>
+              <Select
+                name="gender"
+                value={formData.gender}
+                onChange={handlePersonChange}
+                placeholder="Select Gender"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </Select>
+            </Box>
+            <Button  onClick={handlePersonAdd}>
+              Submit
+            </Button>
+          </HStack>
+          {reducerForm.map((singleService, index) => {
+            return (
+              <>
+                <Box key={index} marginBottom={2}></Box>
+              </>
+            );
+          })}
 
           <Box py={1}>
             <Typography fontSize="16px" fontWeight="bold" color="#006FFF">
               Please Enter Contact Details
             </Typography>
             <Box mt={2} display="flex">
-             
-
-            
               <Grid item xs={12} sm={12} lg={4} mx={-1.7}>
-              <Box className="topest_field">
-                <label className="label_field">
-                Email:<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                     className="input_decor"
-                     type="email"
-                     name="email"
-                     id="departure"
-                     // className="deaprture_input"
-                     placeholder="abc@gmail.com"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
-              </Box>
-            </Grid>
-
-             
-              <Box className="input_shadow" style={{ display: 'flex', alignItems: 'center' }}>
-                  <select
-                    name="code"
-                    className="input_decor"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px', backgroundColor: 'transparent' }}
+                <Box className="topest_field">
+                  <label className="label_field">
+                    Email:<span style={{ color: "red" }}>*</span>
+                  </label>
+                  <Box
+                    className="input_shadow"
+                    ml={1}
+                    style={{ display: "flex", alignItems: "center" }}
                   >
-                    <option value={10}>Mobile Code: *</option>
-                    <option value={20}>+91</option>
-                    <option value={30}>87</option>
-                  </select>
+                    <input
+                      className="input_decor"
+                      type="email"
+                      name="email"
+                      id="departure"
+                      // className="deaprture_input"
+                      placeholder="abc@gmail.com"
+                      // onChange={(e) => handlePersonChange(e, index)}
+                      style={{
+                        border: "none",
+                        outline: "none",
+                        flex: 1,
+                        padding: "8px",
+                      }}
+                    />
+                  </Box>
                 </Box>
-               
-              <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                   className="input_decor"
-                   type="text"
-                   name="phone_number"
-                   // className="deaprture_input"
-                   placeholder="Mobile No. *"
-                     id="departure"
-                     // className="deaprture_input"
+              </Grid>
 
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
+              <Box
+                className="input_shadow"
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <select
+                  name="code"
+                  className="input_decor"
+                  // onChange={(e) => handlePersonChange(e, index)}
+                  style={{
+                    border: "none",
+                    outline: "none",
+                    flex: 1,
+                    padding: "8px",
+                    backgroundColor: "transparent",
+                  }}
+                >
+                  <option value={10}>Mobile Code: *</option>
+                  <option value={20}>+91</option>
+                  <option value={30}>87</option>
+                </select>
+              </Box>
+
+              <Box
+                className="input_shadow"
+                ml={1}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <input
+                  className="input_decor"
+                  type="text"
+                  name="phone_number"
+                  // className="deaprture_input"
+                  placeholder="Mobile No. *"
+                  id="departure"
+                  // className="deaprture_input"
+
+                  // onChange={(e) => handlePersonChange(e, index)}
+                  style={{
+                    border: "none",
+                    outline: "none",
+                    flex: 1,
+                    padding: "8px",
+                  }}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
