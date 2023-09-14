@@ -13,6 +13,8 @@ import "./holidayguestdetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageBookingAction } from "../../../Redux/getHolidayBooking/packageBookingAction";
 import Custombutton from "../../../Custombuttom/Button";
+import { addFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction";
+import { deleteFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction";
 
 const Holidayguestinfo = ({
   personList,
@@ -22,12 +24,19 @@ const Holidayguestinfo = ({
   adultCount,
   setadultCount,
 }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    dob: "",
+    gender: "",
+  });
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+  const reducerForm = reducerState?.form?.formEntries;
   console.log("package Req", reducerState);
   console.log("onePackageee", onePackage);
+  console.log("reducerForm",reducerForm)
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
@@ -39,12 +48,15 @@ const Holidayguestinfo = ({
   // ]);
 
 
-  const handlePersonChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...personList];
-    list[index][name] = value;
-    setPersonList(list);
-  };
+  
+    const handlePersonChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+
 
   const handlePersonRemove = (index) => {
     const year = +personList[personList.length - 2].dob.substring(0, 4);
@@ -60,16 +72,28 @@ const Holidayguestinfo = ({
     setPersonList(list);
      
   };
+    const handlePersonDelete = (index) => {
+      // Dispatch an action to delete the form entry from Redux
+      dispatch(deleteFormEntry(index));
+    };
 
-  const handlePersonAdd = () => {
-    setPersonList([...personList, { name: "", dob: "", gender: "" }]);
-    const year = +personList[personList.length - 1].dob.substring(0, 4);
-    if (year < 2018) {
-      setadultCount((prev) => prev + 1);
-    } else {
-      setchildCount((prev) => prev + 1);
-    }
-  };
+ 
+   const handlePersonAdd = () => {
+     dispatch(addFormEntry(formData));
+     const year= reducerForm[1].dob;
+     console.log(year)
+     if(year<2018){
+      setadultCount((prev)=>prev+1)
+     }
+     else{
+      setchildCount((prev)=>prev+1)
+     }
+     setFormData({
+       name: "",
+       dob: "",
+       gender: "",
+     });
+   };
 
   const handleBookingPackage = (event) => {
     event.preventDefault();
@@ -115,6 +139,7 @@ const Holidayguestinfo = ({
         <Box className="main-head" marginTop={2}>
           <Typography className="holiday_txt">
             {onePackage?.pakage_title}
+          
           </Typography>
           {/* <Typography className="holiday_txt_b">
             Feb 28, 2023
@@ -127,21 +152,21 @@ const Holidayguestinfo = ({
         <Box className="main-head" mt={2}>
           <Typography className="holiday_txt">Traveller Details</Typography>
           <Typography className="holiday_txt_b" py={1}>
-            {personList.length - 1} Travellers
-            <Typography
+            {reducerForm.length} Travellers
+            {/* <Typography
               fontSize="14px"
               fontWeight="bold"
               color="#006FFF"
               px={1}
             >
               {adultCount} Adults || {childCount} childrens
-            </Typography>
+            </Typography> */}
           </Typography>
 
           <Typography className="Top_txt" py={3}>
             Travellers
           </Typography>
-          {personList.map((singleService, index) => (
+          {reducerForm.map((singleService, index) => (
             <div key={index} className="services" py={1}>
               <Box>
                 <Grid container spacing={3} my={1}>
@@ -153,11 +178,10 @@ const Holidayguestinfo = ({
                       </label>
                       <Box className="input_shadow" ml={3}>
                         <input
-                          className="input_decor"
                           type="text"
-                          placeholder="Enter your name"
                           name="name"
-                          onChange={(e) => handlePersonChange(e, index)}
+                          value={formData.name}
+                          onChange={handlePersonChange}
                         />
                       </Box>
                     </Box>
@@ -169,10 +193,10 @@ const Holidayguestinfo = ({
                       </label>
                       <Box className="input_shadow" ml={3}>
                         <input
-                          className="input_decor"
                           type="date"
                           name="dob"
-                          onChange={(e) => handlePersonChange(e, index)}
+                          value={formData.dob}
+                          onChange={handlePersonChange}
                         />
                       </Box>
                     </Box>
@@ -186,8 +210,8 @@ const Holidayguestinfo = ({
                       <Box className="input_shadow" ml={3}>
                         <select
                           name="gender"
-                          className="input_decor"
-                          onChange={(e) => handlePersonChange(e, index)}
+                          value={formData.gender}
+                          onChange={handlePersonChange}
                         >
                           <option>Select</option>
                           <option value="female">Female</option>
@@ -203,21 +227,22 @@ const Holidayguestinfo = ({
                   className="second_division"
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  {personList.length - 1 === index && personList.length < 9 && (
-                    <Button
-                      variant="contained"
-                      type="button"
-                      onClick={handlePersonAdd}
-                    >
-                      <span>+ Add a Person</span>
-                    </Button>
-                  )}
-                  {personList.length !== 1 && (
+                  {reducerForm.length - 1 === index &&
+                    reducerForm.length < 9 && (
+                      <Button
+                        variant="contained"
+                        type="button"
+                        onClick={handlePersonAdd}
+                      >
+                        <span>+Add a Person</span>
+                      </Button>
+                    )}
+                  {reducerForm.length !== 1 && (
                     <Button
                       variant="contained"
                       color="warning"
                       type="button"
-                      onClick={() => handlePersonRemove(index)}
+                      onClick={() => handlePersonDelete(index)}
                     >
                       <span>- Remove</span>
                     </Button>
@@ -678,7 +703,7 @@ const Holidayguestinfo = ({
               </Box>
             </Box>
           </Box> */}
-          {onePackage.detailed_ltinerary.map((item, index) => {
+          {onePackage?.detailed_ltinerary?.map((item, index) => {
             return (
               <>
                 <Box key={index}>
@@ -871,13 +896,17 @@ const Holidayguestinfo = ({
           </Typography>
         </Box>
         {/* <form action="/Holidayreviewbooking"> */}
-        <Box display="flex" justifyContent="center" width={"100%"} marginTop={2}>
-            {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          width={"100%"}
+          marginTop={2}
+        >
+          {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
               Proceed to Booking Review
             </Button> */}
-            <Custombutton title={"Proceed to Bokking Review"} />
-          </Box>
-      
+          <Custombutton title={"Proceed to Bokking Review"} />
+        </Box>
       </form>
     </Box>
   );

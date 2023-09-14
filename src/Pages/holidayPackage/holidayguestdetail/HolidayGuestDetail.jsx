@@ -12,8 +12,6 @@ import Paper from "@mui/material/Paper";
 
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
-
-
 const HolidayGuestDetail = () => {
   const [personList, setPersonList] = useState([
     { name: "", dob: "", gender: "" },

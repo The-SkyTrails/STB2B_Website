@@ -29,6 +29,7 @@ import { visaDataReducer } from "./getVisa/visaDataReducer";
 import { packageBookingReducer } from "./HolidayBookingRequest/bookingHolidayReducer";
 import { updatePackageReducer } from "./Auth/updatePackage/packageUpdateReducer";
 import { getPackageBookingReducer } from "./getHolidayBooking/packageBookingReducer";
+import formReducer from "./HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsReducer";
 
 const appReducer = combineReducers({
   logIn: logInReducer,
@@ -59,6 +60,7 @@ const appReducer = combineReducers({
   getForex4Customer: forexData4CustomerReducer,
   getBusResult: busSearchReducer,
   getVisaData: visaDataReducer,
+  form: formReducer,
 });
 
 const rootReducer = (state, action) => {

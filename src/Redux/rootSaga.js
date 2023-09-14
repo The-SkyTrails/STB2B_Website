@@ -26,6 +26,7 @@ import { getVisaRequestWatcher } from "./Saga/visaRequestSaga";
 import { userVisaWatcher } from "./Saga/visaDataSaga";
 import { getHolidayBookingWatcher } from "./Saga/packageBookingSaga";
 import { hotelSearchWatcher } from "./Saga/hotelSaga";
+import { watchFormSubmission } from "./Saga/HolidayPackageTravellerDetailsSaga";
 
 export function* rootSaga() {
   yield all([
@@ -59,5 +60,6 @@ export function* rootSaga() {
     getHolidayBookingWatcher(),
     hotelSearchWatcher(),
     getHolidayBookingWatcher(),
+    watchFormSubmission()
   ]);
 }
