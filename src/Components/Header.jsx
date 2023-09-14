@@ -5,14 +5,18 @@ import "./Header.css";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Paper, makeStyles } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import STLOGO from "../Images/ST-Main-Logo.png";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
 import axios from "axios";
+
 import {
   FormControl,
   FormLabel,
@@ -31,6 +35,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+
 const Header = () => {
   const [scrollYvalue, setScrollYValue] = useState(0);
   const reducerState = useSelector((state) => state);
@@ -108,146 +114,177 @@ const Header = () => {
     handleCloseModal();
   };
   return (
-    <div className={scrollYvalue > 45 ? "header_scroll" : "header"}>
-      <div>
-        <a href="/">
-          <img
-            src={STLOGO}
-            style={{ width: "200px", height: "70px" }}
-            className="mt-2 ms-2"
-            alt="logo"
-          />
-        </a>
+    <div className={scrollYvalue > 45 ? "header_scroll" : "header"} >
+    <div >
+      <a href="/">
+        <img
+          src={STLOGO}
+          style={{ width: "90%", height: "70px" }}
+          className="mt-2 ms-2"
+          alt="logo"
+        />
+      </a>
+    </div>
+  
+    <div className="welcome">
+      <p>Contect Your Representative</p>
+      <p className="welPrice">
+        Cash Balance: ₹ {reducerState?.logIn?.loginData?.data?.data?.balance}
+      </p>
+      <button  onClick={handleOpenModal}>Recharge</button>
+  
+      <div style={{ marginBottom: "25px", height: "60px" }}>
+        <Box marginTop={3}>
+          <Typography
+            sx={{
+              color: "#2525250",
+              fontSize: "15px",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            Welcome{" "}
+          </Typography>
+          <Typography
+            sx={{
+              color: "#0052D0",
+              fontSize: "22px",
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+          >
+            {reducerState?.logIn?.loginData?.data?.data?.username}
+          </Typography>
+        </Box>
       </div>
-
-      <div className="welcome">
-        <p>Contect Your Representative</p>
-        <p className="welPrice">
-          Cash Balance: ₹ {reducerState?.logIn?.loginData?.data?.data?.balance}
-        </p>
-        <button onClick={handleOpenModal}>Recharge</button>
-
-        <div style={{ marginBottom: "15px" }}>
-          <Box marginTop={3}>
-            <Typography
-              sx={{
-                color: "#2525250",
-                fontSize: "15px",
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              Welcome{" "}
-            </Typography>
-            <Typography
-              sx={{
-                color: "#0052D0",
-                fontSize: "22px",
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              {reducerState?.logIn?.loginData?.data?.data?.username}
-            </Typography>
-          </Box>
-        </div>
-        <div
+  
+      <div
+        style={{
+          marginLeft: "-25px",
+        }}
+      >
+        <ArrowDropDownIcon
+          onClick={handleClick}
+          id="menu"
+          aria-controls={open ? "menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          cursor="pointer"
+        />
+        <Menu
+          id="menu"
+          MenuListProps={{
+            "aria-labelledby": "fade-button",
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          TransitionComponent={Fade}
+        >
+          <MenuItem onClick={handleSubmit}>
+            {reducerState?.logIn?.loginData?.data?.data ? "Logout" : "Login"}
+          </MenuItem>
+          <MenuItem onClick={editPackage}>My Package</MenuItem>
+        </Menu>
+      </div>
+    </div>
+  
+    <Modal
+      open={openModal}
+      onClose={handleCloseModal}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
           style={{
-            marginLeft: "-25px",
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "-1rem",
           }}
         >
-          <ArrowDropDownIcon
-            onClick={handleClick}
-            id="menu"
-            aria-controls={open ? "menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            cursor="pointer"
-          />
-          <Menu
-            id="menu"
-            MenuListProps={{
-              "aria-labelledby": "fade-button",
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            TransitionComponent={Fade}
-          >
-            <MenuItem onClick={handleSubmit}>
-              {reducerState?.logIn?.loginData?.data?.data ? "Logout" : "Login"}
-            </MenuItem>
-            <MenuItem onClick={editPackage}>My Package</MenuItem>
-          </Menu>
-        </div>
-      </div>
-      <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
           <Typography
-            id="modal-modal-title"
             variant="h6"
             component="h2"
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "-1rem",
+              cursor: "pointer",
+              textDecoration: "none", // Remove underline by default
+              transition: "text-decoration 0.3s ease", // Smooth transition
             }}
           >
-            <span>Enter Payment Detail</span>
-            <CloseIcon
-              onClick={handleCloseModal}
-              style={{ cursor: "pointer" }}
-            />
+            Enter Payment Detail
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+  
+          <CloseIcon
+            onClick={handleCloseModal}
+            style={{ cursor: "pointer" }}
+          />
+        </Typography>
+  
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+  
+          <Paper elevation={3} style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
             <form onSubmit={handlePayment}>
-              <FormControl>
+  
+              <FormControl fullWidth sx={{ marginBottom: 2 }}>
                 <FormLabel>Name</FormLabel>
-                <Input
+                <OutlinedInput
                   type="text"
-                  value={reducerState?.logIn?.loginData?.data?.data?.username}
+                  value={reducerState?.logIn?.loginData?.data?.data?.username || ''}
                   readOnly
+                  sx={{ width: '100%' }}
                 />
               </FormControl>
-
-              <FormControl>
+  
+  
+              <FormControl fullWidth sx={{ marginBottom: 2 }}>
                 <FormLabel>Email address</FormLabel>
-                <Input
+                <OutlinedInput
                   type="email"
-                  value={reducerState?.logIn?.loginData?.data?.data?.email}
+                  value={reducerState?.logIn?.loginData?.data?.data?.email || ''}
                   readOnly
+                  placeholder="Enter your email"
+                  sx={{ width: '100%' }}
                 />
               </FormControl>
-
-              <FormControl>
-                <FormLabel>Amout</FormLabel>
-                <Input
+  
+              <FormControl fullWidth sx={{ marginBottom: 6 }}>
+                <FormLabel>Amount</FormLabel>
+                <OutlinedInput
+  
+                  startAdornment={<InputAdornment position="start">₹</InputAdornment>}
+  
                   type="text"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
+                  sx={{ width: '100%' }}
                 />
               </FormControl>
-
-              <Button variant="contained" type="submit">
-                Recharge Wallet
-              </Button>
-              <Button
-                style={{ background: "red" }}
-                variant="contained"
-                onClick={handleCloseModal}
-              >
-                Cancel
-              </Button>
+  
+              <Box display="flex" justifyContent="space-between">
+                <Button variant="contained" type="submit" sx={{ margin: 0.10 }}>
+                  Recharge Wallet
+                </Button>
+                <Button variant="contained"
+  
+                  onClick={handleCloseModal}
+                  sx={{ margin: 0.5, backgroundColor: 'red', margin: 0.10 }}>
+                  Cancel
+                </Button>
+  
+              </Box>
             </form>
-          </Typography>
-        </Box>
-      </Modal>
-    </div>
+          </Paper>
+  
+        </Typography>
+      </Box>
+    </Modal>
+  </div>
+  
+  
   );
 };
 

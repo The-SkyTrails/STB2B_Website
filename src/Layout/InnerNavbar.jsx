@@ -7,7 +7,7 @@ import NavBarBox from "../Components/NavBarBox";
 
 function InnerNavbar() {
   return (
-    <Flex className="innerNav" >
+    <div className="innerNav" style={{border:'2px solid black'}}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => {
         return (
           <Flex
@@ -40,7 +40,7 @@ function InnerNavbar() {
           /* </Square> */
         }
       })}
-    </Flex>
+    </div>
   );
 }
 
