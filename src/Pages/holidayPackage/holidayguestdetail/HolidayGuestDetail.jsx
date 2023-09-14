@@ -116,7 +116,7 @@ const HolidayGuestDetail = () => {
           <Grid container spacing={3}>
             <Grid sm={12} xs={12} md={9} item>
               <MuiBox>
-                <Holidayguestinfo />
+                <Holidayguestinfo/>
               </MuiBox>
             </Grid>
             <Grid sm={12} xs={12} md={3} item>

@@ -1,128 +1,119 @@
 import React, { useState } from 'react';
 import { Typography, Button, Box, Grid } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import {createVisaAction} from "../../Redux/visaRequest/actionVisaRequest"
+import { createVisaAction } from "../../Redux/visaRequest/actionVisaRequest"
 
 const Visaform = () => {
     const dispatch = useDispatch();
-    
+
     const [formData, setFormData] = useState({
-        name: "", 
-        email: "", 
-        mobile: null, 
-        destination: "", 
+        name: "",
+        email: "",
+        mobile: null,
+        destination: "",
         visaType: "",
     });
     const handleChange = (e) => {
         setFormData({
-          ...formData,
-          [e.target.name]: e.target.value,
+            ...formData,
+            [e.target.name]: e.target.value,
         });
-      };
+    };
 
     const handleVisaRequest = (event) => {
         event.preventDefault();
-       
+
         const payload = {
-        name: formData.name, 
-        email: formData.email, 
-        mobile: formData.mobile,  
-        destination: formData.destination, 
-        visaType: formData.visaType,
+            name: formData.name,
+            email: formData.email,
+            mobile: formData.mobile,
+            destination: formData.destination,
+            visaType: formData.visaType,
         };
         console.log("formData", formData);
         dispatch(createVisaAction(payload));
 
         event.target.reset();
-      };
+    };
     return (
         <div className='flightContainer'>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#252525' }} textAlign='center'>Apply for Visa Online</Typography>
-            <form onSubmit={handleVisaRequest} >
-            <div className="container">
-                <div className="row">
-                    <div className="col-xs-12 col-md-3">
-                        <div className="form_input">
-                            <label className="form_lable">Name</label>
-                            <input
-                            type="text"
-                            name="name"
-                            placeholder='Enter Your Name'
-                            onChange={handleChange}
-                        ></input>
+            <form onSubmit={handleVisaRequest}>
+                <div className="container" style={{ width: '90%', margin: 'auto' }}>
+                    <div className="row" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                        {/* For all screen sizes, display one column */}
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder='Enter Your Name'
+                                    onChange={handleChange}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder='Enter Email'
+                                    onChange={handleChange}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Mobile Number</label>
+                                <input
+                                    type="number"
+                                    name="mobile"
+                                    placeholder='Enter Mobile Number'
+                                    onChange={handleChange}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Select Destination</label>
+                                <select
+                                    name="destination"
+                                    className="form_input_select"
+                                    value={formData.destination}
+                                    onChange={handleChange}
+                                >
+                                    <option defaultChecked>Select Destination</option>
+                                    <option value="India">India</option>
+                                    <option value="US">US</option>
+                                    <option value="Russia">Russia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Select Visa Type</label>
+                                <select
+                                    name="visaType"
+                                    className="form_input_select"
+                                    value={formData.visaType}
+                                    onChange={handleChange}
+                                >
+                                    <option defaultChecked>Select Visa Type</option>
+                                    <option value="Tourist Visa">Tourist Visa</option>
+                                    <option value="Employment Visa">Employment Visa</option>
+                                    <option value="Student Visa">Student Visa</option>
+                                    <option value="Business Visa">Business Visa</option>
+                                    <option value="Transit Visa">Transit Visa</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-xs-12 col-md-3">
-                        <div className="form_input">
-                            <label className="form_lable">Email</label>
-                            <input
-                            type="email"
-                            name="email"
-                            placeholder='Enter Email'
-                            onChange={handleChange}
-                        ></input>
-                        </div>
-                    </div>
-                </div>
-                <div className="row" style={{ display: 'flex', alignItems: 'center' }}>
-                    <div className="col-xs-12 col-md-2">
-                        <div className="form_input">
-                            <label className="form_lable">Mobile Number</label>
-                            <input
-                            type="number"
-                            name="mobile"
-                            placeholder='Enter Mobile Number'
-                            onChange={handleChange}
-                        ></input>
-                        </div>
-                    </div>
-                    <div className="col-xs-12 col-md-3">
-                        <div className="form_input">
-                            <label className="form_lable">Select Destination</label>
-                          
-                            <select
-                name="destination"
-                className="form_input_select"
-                value={formData.destination}
-                onChange={handleChange}
-              >
-                <option defaultChecked>Select Destination</option>
-                <option value="India">India</option>
-                <option value="US">US</option>
-                <option value="Russia">Russia</option>
-              </select>
-                        </div>
-                    </div>
-                    <div className="col-xs-12 col-md-3">
-                        <div className="form_input">
-                            <label className="form_lable">Select Visa Type</label>
-                           
-                            <select
-                name="visaType"
-                className="form_input_select"
-                value={formData.visaType}
-                onChange={handleChange}
-              >
-                <option defaultChecked>Select Visa Type</option>
-                <option value="Tourist Visa ">Tourist Visa </option>
-                <option value="Employment Visa ">Employment Visa </option>
-                <option value="Student Visa ">Student Visa </option>
-                <option value="Business Visa">Business Visa</option>
-                <option value="Transit Visa ">Transit Visa </option>
-              </select>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-                <div className="row">
-                    <div className="col-xs-12">
-                        <Typography sx={{ fontSize: '16px', color: '#FF8900', fontWeight: 'bold' }} textAlign='left'>Note : All Document Required</Typography>
-                       
+                    <div className="row" >
+                        <div className="col-xs-12">
+                            <Typography sx={{ fontSize: '13px', color: '#FF8900', fontWeight: 'bold' }} textAlign='left'>Note : All Document Required</Typography>
                             <Box display="flex" justifyContent="center">
-
                                 <Button
                                     variant="contained"
                                     my={4}
@@ -134,12 +125,11 @@ const Visaform = () => {
                                     Apply now →
                                 </Button>
                             </Box>
-
-                        
+                        </div>
                     </div>
                 </div>
-            </div>
             </form>
+
             <Box sx={{ flexGrow: 1 }} mb={5}>
                 <Grid container spacing={2} columns={16}>
                     <Grid item xs={5}>

@@ -20,7 +20,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
         onMouseLeave={() => setHover(false)}
       >
         <Center pt="10px">
-          <div>
+          <div className="img">
             <img src={avatar} alt={name} className="avatarImage" />
           </div>
         </Center>
