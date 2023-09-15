@@ -51,7 +51,7 @@ const Visaform = () => {
 
     if (
       !formData.destination ||
-      formData.destination === "Destination is required"
+      formData.destination === "Select Destination"
     ) {
       newErrors.destination = "Destination is required";
     }
