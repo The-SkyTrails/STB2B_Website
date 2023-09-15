@@ -125,6 +125,18 @@ function api() {
       },
     });
   };
+  const twoWaySearch = async (payload) => {
+    // console.log({ payload, emtPayload });
+    return axios({
+      method: "POST",
+      url: "/travvolt/flight/search/return",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   const oneWayEMTSearch = (payload) => {
     console.log("Paayload EMT Search", payload);
@@ -400,6 +412,7 @@ function api() {
     markUpStatus,
     passengerData,
     oneWaySearch,
+    twoWaySearch,
     oneWayEMTSearch,
     userB2BLogin,
     flightRuleSearch,

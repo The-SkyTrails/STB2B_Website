@@ -31,3 +31,19 @@ export const quoteAction = (data) => {
     };
   }
 };
+
+export const fetchReturnQuote = (data) => {
+  return {
+    type: types.RETURN_QUOTE_SUCCESS,
+    payload: data,
+  };
+};
+
+export const returnQuoteAction = (data) => {
+  if (data) {
+    return {
+      type: types.RETURN_QUOTE_REQUEST,
+      payload: data,
+    };
+  }
+};

@@ -32,10 +32,10 @@ export default function Popularfilter() {
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   const results =
-    reducerState?.twoWay?.twoWayData?.data?.data?.Response?.Results;
-  // const OpenNewpage = () => {
-  //   navigate("booknow");
-  // };
+    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
+  const OpenNewpage = () => {
+    navigate("booknow");
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>

@@ -22,6 +22,7 @@ const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
+  
   const TicketDetails = reducerState?.flightBook?.flightBookDataGDS?.Response;
   // useEffect(() => {
   //   if(reducerState?.flightBook?.flightBookDataGDS){

@@ -25,11 +25,22 @@ const Flight = () => {
     }
   }, [reducerState?.oneWay?.isLoading]);
   useEffect(() => {
+    if (reducerState?.twoWay?.isLoading == true) {
+      setLoader(true);
+    }
+  }, [reducerState?.twoWay?.isLoading]);
+  useEffect(() => {
     if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results) {
       navigate("/Flightresult");
       setLoader(false);
     }
   }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results]);
+  useEffect(() => {
+    if (reducerState?.twoWay?.twoWayData?.data?.data?.Response?.Results) {
+      navigate("/ReturnFlightresult");
+      setLoader(false);
+    }
+  }, [reducerState?.twoWay?.twoWayData?.data?.data?.Response?.Results]);
 
   return (
     <>

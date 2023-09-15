@@ -71,6 +71,7 @@ import { useLocation, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
+import ReturnFlightresult from "../Pages/Flight/returnflightresult/Returnflightresult";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -131,6 +132,11 @@ const MainPage = () => {
                 style={{ color: "inherit", textDecoration: "inherit" }}
               />
               <Route exact path="flightresult" element={<Flightresult />} />
+              <Route
+                exact
+                path="returnflightresult"
+                element={<ReturnFlightresult />}
+              />
               <Route
                 exact
                 path="/hotel/hotelsearch"

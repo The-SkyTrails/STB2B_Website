@@ -1,15 +1,125 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import "./Return.css";
 import transfer from "../../../Images/transfer.png";
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
-import { Grid, GridItem, Flex } from "@chakra-ui/react";
-
+import { Box, Grid, GridItem, Flex } from "@chakra-ui/react";
+import { useDispatch, useSelector, useReducer } from "react-redux";
 import { Stack } from "react-bootstrap";
+import { apiURL } from "../../../Constants/constant";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import {
+  clearTwoWayReducer,
+  twoWayAction,
+} from "../../../Redux/FlightSearch/TwoWay/twoWay";
 const Return = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const reducerState = useSelector((state) => state);
+  const [isLoading, setIsLoading] = useState(false);
+  const [from, setFrom] = useState("");
+  const [fromSearchResults, setFromSearchResults] = useState([]);
+  const [displayFrom, setdisplayFrom] = useState(true);
+  const [selectedFrom, setSelectedFrom] = useState(null);
+  const [to, setTo] = useState("");
+  const [toSearchResults, setToSearchResults] = useState([]);
+  const [displayTo, setdisplayTo] = useState(true);
+  const [selectedTo, setSelectedTo] = useState(null);
+  const handleFrom = (e) => {
+    setFrom(e.target.value);
+  };
+  const handleTo = (e) => {
+    setTo(e.target.value);
+  };
+  useEffect(() => {
+    dispatch(clearTwoWayReducer());
+  }, [dispatch]);
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchFromSearch = async () => {
+      const results = await axios.get(
+        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${from}`
+      );
+      setFromSearchResults(results.data.data);
+      setIsLoading(false);
+      console.log(results);
+    };
+    if (from.length > 0 && from.length < 2) setIsLoading(true);
+    if (from.length > 2) fetchFromSearch();
+  }, [from]);
+  const handleFromClick = (result) => {
+    setFrom(result.AirportCode);
+    setSelectedFrom(result);
+    setFromSearchResults([]);
+    setdisplayFrom(false);
+  };
+  useEffect(() => {
+    let mounted = true;
+    const fetchToSearch = async () => {
+      const results = await axios.get(
+        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${to}`
+      );
+      setToSearchResults(results.data.data);
+      setIsLoading(false);
+      // console.log(results);
+    };
+    if (to.length > 0 && to.length < 2) setIsLoading(true);
+    if (to.length > 2) fetchToSearch();
+  }, [to]);
+  const handleToClick = (result) => {
+    setTo(result.AirportCode);
+    setSelectedTo(result);
+    setToSearchResults([]);
+    setdisplayTo(false);
+  };
+  console.log("reducerState", reducerState);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    let payload = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      AdultCount: formData.get("adult"),
+      ChildCount: formData.get("child"),
+      InfantCount: formData.get("infant"),
+      DirectFlight: "false",
+      OneStopFlight: "false",
+      JourneyType: "2",
+      PreferredAirlines: null,
+      Segments: [
+        {
+          Origin: formData.get("from"),
+          Destination: formData.get("to"),
+          FlightCabinClass: formData.get("class"),
+          PreferredDepartureTime: formData.get("departure"),
+          PreferredArrivalTime: formData.get("departure"),
+        },
+        {
+          Origin: formData.get("from"),
+          Destination: formData.get("to"),
+          FlightCabinClass: formData.get("class"),
+          PreferredDepartureTime: formData.get("returntime"),
+          PreferredArrivalTime: formData.get("returntime"),
+        },
+      ],
+      Sources: null,
+    };
+    sessionStorage.setItem("adults", formData.get("adult"));
+    sessionStorage.setItem("childs", formData.get("child"));
+    sessionStorage.setItem("infants", formData.get("infant"));
+    console.log("Payload: ", payload);
+    dispatch(twoWayAction(payload));
+    // let results = await axios.post(
+    //   `${apiURL.baseURL}/travvolt/flight/search/return`,
+    //   { data: payload, headers: { "Content-Type": "application/json" } }
+    // );
+    // console.log("results: ", results);
+  };
   return (
-    <form action="" className="formFlightSearch">
+    <form action="" onSubmit={handleSubmit} className="formFlightSearch">
       {/* Type of return  */}
 
       <div className="d-flex flex-row mb-3 gap-5">
@@ -49,7 +159,50 @@ const Return = () => {
             <label for="from" className="form_lable">
               FROM
             </label>
-            <input placeholder="Enter city" />
+            <input
+              placeholder="Enter city"
+              name="from"
+              value={from}
+              onChange={handleFrom}
+            />
+
+            {isLoading && <div>Loading...</div>}
+            {fromSearchResults && fromSearchResults.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  zIndex: 1,
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: displayFrom ? "block" : "none",
+                }}
+              >
+                <Box
+                  sx={{
+                    mb: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    maxHeight: 150,
+                    overflow: "hidden",
+                    overflowY: "scroll",
+                  }}
+                >
+                  {fromSearchResults.map((result) => (
+                    <div
+                      className="p-1"
+                      key={result._id}
+                      onClick={() => handleFromClick(result)}
+                    >
+                      <strong>{result.AirportCode}</strong> {result.name}{" "}
+                      {result.code}
+                    </div>
+                  ))}
+                </Box>
+              </div>
+            )}
           </div>
         </div>
         <div className="col-1 d-flex justify-content-center">
@@ -60,7 +213,49 @@ const Return = () => {
             <label for="to" className="form_lable">
               TO
             </label>
-            <input placeholder="Enter city" />
+            <input
+              placeholder="Enter city"
+              name="to"
+              value={to}
+              onChange={handleTo}
+            />
+            {isLoading && <div>Loading...</div>}
+            {toSearchResults && toSearchResults.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  zIndex: 1,
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: displayTo ? "block" : "none",
+                }}
+              >
+                <Box
+                  sx={{
+                    mb: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    maxHeight: 150,
+                    overflow: "hidden",
+                    overflowY: "scroll",
+                  }}
+                >
+                  {toSearchResults.map((result) => (
+                    <div
+                      className="p-1"
+                      key={result._id}
+                      onClick={() => handleToClick(result)}
+                    >
+                      <strong>{result.AirportCode}</strong> {result.name}{" "}
+                      {result.code}
+                    </div>
+                  ))}
+                </Box>
+              </div>
+            )}
           </div>
         </div>
 
@@ -87,8 +282,8 @@ const Return = () => {
 
             <input
               type="date"
-              name="departure"
-              id="departure"
+              name="returntime"
+              id="returntime"
               className="deaprture_input"
               placeholder="Enter city or airport"
             ></input>

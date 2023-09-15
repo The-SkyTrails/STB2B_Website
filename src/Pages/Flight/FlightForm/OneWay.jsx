@@ -60,8 +60,8 @@ const OneWay = () => {
   const [fromQuery, setFromQuery] = useState("");
   const [toQuery, setToQuery] = useState("");
   const [from, setFrom] = useState("");
-  const [selectedFrom, setSelectedFrom] = useState(null);
   const [to, setTO] = useState("");
+  const [selectedFrom, setSelectedFrom] = useState(null);
   const [selectedTo, setSelectedTo] = useState(null);
   const [displayFrom, setdisplayFrom] = useState(true);
   const [displayTo, setdisplayTo] = useState(true);
