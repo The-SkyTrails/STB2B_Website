@@ -10,10 +10,10 @@ const NavBarBox = ({ avatar, name, path }, index) => {
   const [hover, setHover] = useState(false);
 
   return (
-    <Square w="auto" h="100%" borderRadius="15px" key={index}>
+    <Square  h="100%" borderRadius="15px" key={index} style={{marginBottom:'5px'}} className="box">
       <Flex
         direction="column"
-        w="auto"
+        w="100px"
         h="100%"
         alignItems="center"
         onMouseEnter={() => setHover(true)}
@@ -21,7 +21,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
       >
         <Center pt="10px">
           <div className="img">
-            <img src={avatar} alt={name} className="avatarImage" />
+            <img src={avatar} alt={name} className="avatarImage"  />
           </div>
         </Center>
         <Text fontWeight="bold" fontSize="12px" style={{ textAlign: "center" }}>

@@ -1,0 +1,12 @@
+
+@media screen and (max-width: 600px) {
+    .form_input{
+        margin-top: 10px;
+    }
+    .row{
+        margin-top: 50px;
+        padding-left: 20px;
+    }
+    
+  
+  }

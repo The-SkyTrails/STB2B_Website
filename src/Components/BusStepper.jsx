@@ -5,14 +5,13 @@ const BusStepper = () => {
   return (
     <div>
       <Flex
-        w="100%"
+       style={{width:'90%',border:'red 5px solid'}}
         h="50"
-        mb="20"
+      
         borderRadius="20px"
-        m="auto"
-        className="shadow-sm p-3 mb-5 bg-white rounded "
+           className="shadow-sm p-3 mb-5 bg-white rounded "
       >
-        <Flex w="19%" h="90%">
+        <Flex w="25%" h="90%">
           <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
             <Text ml="6px">1</Text>
           </Box>
@@ -21,7 +20,7 @@ const BusStepper = () => {
           </Text>
         </Flex>
         <Spacer />
-        <Flex w="19%" h="90%">
+        <Flex w="29%" h="90%">
           <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
             <Text ml="6px">2</Text>
           </Box>
@@ -31,7 +30,7 @@ const BusStepper = () => {
         </Flex>
         <Spacer />
 
-        <Flex w="19%" h="90%">
+        <Flex w="45%" h="90%">
           <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
             <Text ml="6px">3</Text>
           </Box>
@@ -40,7 +39,7 @@ const BusStepper = () => {
           </Text>
         </Flex>
         <Spacer />
-        <Flex w="19%" h="90%">
+        <Flex w="35%" h="90%">
           <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
             <Text ml="6px">4</Text>
           </Box>
@@ -49,7 +48,7 @@ const BusStepper = () => {
           </Text>
         </Flex>
         <Spacer />
-        <Flex w="19%" h="90%">
+        <Flex w="35%" h="90%">
           <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
             <Text ml="6px">5</Text>
           </Box>
