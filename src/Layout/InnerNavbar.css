@@ -12,3 +12,21 @@
   opacity: 1;
 }
 
+
+
+@media screen and (max-width: 600px) {
+  .innerNav {
+    /* Add styles specific to screens with a minimum width of 600px */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) !important; /* 1 row with 6 columns */
+    height: 320px;
+     padding-left:15px;
+   
+  }
+  .cards{
+    
+    height: 100px;
+    margin-bottom: -30px;
+  }
+  
+}

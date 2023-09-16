@@ -7,7 +7,7 @@ import BusForm from "./busform/BusForm";
 
 const bus = () => {
   return (
-    <div className="flightContainer">
+    <div className="busflight" style={{marginBottom:'20px',backgroundColor:'white', borderRadius:'20px'}}>
       <BusStepper />
       <BusForm />
     </div>

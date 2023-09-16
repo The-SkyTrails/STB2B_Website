@@ -1,0 +1,19 @@
+@media screen and (max-width: 600px) {
+    .flightContainer{
+        margin-left: -60px;
+        width:100%;
+      display: flex;
+      flex-wrap: wrap;
+      }
+      
+    .container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .sightContainer{
+        height:100%;
+    }
+    .flight{
+        padding:'20px'
+    }
+  }

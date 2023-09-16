@@ -7,15 +7,17 @@ import NavBarBox from "../Components/NavBarBox";
 
 function InnerNavbar() {
   return (
-    <div className="innerNav" style={{border:'2px solid black'}}>
+    <div className="innerNav" >
       {InnerBarLogo.map(({ avatar, name, path }, index) => {
         return (
           <Flex
             direction="column"
             justifyContent="space-around"
             borderRadius="15px"
-            w="8%"
+            width="100px"
             key={index}
+            className="cards"
+            
           >
             <NavLink
               to={path}
@@ -32,7 +34,7 @@ function InnerNavbar() {
             >
               {/* components call from other components for blue print */}
 
-              <NavBarBox name={name} avatar={avatar} key={index} />
+              <NavBarBox className="img" name={name} avatar={avatar} key={index} />
             </NavLink>
           </Flex>
         );
