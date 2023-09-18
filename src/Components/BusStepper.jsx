@@ -5,7 +5,8 @@ const BusStepper = () => {
   return (
     <div>
       <Flex
-       style={{width:'90%',border:'red 5px solid'}}
+       style={{width:'90%'}}
+
         h="50"
       
         borderRadius="20px"

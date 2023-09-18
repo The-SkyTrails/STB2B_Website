@@ -13,14 +13,14 @@ const initState = {
 export const getPackageBookingReducer = (state = initState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case types.PACKAGE_BOOKING_REQUEST:
+    case types.PACKAGE_BOOKING_SUCCESS:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
 
-    case types.PACKAGE_BOOKING_SUCCESS:
+    case types.PACKAGE_BOOKING_REQUEST:
       return {
         ...state,
         packageBookingData: payload,

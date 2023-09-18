@@ -37,11 +37,109 @@ const Visaform = () => {
       newErrors.name = "Name is required";
     }
 
+        event.target.reset();
+    };
+    return (
+        <div className='visaContainer' style={{marginBottom:'20px',backgroundColor:'white', borderRadius:'20px',padding:'10px'}}>
+            <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#252525' }} textAlign='center'>Apply for Visa Online</Typography>
+            <form onSubmit={handleVisaRequest}>
+                <div className="container" style={{ width: '90%', margin: 'auto' }}>
+                    <div className="row" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                        {/* For all screen sizes, display one column */}
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Name</label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder='Enter Your Name'
+                                    onChange={handleChange}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Email</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder='Enter Email'
+                                    onChange={handleChange}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Mobile Number</label>
+                                <input
+                                    type="number"
+                                    name="mobile"
+                                    placeholder='Enter Mobile Number'
+                                    onChange={handleChange}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Select Destination</label>
+                                <select
+                                    name="destination"
+                                    className="form_input_select"
+                                    value={formData.destination}
+                                    onChange={handleChange}
+                                >
+                                    <option defaultChecked>Select Destination</option>
+                                    <option value="India">India</option>
+                                    <option value="US">US</option>
+                                    <option value="Russia">Russia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-xs-12" style={{ flex: '1', minWidth: '200px' }}>
+                            <div className="form_input">
+                                <label className="form_lable">Select Visa Type</label>
+                                <select
+                                    name="visaType"
+                                    className="form_input_select"
+                                    value={formData.visaType}
+                                    onChange={handleChange}
+                                >
+                                    <option defaultChecked>Select Visa Type</option>
+                                    <option value="Tourist Visa">Tourist Visa</option>
+                                    <option value="Employment Visa">Employment Visa</option>
+                                    <option value="Student Visa">Student Visa</option>
+                                    <option value="Business Visa">Business Visa</option>
+                                    <option value="Transit Visa">Transit Visa</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row" >
+                        <div className="col-xs-12">
+                            <Typography sx={{ fontSize: '13px', color: '#FF8900', fontWeight: 'bold' }} textAlign='left'>Note : All Document Required</Typography>
+                            <Box display="flex" justifyContent="center">
+                                <Button
+                                    variant="contained"
+                                    my={4}
+                                    colorScheme="teal"
+                                    type="submit"
+                                    m
+                                    sx={{ backgroundColor: "#00BDC4", borderRadius: "20px" }}
+                                >
+                                    Apply now →
+                                </Button>
+                            </Box>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       newErrors.email = "Invalid email address";
     }
+
 
     if (!formData.mobile) {
       newErrors.mobile = "Mobile number is required";
