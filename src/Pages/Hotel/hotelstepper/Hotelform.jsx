@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "@mui/material/Link";
 import moment from "moment";
+
 import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
@@ -146,8 +147,9 @@ const HotelForm = () => {
       TokenId: reducerState?.ip?.tokenData,
     };
 
-    const totalGuest = `${parseInt(formData.get("adult")) + parseInt(formData.get("child"))
-      }`;
+    const totalGuest = `${
+      parseInt(formData.get("adult")) + parseInt(formData.get("child"))
+    }`;
     sessionStorage.setItem("totalGuest", totalGuest);
     dispatch(hotelAction(payload));
     if (
@@ -209,8 +211,8 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2} py={2} alignItems="center" >
-            <Grid item md={3} sm={12} xs={12} width="100%"  >
+          <Grid container spacing={3} py={2}  alignItems="center">
+            <Grid item md={6} sm={12} xs={12}>
               <Box>
                 <div className="nhotel_form_input">
                   <label className="form_lable">City</label>
@@ -259,59 +261,48 @@ const HotelForm = () => {
               </Box>
             </Grid>
           </Grid>
-
-         {/* <div container spacing={3} py={1} >
-
-         <div container spacing={3} py={1} >
-
-            <div  className="inputbox" style={{display: 'flex',marginBottom:'20px',gap:'10px',width:'100%',paddingLeft:'2px'}}
-            >
-              <div paddingRight={1}>
+          <Grid container spacing={5} py={2} display="inline-block">
+            <Grid item md={6} sm={12} xs={12} display="flex">
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
                   <input
                     type="Date"
                     name="departure"
                     id="departure"
-                    className="deaprture"
+                    className="deaprture_input"
                     value={values.departure}
                     onChange={handlechnage}
                     min={disablePastDate()}
-                    style={{ width: '140px' }}
                   />
                 </div>
-              </div>
+              </Box>
 
-              <div px={1}>
+              <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check-Out</label>
                   <input
                     type="date"
                     name="checkOutDeparture"
                     id="departure"
-                    className="deaprture"
+                    className="deaprture_input"
                     value={oldDate}
                     onChange={handlechnageone}
                     min={disableNexttDate()}
                     placeholder="Night"
-                    style={{ width: '140px' }}
                   />
                 </div>
-              </div>
-              <div px={1}>
+              </Box>
+              <Box px={1}>
                 <div className="hotel_form_input">
                   <label for="departure" className="form_lable">
                     Nights
                   </label>
-                  <input type="number" min="0" name="night" value={nightdays} className="deaprture"  style={{ width: '140px' }} />
+                  <input type="number" min="0" name="night" value={nightdays} />
                 </div>
-              </div>
-              <div px={1}>
-
-                <div className="hotel_form_input" >
-
+              </Box>
+              <Box px={1}>
                 <div className="hotel_form_input">
-
                   <label className="form_lable">
                     Nationality(Country Code)*
                   </label>
@@ -321,12 +312,6 @@ const HotelForm = () => {
                     value={values.nationality}
                     onChange={handleInputChange}
                     placeholder="India"
-                    className="deaprture"
-
-                    style={{ width:'160px'}}
-
-                    style={{ width: '140px' }}
-
                   />
                   {error && values.nationality.length < 1 ? (
                     <label
@@ -342,20 +327,12 @@ const HotelForm = () => {
                     ""
                   )}
                 </div>
-              </div>
-
-            </div>
-
-          </div>  */}
-         
-         <div container spacing={5} py={2} >
-
-          </div> 
-         
-          <div container spacing={5} py={2} >
-
-            <div  className="inputbox" style={{ display: 'flex',flexWrap:'wrap',gap:'10px',paddingLeft:'2px'}}>
-              <div paddingRight={1}>
+              </Box>
+            </Grid>
+          </Grid>
+          <Grid container spacing={5} py={2}>
+            <Grid item md={6} sm={12} xs={12} display="flex">
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Room*</label>
                   <select
@@ -386,8 +363,8 @@ const HotelForm = () => {
                     ""
                   )}
                 </div>
-              </div>
-              <div px={1}>
+              </Box>
+              <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Adult*</label>
                   <select
@@ -420,8 +397,8 @@ const HotelForm = () => {
                     ""
                   )}
                 </div>
-              </div>
-              <div px={1}>
+              </Box>
+              <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Child (2-12)*</label>
                   <select
@@ -437,9 +414,9 @@ const HotelForm = () => {
                     <option value="number">4</option>
                   </select>
                 </div>
-              </div>
+              </Box>
               {isVisible ? (
-                <div px={1}>
+                <Box px={1}>
                   <div className="hotel_form_input">
                     <label className="form_lable">Child Age</label>
 
@@ -449,10 +426,13 @@ const HotelForm = () => {
                       type="text"
                     />
                   </div>
-                </div>
+                </Box>
               ) : null}
-
-              <div paddingRight={1}>
+            </Grid>
+          </Grid>
+          <Grid container spacing={5} py={2}>
+            <Grid item md={6} sm={12} xs={12} display="flex">
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Star Rating*</label>
                   <select
@@ -469,152 +449,14 @@ const HotelForm = () => {
                   </select>
                   <div></div>
                 </div>
-              </div>
-            </div>
-
-          </div> 
-
-
-
-
-           <div container spacing={5} py={2} >
-            <div  className="inputbox" style={{ display: 'flex',flexWrap:'wrap',gap:'10px',paddingLeft:'2px'}}>
-              <div paddingRight={1}>
-                <div className="hotel_form_input">
-                  <label className="form_lable">Room*</label>
-                  <select
-                    name="room"
-                    value={values.room}
-                    onChange={handleInputChange}
-                    className="hotel_input_select"
-                  >
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                  </select>
-                  {error && values.room.length < 1 ? (
-                    <label
-                      style={{
-                        color: "red",
-                        fontSize: "12px",
-                        textAlign: "left",
-                      }}
-                    >
-                      Please Select this Field{" "}
-                    </label>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div px={1}>
-                <div className="hotel_form_input">
-                  <label className="form_lable">Adult*</label>
-                  <select
-                    name="adult"
-                    value={values.adult}
-                    onChange={handleInputChange}
-                    className="hotel_input_select"
-                  >
-                    <option>0</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                  </select>
-                  {error && values.adult.length < 1 ? (
-                    <label
-                      style={{
-                        color: "red",
-                        fontSize: "12px",
-                        textAlign: "left",
-                      }}
-                    >
-                      Please Select this Field{" "}
-                    </label>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div px={1}>
-                <div className="hotel_form_input">
-                  <label className="form_lable">Child (2-12)*</label>
-                  <select
-                    name="child"
-                    value={values.child}
-                    onChange={changeHandler}
-                    className="hotel_input_select"
-                  >
-                    <option>0</option>
-                    <option value="number">1</option>
-                    <option value="number">2</option>
-                    <option value="number">3</option>
-                    <option value="number">4</option>
-                  </select>
-                </div>
-              </div>
-              {isVisible ? (
-                <div px={1}>
-                  <div className="hotel_form_input">
-                    <label className="form_lable">Child Age</label>
-
-                    <input
-                      name="age"
-                      placeholder="Enter your Child Age"
-                      type="text"
-                    />
-                  </div>
-                </div>
-              ) : null}
-
-              <div paddingRight={1}>
-                <div className="hotel_form_input">
-                  <label className="form_lable">Star Rating*</label>
-                  <select
-                    name="star"
-                    value={values.star}
-                    onChange={handleInputChange}
-                    className="hotel_input_select"
-                  >
-                    <option value="1">1 Star</option>
-                    <option value="2">2 Star</option>
-                    <option value="3">3 Star</option>
-                    <option value="4">4 Star</option>
-                    <option value="5">5 Star</option>
-                  </select>
-                  <div></div>
-                </div>
-              </div>
-            </div>
-          </div> 
-
-          </div>
-
-
-         
-
-
-
-
-
-
-          <div >
-
+              </Box>
+            </Grid>
+          </Grid>
           <div style={{ display: "flex", justifyContent: "center" }}>
-
             <Button
               type="submit"
               color="primary"
-              sx={{ background: "#00BDC4", borderRadius: "10px", marginTop: '20px' }}
+              sx={{ background: "#00BDC4", borderRadius: "10px" }}
               variant="contained"
             >
               Hotel Search
