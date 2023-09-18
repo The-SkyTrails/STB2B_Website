@@ -4,7 +4,6 @@ import {
 } from "react-router-dom";
 import {  Typography, Grid, TextField,Modal,Box as MuiBox } from "@mui/material";
 import { VStack, Input, Select, HStack, Text,Button,Box} from "@chakra-ui/react";
-import { Box, Typography, Button, Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -14,6 +13,7 @@ import mainImage from "../../../Images/mainImage.png";
 import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
+import { MdDeleteForever } from "react-icons/md";
 import "./holidayguestdetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageBookingAction } from "../../../Redux/getHolidayBooking/packageBookingAction";
@@ -52,16 +52,6 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     departureCity:""
   });
    const navigate = useNavigate();
-
-const Holidayguestinfo = ({
-  personList,
-  setPersonList,
-  childCount,
-  setchildCount,
-  adultCount,
-  setadultCount,
-}) => {
-
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const requestSuccess =
@@ -69,23 +59,21 @@ const Holidayguestinfo = ({
   const [showSuccess, setShowsuccess] = useState(requestSuccess);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+  const reducerForm = reducerState?.form?.formEntries;
   console.log("package Req", reducerState);
   console.log("onePackageee", onePackage);
+  console.log("reducerForm", reducerForm);
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
-
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
-  // const [personList, setPersonList] = useState([
-  //   { name: "", dob: "", gender: "" },
-  // ]);
-
-  const handlePersonChange = (e, index) => {
+  const handlePersonChange = (e) => {
     const { name, value } = e.target;
-    const list = [...personList];
-    list[index][name] = value;
-    setPersonList(list);
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
   const handleRequestChange = (e) => {
     const { name, value } = e.target;
@@ -104,36 +92,17 @@ const Holidayguestinfo = ({
   }
 
   const handlePersonRemove = (index) => {
-    const year = +personList[personList.length - 2].dob.substring(0, 4);
-
-    console.log(year);
-    if (year < 2018) {
-      setadultCount((prev) => prev - 1);
-    } else {
-      setchildCount((prev) => prev - 1);
-    }
-    const list = [...personList];
-    list.splice(index, 1);
-    setPersonList(list);
+    // Dispatch an action to delete the form entry from Redux
+    dispatch(deleteFormEntry(index));
   };
 
   const handlePersonAdd = () => {
-
     dispatch(addFormEntry(formData));
     setFormData({
       name: "",
       dob: "",
       gender: "",
     });
-
-    setPersonList([...personList, { name: "", dob: "", gender: "" }]);
-    const year = +personList[personList.length - 1].dob.substring(0, 4);
-    if (year < 2018) {
-      setadultCount((prev) => prev + 1);
-    } else {
-      setchildCount((prev) => prev + 1);
-    }
-
   };
 
   const handleBookingPackage = (event) => {
@@ -148,15 +117,6 @@ const Holidayguestinfo = ({
       contactNumber: {
         contryCode: requestData.countryCode,
         phone: requestData.mobile,
-
-      travellers: [personList],
-      contact_details: {
-        email: formData.get("email"),
-        fullName: formData.get("fullName"),
-        contactNumber: {
-          phone: formData.get("phone"),
-        },
-
       },
 
       sale_summary: {
@@ -205,20 +165,15 @@ const Holidayguestinfo = ({
         <Box className="main-head" mt={2}>
           <Typography className="holiday_txt">Traveller Details</Typography>
           <Typography className="holiday_txt_b" py={1}>
-
             {reducerForm.length - 1} Travellers
             {/* <Typography
-
-            {personList.length - 1} Travellers
-            <Typography
-
               fontSize="14px"
               fontWeight="bold"
               color="#006FFF"
               px={1}
             >
               {adultCount} Adults || {childCount} childrens
-            </Typography>
+            </Typography> */}
           </Typography>
 
           <Typography className="Top_txt" marginBottom={1}>
@@ -299,101 +254,10 @@ const Holidayguestinfo = ({
             );
           })}
 
-          <Typography className="Top_txt" py={3}>
-            Travellers
-          </Typography>
-          {personList.map((singleService, index) => (
-            <div key={index} className="services" py={1}>
-              <Box>
-                <Grid container spacing={3} my={1}>
-                  <Grid item xs={12} sm={12} lg={4}>
-                    <Box className="topest_field">
-                      <label className="label_field">
-                        {" "}
-                        Name<span style={{ color: "red" }}>*</span>
-                      </label>
-                      <Box className="input_shadow" ml={3}>
-                        <input
-                          className="input_decor"
-                          type="text"
-                          placeholder="Enter your name"
-                          name="name"
-                          onChange={(e) => handlePersonChange(e, index)}
-                        />
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={12} lg={4} py={1}>
-                    <Box className="topest_field">
-                      <label className="label_field">
-                        Date of Birth<span style={{ color: "red" }}>*</span>
-                      </label>
-                      <Box className="input_shadow" ml={3}>
-                        <input
-                          className="input_decor"
-                          type="date"
-                          name="dob"
-                          onChange={(e) => handlePersonChange(e, index)}
-                        />
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={12} lg={3}>
-                    <Box className="topest_field">
-                      <label className="label_field">
-                        Gender<span style={{ color: "red" }}>*</span>
-                      </label>
-                      {/* <input  className="input_decor" type='text' placeholder="Enter your Gender" name="gender" /> */}
-                      <Box className="input_shadow" ml={3}>
-                        <select
-                          name="gender"
-                          className="input_decor"
-                          onChange={(e) => handlePersonChange(e, index)}
-                        >
-                          <option>Select</option>
-                          <option value="female">Female</option>
-                          <option value="male">Male</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </Box>
-                    </Box>
-                  </Grid>
-                </Grid>
-
-                <Box
-                  className="second_division"
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  {personList.length - 1 === index && personList.length < 9 && (
-                    <Button
-                      variant="contained"
-                      type="button"
-                      onClick={handlePersonAdd}
-                    >
-                      <span>+ Add a Person</span>
-                    </Button>
-                  )}
-                  {personList.length !== 1 && (
-                    <Button
-                      variant="contained"
-                      color="warning"
-                      type="button"
-                      onClick={() => handlePersonRemove(index)}
-                    >
-                      <span>- Remove</span>
-                    </Button>
-                  )}
-                </Box>
-              </Box>
-            </div>
-          ))}
-
-
           <Box py={1}>
             <Typography fontSize="16px" fontWeight="bold" color="#006FFF">
               Please Enter Contact Details
             </Typography>
-
             <HStack spacing={4}>
               <Box>
                 <Input
@@ -431,62 +295,6 @@ const Holidayguestinfo = ({
                   onChange={handleRequestChange}
                   placeholder="Enter departure city"
                 ></Input>
-
-            <Box mt={2} display="flex">
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
-                Email: *
-              </Typography>
-              <Box className="input_area" ml={2}>
-                <input
-                  className="input_decor"
-                  type="email"
-                  name="email"
-                  id="departure"
-                  // className="deaprture_input"
-                  placeholder="abc@gmail.com"
-                  style={{
-                    textDecoration: "none",
-                    border: "none",
-                    marginTop: "5px",
-                  }}
-                />
-              </Box>
-              <Box className="input_area" mx={1}>
-                <FormControl>
-                  <NativeSelect
-                    defaultValue={0}
-                    inputProps={{
-                      name: "price",
-                    }}
-                  >
-                    <option value={10}>Mobile Code: *</option>
-                    <option value={20}>+91</option>
-                    <option value={30}>87</option>
-                  </NativeSelect>
-                </FormControl>
-              </Box>
-              <Box className="input_area" mx={1}>
-                <input
-                  className="input_decor"
-                  type="text"
-                  name="phone_number"
-                  // className="deaprture_input"
-                  placeholder="Mobile No. *"
-                  style={{
-                    textDecoration: "none",
-                    border: "none",
-                    marginTop: "5px",
-                  }}
-                />
-
               </Box>
             </HStack>
           </Box>
@@ -879,7 +687,7 @@ const Holidayguestinfo = ({
               </Box>
             </Box>
           </Box> */}
-          {onePackage.detailed_ltinerary.map((item, index) => {
+          {onePackage?.detailed_ltinerary?.map((item, index) => {
             return (
               <>
                 <Box key={index}>
