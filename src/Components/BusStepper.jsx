@@ -6,6 +6,7 @@ const BusStepper = () => {
     <div>
       <Flex
        style={{width:'90%'}}
+
         h="50"
       
         borderRadius="20px"

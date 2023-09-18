@@ -259,7 +259,11 @@ const HotelForm = () => {
               </Box>
             </Grid>
           </Grid>
+
          {/* <div container spacing={3} py={1} >
+
+         <div container spacing={3} py={1} >
+
             <div  className="inputbox" style={{display: 'flex',marginBottom:'20px',gap:'10px',width:'100%',paddingLeft:'2px'}}
             >
               <div paddingRight={1}>
@@ -303,7 +307,11 @@ const HotelForm = () => {
                 </div>
               </div>
               <div px={1}>
+
                 <div className="hotel_form_input" >
+
+                <div className="hotel_form_input">
+
                   <label className="form_lable">
                     Nationality(Country Code)*
                   </label>
@@ -314,7 +322,11 @@ const HotelForm = () => {
                     onChange={handleInputChange}
                     placeholder="India"
                     className="deaprture"
+
                     style={{ width:'160px'}}
+
+                    style={{ width: '140px' }}
+
                   />
                   {error && values.nationality.length < 1 ? (
                     <label
@@ -333,9 +345,15 @@ const HotelForm = () => {
               </div>
 
             </div>
+
           </div>  */}
          
          <div container spacing={5} py={2} >
+
+          </div> 
+         
+          <div container spacing={5} py={2} >
+
             <div  className="inputbox" style={{ display: 'flex',flexWrap:'wrap',gap:'10px',paddingLeft:'2px'}}>
               <div paddingRight={1}>
                 <div className="hotel_form_input">
@@ -453,6 +471,7 @@ const HotelForm = () => {
                 </div>
               </div>
             </div>
+
           </div> 
 
 
@@ -578,13 +597,20 @@ const HotelForm = () => {
             </div>
           </div> 
 
+          </div>
+
+
          
 
 
 
 
 
+
           <div >
+
+          <div style={{ display: "flex", justifyContent: "center" }}>
+
             <Button
               type="submit"
               color="primary"
