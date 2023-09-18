@@ -1,4 +1,13 @@
-import * as React from "react";
+import React from 'react';
+import {
+  MDBContainer,
+  MDBCollapse,
+  MDBNavbar,
+  MDBNavbarToggler,
+  MDBIcon,
+  MDBBtn,
+} from 'mdb-react-ui-kit';
+
 import { useState, useEffect } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./Header.css";
@@ -16,7 +25,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import axios from "axios";
-
+import InnerNavbar from '../Layout/InnerNavbar';
 import {
   FormControl,
   FormLabel,
@@ -35,9 +44,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-
-const Header = () => {
+export default function Navbar() {
+  const [showNavExternal, setShowNavExternal] = useState(false);
   const [scrollYvalue, setScrollYValue] = useState(0);
   const reducerState = useSelector((state) => state);
   const [openModal, setOpenModal] = React.useState(false);
@@ -113,10 +121,29 @@ const Header = () => {
     setAmount("");
     handleCloseModal();
   };
+  const [show, setshow] = useState(false)
+  const handleShow =()=>{
+    setShowNavExternal(!showNavExternal)
+    setshow(true)
+  }
+
   return (
-    
-    
-    <div className={scrollYvalue > 45 ? "header_scroll" : "header"} >
+    <>
+       <MDBNavbar className='header' style={{backgroundColor:'white'}}>
+        <MDBContainer fluid  >
+          <div style={{display:'flex',columnGap:'-10px',width:'100%',marginTop:'-20px'}}>
+          <MDBNavbarToggler
+            type='button'
+            data-target='#navbarToggleExternalContent'
+            aria-controls='navbarToggleExternalContent'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
+            onClick={handleShow}
+            className='icon'
+          >
+            <MDBIcon  icon='bars' fas />
+            </MDBNavbarToggler>
+            <div className={scrollYvalue > 45 ? "header_scroll" : "header"} >
     
     <div >
       <a href="/">
@@ -134,7 +161,7 @@ const Header = () => {
       <p className="welPrice">
         Cash Balance: ₹ {reducerState?.logIn?.loginData?.data?.data?.balance}
       </p>
-      <button  onClick={handleOpenModal}>Recharge</button>
+      <button style={{borderRadius:'20px',height:'40px',width:'120px'}} onClick={handleOpenModal}>Recharge</button>
   
       <div style={{ marginBottom: "25px", height: "60px" }}>
         <Box marginTop={3}>
@@ -285,10 +312,23 @@ const Header = () => {
         </Typography>
       </Box>
     </Modal>
-  </div>
-  
-  
-  );
-};
+           </div>
+           </div>
+   
+        </MDBContainer>
+      </MDBNavbar> 
 
-export default Header;
+     
+        
+<MDBCollapse show={showNavExternal} style={{ height: '80px' }} className={`innernavbar ${showNavExternal ? 'showCard' : ''}`}>
+  {/* Your component content */}
+
+
+
+      <InnerNavbar 
+      
+      />
+      </MDBCollapse>
+    </>
+  );
+}

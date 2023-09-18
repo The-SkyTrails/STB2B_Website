@@ -3,10 +3,10 @@ import {Box, Flex ,Spacer,Text} from '@chakra-ui/react'
 
 const TransferStepper = () => {
   return (
-    <div>
-       <Flex w="100%" h="50"  mb="20" borderRadius="20px" m="auto" className="shadow-sm p-3 mb-5 bg-white rounded ">
+    <div className='transferstepper'   style={{width:'100%'}}>
+       <Flex  h="50"   borderRadius="20px"  className="shadow-sm p-3  bg-white rounded transferstepper">
 
-<Flex w='19%' h='90%'  >
+<Flex w='29%' h='90%'  >
 <Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
  <Text ml="6px">
    1
@@ -15,7 +15,7 @@ const TransferStepper = () => {
 <Text ml="10" fontWeight="bold">Transfer  Search</Text>
 </Flex>
  <Spacer />
- <Flex w='19%' h='90%'  >
+ <Flex w='29%' h='90%'  >
 <Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
  <Text ml="6px">
    2
@@ -25,7 +25,7 @@ const TransferStepper = () => {
 </Flex>
  <Spacer />
 
- <Flex w='19%' h='90%'  >
+ <Flex w='35%' h='90%'  >
 <Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
  <Text ml="6px">
    3
@@ -34,7 +34,7 @@ const TransferStepper = () => {
 <Text ml="10" fontWeight="bold">Passenger Details</Text>
 </Flex>
  <Spacer />
- <Flex w='19%' h='90%'  >
+ <Flex w='35%' h='90%'  >
 <Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
  <Text ml="6px">
    4
@@ -43,7 +43,7 @@ const TransferStepper = () => {
 <Text ml="10" fontWeight="bold">Review Booking</Text>
 </Flex>
  <Spacer />
- <Flex w='19%' h='90%'  >
+ <Flex w='35%' h='90%'  >
 <Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white">
  <Text ml="6px">
    5

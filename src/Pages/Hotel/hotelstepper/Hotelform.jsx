@@ -260,7 +260,7 @@ const HotelForm = () => {
               </Box>
             </Grid>
           </Grid>
-         <div container spacing={3} py={1} >
+         {/* <div container spacing={3} py={1} >
             <div  className="inputbox" style={{display: 'flex',marginBottom:'20px',gap:'10px',width:'100%',paddingLeft:'2px'}}
             >
               <div paddingRight={1}>
@@ -304,7 +304,7 @@ const HotelForm = () => {
                 </div>
               </div>
               <div px={1}>
-                <div className="hotel_form_input">
+                <div className="hotel_form_input" >
                   <label className="form_lable">
                     Nationality(Country Code)*
                   </label>
@@ -315,7 +315,7 @@ const HotelForm = () => {
                     onChange={handleInputChange}
                     placeholder="India"
                     className="deaprture"
-                    style={{ width: '140px' }}
+                    style={{ width:'160px'}}
                   />
                   {error && values.nationality.length < 1 ? (
                     <label
@@ -334,9 +334,9 @@ const HotelForm = () => {
               </div>
 
             </div>
-          </div> 
+          </div>  */}
          
-          <div container spacing={5} py={2} >
+         <div container spacing={5} py={2} >
             <div  className="inputbox" style={{ display: 'flex',flexWrap:'wrap',gap:'10px',paddingLeft:'2px'}}>
               <div paddingRight={1}>
                 <div className="hotel_form_input">
@@ -454,7 +454,130 @@ const HotelForm = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
+
+
+
+
+           <div container spacing={5} py={2} >
+            <div  className="inputbox" style={{ display: 'flex',flexWrap:'wrap',gap:'10px',paddingLeft:'2px'}}>
+              <div paddingRight={1}>
+                <div className="hotel_form_input">
+                  <label className="form_lable">Room*</label>
+                  <select
+                    name="room"
+                    value={values.room}
+                    onChange={handleInputChange}
+                    className="hotel_input_select"
+                  >
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                  </select>
+                  {error && values.room.length < 1 ? (
+                    <label
+                      style={{
+                        color: "red",
+                        fontSize: "12px",
+                        textAlign: "left",
+                      }}
+                    >
+                      Please Select this Field{" "}
+                    </label>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div px={1}>
+                <div className="hotel_form_input">
+                  <label className="form_lable">Adult*</label>
+                  <select
+                    name="adult"
+                    value={values.adult}
+                    onChange={handleInputChange}
+                    className="hotel_input_select"
+                  >
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                  </select>
+                  {error && values.adult.length < 1 ? (
+                    <label
+                      style={{
+                        color: "red",
+                        fontSize: "12px",
+                        textAlign: "left",
+                      }}
+                    >
+                      Please Select this Field{" "}
+                    </label>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+              <div px={1}>
+                <div className="hotel_form_input">
+                  <label className="form_lable">Child (2-12)*</label>
+                  <select
+                    name="child"
+                    value={values.child}
+                    onChange={changeHandler}
+                    className="hotel_input_select"
+                  >
+                    <option>0</option>
+                    <option value="number">1</option>
+                    <option value="number">2</option>
+                    <option value="number">3</option>
+                    <option value="number">4</option>
+                  </select>
+                </div>
+              </div>
+              {isVisible ? (
+                <div px={1}>
+                  <div className="hotel_form_input">
+                    <label className="form_lable">Child Age</label>
+
+                    <input
+                      name="age"
+                      placeholder="Enter your Child Age"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              ) : null}
+
+              <div paddingRight={1}>
+                <div className="hotel_form_input">
+                  <label className="form_lable">Star Rating*</label>
+                  <select
+                    name="star"
+                    value={values.star}
+                    onChange={handleInputChange}
+                    className="hotel_input_select"
+                  >
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Star</option>
+                    <option value="3">3 Star</option>
+                    <option value="4">4 Star</option>
+                    <option value="5">5 Star</option>
+                  </select>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div> 
 
          
 
@@ -462,7 +585,7 @@ const HotelForm = () => {
 
 
 
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div >
             <Button
               type="submit"
               color="primary"

@@ -15,7 +15,9 @@ const Hotelstepper = () => {
   console.log("State Data", reducerState?.hotelSearchResult?.ticketData);
 
   return (
-    <div className="flightCon"  style={{paddingBottom:'10px',marginBottom:'20px'}}>
+    
+     
+     <div className="flightCon"  style={{padding:'20px 10px',marginBottom:'20px'}}>
       {/* step by step updating part */}
 
       <Box

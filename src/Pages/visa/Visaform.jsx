@@ -36,7 +36,7 @@ const Visaform = () => {
         event.target.reset();
     };
     return (
-        <div className='flightContainer'>
+        <div className='visaContainer' style={{marginBottom:'20px',backgroundColor:'white', borderRadius:'20px',padding:'10px'}}>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#252525' }} textAlign='center'>Apply for Visa Online</Typography>
             <form onSubmit={handleVisaRequest}>
                 <div className="container" style={{ width: '90%', margin: 'auto' }}>

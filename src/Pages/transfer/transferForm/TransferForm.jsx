@@ -5,7 +5,7 @@ const TransferForm = () => {
   return (
     <div className='container'>
             <div className='row'>
-                <div className="col-xs-12 col-md-5">
+            <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Destination</label>
                         <select name="" id="" className="form_input_select">
@@ -17,9 +17,6 @@ const TransferForm = () => {
                         </select>
                     </div>
                 </div>
-                
-            </div>
-            <div className='row'>
                 <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Pick Up</label>
@@ -94,10 +91,10 @@ const TransferForm = () => {
                     </div>
                 </div>
             </div>
-            <div className='row' >
+            <div className='row '  >
                 <div className="col-xs-12">
                     <form action="/TransferResult">
-                        <Box display='flex' justifyContent='center'>
+                        <Box >
                             <Button
                                 variant='contained'
                                 my={4}
@@ -105,6 +102,8 @@ const TransferForm = () => {
                                 type="submit"
                                 m
                                 sx={{ backgroundColor: '#00BDC4', borderRadius: '20px' }}
+                                style={{margin:'10px'}}
+                                
                             >
                                 Search
                             </Button>
