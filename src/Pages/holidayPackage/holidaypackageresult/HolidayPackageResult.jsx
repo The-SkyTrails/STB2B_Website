@@ -443,14 +443,6 @@ const HolidayPackageResult = () => {
                                   <span>&#8377;</span>
                                   {item?.pakage_amount?.amount}
                                 </Typography>
-                                <Typography
-                                  color="#FF8900"
-                                  fontSize="8px"
-                                  fontWeight="bold"
-                                >
-                                  Publisher Price: ₹354654
-                                </Typography>
-
                                 <form action="./Holidaybooknow">
                                   <Button
                                     variant="contained"

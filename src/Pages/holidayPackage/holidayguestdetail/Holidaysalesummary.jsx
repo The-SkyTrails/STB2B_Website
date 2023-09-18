@@ -24,6 +24,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+  const reducerForm = reducerState?.form?.formEntries;
   return (
     <Box sx={{ flexGrow: 1 }} marginTop={2}>
       <Box
@@ -42,7 +43,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           display="flex"
           sx={{ fontSize: "12px", fontWeight: "bold", color: "#666666" }}
         >
-          GRAND TOTAL-:{adultCount} adult || {childCount} children
+          GRAND TOTAL-:{}
         </Typography>
         <Box
           sx={{
@@ -69,8 +70,11 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
                 textAlign: "center",
               }}
             >
-              ₹
-             943809
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05 +
+                (reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
             <Typography
               sx={{
@@ -104,8 +108,11 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹
-              854u8
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05 +
+                (reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
           </Box>
         </Box>
@@ -128,15 +135,15 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
               sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold" }}
             >
               {" "}
-              ₹
-              Travellers87478
+              ₹ Travellers {reducerForm.length - 1} x{" "}
+              {onePackage?.pakage_amount.amount}
             </Typography>
           </Box>
           <Box>
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹98543
+              ₹{(reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
           </Box>
         </Box>
@@ -195,14 +202,18 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹
-              875498
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05}
             </Typography>
             <Typography
               sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold" }}
             >
-              ₹
-              9405354
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05}
             </Typography>
           </Box>
         </Box>
@@ -228,19 +239,21 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹
-              9554
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05}
             </Typography>
           </Box>
         </Box>
-        <form action="/Holidayreviewbooking">
+        {/* <form action="/Holidayreviewbooking"> */}
           <Box display="flex" justifyContent="center" width={"100%"}>
             {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
               Proceed to Booking Review
             </Button> */}
-            <Custombutton title={"Proceed to Bokking Review"} />
+            <Custombutton title={"Proceed to Booking Review"}/>
           </Box>
-        </form>
+        {/* </form> */}
       </Box>
     </Box>
   );

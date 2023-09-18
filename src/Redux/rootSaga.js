@@ -27,6 +27,7 @@ import { userVisaWatcher } from "./Saga/visaDataSaga";
 import { getHolidayBookingWatcher } from "./Saga/packageBookingSaga";
 import { hotelSearchWatcher } from "./Saga/hotelSaga";
 import { watchFormSubmission } from "./Saga/HolidayPackageTravellerDetailsSaga";
+import { getHolidayBookingRequestWatcher } from "./Saga/packageBookingRequestSaga";
 
 export function* rootSaga() {
   yield all([
@@ -48,7 +49,7 @@ export function* rootSaga() {
     searchResultWatcher(),
     searchOneResultWatcher(),
     updatePackageWatcher(),
-    getHolidayBookingWatcher(),
+    getHolidayBookingRequestWatcher(),
     createForexWatcher(),
     createForex4CustomerWatcher(),
     createForexWatcher(),

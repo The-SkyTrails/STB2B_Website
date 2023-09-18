@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
@@ -12,27 +13,29 @@ import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 const Holidayreviewbookingdetail = () => {
+   const dispatch = useDispatch();
+   const reducerState = useSelector((state) => state);
+   const onePackage =
+     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+   const reducerForm = reducerState?.form?.formEntries;
+   console.log(onePackage);
+   console.log(reducerForm);
+
   return (
     <Box>
-      <Box className="main-head">
+      <Box className="main-head" marginTop={2}>
         <Typography className="holiday_txt">
-          Amazing Goa Flight Inclusive Deal 3N
+          {onePackage?.pakage_title}
         </Typography>
-        <Typography className="holiday_txt_b">1 Room - 2 Adults</Typography>
-        <Typography className="holiday_txt_b">
-          Feb 28, 2023
-          <Typography fontSize="10px" color="#FF8900" px={1}>
-            4D/3N
-          </Typography>
-          Mar 3, 2023 / From New Delhi
-        </Typography>
+
+        <Typography>{onePackage?.destination[0].addMore}</Typography>
       </Box>
       <Box className="main-head" mt={2}>
         <Typography className="holiday_txt">Traveller Details</Typography>
         <Typography className="holiday_txt_b" py={1}>
-          2 Travellers
+          {reducerForm.length - 1} Travellers
           <Typography fontSize="14px" fontWeight="bold" color="#006FFF" px={1}>
-            - 1 Room | 2 Adults
+            - 1 Room | {reducerForm.length - 1} Adults
           </Typography>
         </Typography>
         <Typography className="holiday_txt_v">Traveller 1 (Adult)</Typography>
@@ -48,18 +51,15 @@ const Holidayreviewbookingdetail = () => {
               Name:
             </Typography>
             <Typography
-             ml={1}
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-             Dheeraj Vishwakarma
+              Dheeraj Vishwakarma
             </Typography>
-            
-           
-           
           </Box>
           <Box mt={1} display="flex">
             <Typography
@@ -69,17 +69,17 @@ const Holidayreviewbookingdetail = () => {
                 cursor: "pointer",
               }}
             >
-             Date of Birth:
+              Date of Birth:
             </Typography>
             <Typography
-             ml={1}
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-             02th Jun, 1998
+              02th Jun, 1998
             </Typography>
             <Typography
               sx={{
@@ -89,22 +89,18 @@ const Holidayreviewbookingdetail = () => {
               }}
               ml={3}
             >
-             Gender:
+              Gender:
             </Typography>
             <Typography
-             ml={1}
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-            Male
+              Male
             </Typography>
-            
-           
-           
-          
           </Box>
         </Box>
         <Typography className="holiday_txt_v">Traveller 2 (Adult)</Typography>
@@ -120,18 +116,15 @@ const Holidayreviewbookingdetail = () => {
               Name:
             </Typography>
             <Typography
-             ml={1}
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-             Dheeraj Vishwakarma
+              Dheeraj Vishwakarma
             </Typography>
-            
-           
-           
           </Box>
           <Box mt={1} display="flex">
             <Typography
@@ -141,17 +134,17 @@ const Holidayreviewbookingdetail = () => {
                 cursor: "pointer",
               }}
             >
-             Date of Birth:
+              Date of Birth:
             </Typography>
             <Typography
-             ml={1}
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-             02th Jun, 1998
+              02th Jun, 1998
             </Typography>
             <Typography
               sx={{
@@ -161,72 +154,65 @@ const Holidayreviewbookingdetail = () => {
               }}
               ml={3}
             >
-             Gender:
+              Gender:
             </Typography>
             <Typography
-             ml={1}
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-            Male
+              Male
             </Typography>
-            
-           
-           
           </Box>
-          
         </Box>
         <Box py={1}>
           <Typography fontSize="16px" fontWeight="bold" color="#006FFF">
-          Contact Details
+            Contact Details
           </Typography>
           <Box mt={2} display="flex">
-          <Typography
-             ml={1}
+            <Typography
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-            Email:
+              Email:
             </Typography>
-          <Typography
-             ml={1}
+            <Typography
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-            abc@gmail.com
+              abc@gmail.com
             </Typography>
-          <Typography
-             ml={2}
+            <Typography
+              ml={2}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-            Mobile Number:
+              Mobile Number:
             </Typography>
-          <Typography
-             ml={1}
+            <Typography
+              ml={1}
               sx={{
                 fontSize: "16px",
                 color: "#666666",
                 cursor: "pointer",
               }}
             >
-            +91 98712 34561
+              +91 98712 34561
             </Typography>
-           
-          
-           
           </Box>
         </Box>
       </Box>
@@ -235,14 +221,22 @@ const Holidayreviewbookingdetail = () => {
         <Typography fontSize="16px" color="black" fontWeight="bold" px={1}>
           Special Requests
         </Typography>
-        <Box my={1} width='100%' border='1px solid #70707057' borderRadius='20px'>
-        <Typography  sx={{
-                color: "#252525",
-                fontSize: "12px",
-                fontWeight: "bold",
-                margin: "10px",
-              }}>Extra seat(s) at the wish of a passenge</Typography>
-          
+        <Box
+          my={1}
+          width="100%"
+          border="1px solid #70707057"
+          borderRadius="20px"
+        >
+          <Typography
+            sx={{
+              color: "#252525",
+              fontSize: "12px",
+              fontWeight: "bold",
+              margin: "10px",
+            }}
+          >
+            Extra seat(s) at the wish of a passenge
+          </Typography>
         </Box>
       </Box>
 
@@ -250,13 +244,13 @@ const Holidayreviewbookingdetail = () => {
         <Typography className="holiday_txt" textDecoration="underline">
           Package Itinerary & Inclusions
         </Typography>
-        <Typography className="holiday_txt_b" py={1}>
+        {/* <Typography className="holiday_txt_b" py={1}>
           Itinerary
           <Typography fontSize="14px" fontWeight="bold" color="#006FFF" px={1}>
             / 2 Flight / 1 Hotel / 2 Transfers
           </Typography>
-        </Typography>
-        <Box>
+        </Typography> */}
+        {/* <Box border="1px solid red">
           <Box display="flex" justifyContent="space-between">
             <Typography
               sx={{
@@ -268,19 +262,9 @@ const Holidayreviewbookingdetail = () => {
             >
               Day 1
             </Typography>
-            <Typography
-              sx={{
-                color: "#666666",
-                fontSize: "16px",
-                fontWeight: "bold",
-                marginY: "10px",
-              }}
-            >
-              23rd Feb, 2023
-            </Typography>
           </Box>
 
-          <Box>
+          <Box border="1px solid red">
             <Grid container py={2}>
               <Grid md={6}>
                 <Typography className="holiday_txt_b" py={1}>
@@ -567,7 +551,19 @@ const Holidayreviewbookingdetail = () => {
               </ul>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
+        {onePackage?.detailed_ltinerary?.map((item, index) => {
+          return (
+            <>
+              <Box key={index}>
+                <Typography sx={{ color: "orange", fontWeight: "bold" }}>
+                  Day{index + 1}
+                </Typography>
+                <Typography>{item}</Typography>
+              </Box>
+            </>
+          );
+        })}
       </Box>
       <Box className="main-head" mt={2}>
         <Typography className="holiday_txt" textDecoration="underline">
@@ -748,13 +744,8 @@ const Holidayreviewbookingdetail = () => {
           availability of the components on the new requested date.
         </Typography>
       </Box>
-     <form action="/HolidayconfirmationDetail">
-     <Box mt={2} textAlign='center'>
-        <Button variant="contained" type='submit' style={{borderRadius:'10px'}}>Generate Package</Button>
-      </Box>
-     </form>
     </Box>
-  )
+  );
 }
 
 export default Holidayreviewbookingdetail

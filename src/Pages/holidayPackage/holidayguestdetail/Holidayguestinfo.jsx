@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Grid, TextField } from "@mui/material";
-import { VStack,Input,Select,HStack } from "@chakra-ui/react";
+import {
+  useNavigate,
+} from "react-router-dom";
+import {  Typography, Grid, TextField,Modal,Box as MuiBox } from "@mui/material";
+import { VStack, Input, Select, HStack, Text,Button,Box} from "@chakra-ui/react";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -14,19 +17,46 @@ import { MdDeleteForever } from "react-icons/md";
 import "./holidayguestdetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageBookingAction } from "../../../Redux/getHolidayBooking/packageBookingAction";
+import { packageBookingAction } from "../../../Redux/HolidayBookingRequest/actionBooking";
 import { deleteFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction";
 import { addFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction";
 import { FaPlus } from "react-icons/fa";
 import Custombutton from "../../../Custombuttom/Button";
+import successGif from "../../../Images/successGif.png";
 
 const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #89CFF0",
+    boxShadow: 24,
+    borderRadius: 8,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
+  
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
     gender: "male",
   });
+  const [requestData, setrequestData] = useState({
+    email: "",
+    countryCode: "",
+    mobile: "",
+    departureCity:""
+  });
+   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+  const requestSuccess =
+    reducerState?.packageBookingRequest?.showSuccessMessage;
+  const [showSuccess, setShowsuccess] = useState(requestSuccess);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
@@ -45,6 +75,21 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
       [name]: value,
     });
   };
+  const handleRequestChange = (e) => {
+    const { name, value } = e.target;
+    setrequestData({
+      ...requestData,
+      [name]: value,
+    });
+    console.log("======================", requestData);
+  };
+  const handleSuccessandNavigate=()=>{
+    setShowsuccess((prev)=>!prev)
+    setTimeout(()=>{
+      setShowsuccess((prev) =>prev);
+      navigate("/Holidayreviewbooking");
+    },2000)
+  }
 
   const handlePersonRemove = (index) => {
     // Dispatch an action to delete the form entry from Redux
@@ -53,13 +98,6 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
 
   const handlePersonAdd = () => {
     dispatch(addFormEntry(formData));
-    const year = reducerForm[1].dob;
-    console.log(year);
-    if (year < 2018) {
-      setadultCount((prev) => prev + 1);
-    } else {
-      setchildCount((prev) => prev + 1);
-    }
     setFormData({
       name: "",
       dob: "",
@@ -69,29 +107,35 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
 
   const handleBookingPackage = (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
+    const formData = new FormData();
     const payload = {
       pakageid: packageId,
       userId: userId,
-      travellers: [reducerForm],
-      contact_details: {
-        email: formData.get("email"),
-        fullName: formData.get("fullName"),
-        contactNumber: {
-          phone: formData.get("phone"),
-        },
+      travellers: reducerForm.slice(1),
+      email: requestData.email,
+      fullName: "jhhkjds",
+      contactNumber: {
+        contryCode: requestData.countryCode,
+        phone: requestData.mobile,
       },
+
       sale_summary: {
-        price: "55485",
-        fare_breakup: "55485",
-        total_basic_cost: "47382",
+        price:
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+        fare_breakup:
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+        total_basic_cost:
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
         coupon_discount: "-7382",
-        fee_taxes: "1892",
-        gst: "1892",
-        total_gst: "41",
+        fee_taxes:
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
+        gst: (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
+        total_gst:
+          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
       },
-      departureCity: "delhi",
+      departureCity: requestData.departureCity,
       adults: "2",
       child: "0",
     };
@@ -99,13 +143,13 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     console.log("payload", payload);
     const holidayData = new FormData();
     holidayData.append("data", JSON.stringify(payload));
-    dispatch(getPackageBookingAction([payload]));
-    event.target.reset();
+    dispatch(packageBookingAction(payload));
+    handleSuccessandNavigate();
   };
 
   return (
     <Box>
-      <form onSubmit={handleBookingPackage}>
+      <form action="/Holidayreviewbooking">
         <Box className="main-head" marginTop={2}>
           <Typography className="holiday_txt">
             {onePackage?.pakage_title}
@@ -121,7 +165,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
         <Box className="main-head" mt={2}>
           <Typography className="holiday_txt">Traveller Details</Typography>
           <Typography className="holiday_txt_b" py={1}>
-            {reducerForm.length} Travellers
+            {reducerForm.length - 1} Travellers
             {/* <Typography
               fontSize="14px"
               fontWeight="bold"
@@ -133,21 +177,21 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
           </Typography>
 
           <Typography className="Top_txt" marginBottom={1}>
-            Travellers
+            Add Guests
           </Typography>
           <HStack spacing={4}>
             <Box>
               <Input
                 type="text"
                 name="name"
+                variant="filled"
                 value={formData.name}
                 onChange={handlePersonChange}
-                placeholder="Name"
+                placeholder="Enter Name"
               />
             </Box>
             <Box>
               <Input
-                type="text"
                 name="dob"
                 type="date"
                 value={formData.dob}
@@ -159,6 +203,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
               <Select
                 name="gender"
                 value={formData.gender}
+                variant="Filled"
                 onChange={handlePersonChange}
                 placeholder="Select Gender"
               >
@@ -167,14 +212,44 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                 <option value="other">Other</option>
               </Select>
             </Box>
-            <Button  onClick={handlePersonAdd}>
-              Submit
+            <Button
+              onClick={handlePersonAdd}
+              colorScheme="teal"
+              size="xs"
+              variant="outline 3"
+              borderRadius={4}
+              paddingTop={3}
+              paddingRight={5}
+              paddingBottom={3}
+              paddingLeft={5}
+            >
+              Add Guest
             </Button>
           </HStack>
-          {reducerForm.map((singleService, index) => {
+          {reducerForm.slice(1).map((singleService, index) => {
             return (
               <>
-                <Box key={index} marginBottom={2}></Box>
+                <Box
+                  key={index}
+                  marginBottom={2}
+                  display="flex"
+                  alignItems="center"
+                  width="100%"
+                  justifyContent="space-between"
+                >
+                  <Text>{singleService.name}</Text>
+                  <Text>{singleService.dob}</Text>
+                  <Text>{singleService.gender}</Text>
+
+                  <MdDeleteForever
+                    onClick={() => handlePersonRemove(index)}
+                    cursor="pointer"
+                    style={{
+                      alignSelf: "start",
+                      marginTop: "5px",
+                    }}
+                  />
+                </Box>
               </>
             );
           })}
@@ -183,86 +258,49 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             <Typography fontSize="16px" fontWeight="bold" color="#006FFF">
               Please Enter Contact Details
             </Typography>
-            <Box mt={2} display="flex">
-              <Grid item xs={12} sm={12} lg={4} mx={-1.7}>
-                <Box className="topest_field">
-                  <label className="label_field">
-                    Email:<span style={{ color: "red" }}>*</span>
-                  </label>
-                  <Box
-                    className="input_shadow"
-                    ml={1}
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <input
-                      className="input_decor"
-                      type="email"
-                      name="email"
-                      id="departure"
-                      // className="deaprture_input"
-                      placeholder="abc@gmail.com"
-                      // onChange={(e) => handlePersonChange(e, index)}
-                      style={{
-                        border: "none",
-                        outline: "none",
-                        flex: 1,
-                        padding: "8px",
-                      }}
-                    />
-                  </Box>
-                </Box>
-              </Grid>
-
-              <Box
-                className="input_shadow"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <select
-                  name="code"
-                  className="input_decor"
-                  // onChange={(e) => handlePersonChange(e, index)}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    flex: 1,
-                    padding: "8px",
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  <option value={10}>Mobile Code: *</option>
-                  <option value={20}>+91</option>
-                  <option value={30}>87</option>
-                </select>
-              </Box>
-
-              <Box
-                className="input_shadow"
-                ml={1}
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <input
-                  className="input_decor"
-                  type="text"
-                  name="phone_number"
-                  // className="deaprture_input"
-                  placeholder="Mobile No. *"
-                  id="departure"
-                  // className="deaprture_input"
-
-                  // onChange={(e) => handlePersonChange(e, index)}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    flex: 1,
-                    padding: "8px",
-                  }}
+            <HStack spacing={4}>
+              <Box>
+                <Input
+                  type="email"
+                  name="email"
+                  value={requestData.email}
+                  onChange={handleRequestChange}
+                  placeholder="email"
                 />
               </Box>
-            </Box>
+              <Box>
+                <Input
+                  name="mobile"
+                  type="text"
+                  value={requestData.mobile}
+                  onChange={handleRequestChange}
+                  placeholder="Enter Number"
+                ></Input>
+              </Box>
+              <Select
+                name="countryCode"
+                value={requestData.countryCode}
+                onChange={handleRequestChange}
+                placeholder="Select code"
+              >
+                <option value="+91">+91</option>
+                <option value="+511">+511</option>
+                <option value="other">Other</option>
+              </Select>
+              <Box>
+                <Input
+                  name="departureCity"
+                  type="text"
+                  value={requestData.departureCity}
+                  onChange={handleRequestChange}
+                  placeholder="Enter departure city"
+                ></Input>
+              </Box>
+            </HStack>
           </Box>
         </Box>
 
-        <Box className="main-head" my={2}>
+        {/* <Box className="main-head" my={2}>
           <Typography fontSize="16px" color="black" fontWeight="bold" px={1}>
             Special Requests
           </Typography>
@@ -271,7 +309,6 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
               className="input_decor"
               type="text"
               name="phone_number"
-              // className="special_request"
               placeholder="Mobile No. *"
               style={{
                 textDecoration: "none",
@@ -281,7 +318,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
               }}
             />
           </Box>
-        </Box>
+        </Box> */}
 
         <Box className="main-head" my={2}>
           <Typography className="holiday_txt" textDecoration="underline">
@@ -842,19 +879,32 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             the availability of the components on the new requested date.
           </Typography>
         </Box>
-        {/* <form action="/Holidayreviewbooking"> */}
+        {/* <form action="/Holidayreviewbooking" > */}
         <Box
           display="flex"
           justifyContent="center"
           width={"100%"}
-          marginTop={2}
+          marginTop={12}
         >
-          {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
-              Proceed to Booking Review
-            </Button> */}
-          <Custombutton title={"Proceed to Bokking Review"} />
+          <Custombutton
+            title={"Proceed to Booking Review"}
+            type={"submit"}
+            onClick={handleBookingPackage}
+          />
         </Box>
+        {/* </form> */}
       </form>
+      <Modal
+        open={showSuccess}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <MuiBox sx={{ ...style, width: 350 }}>
+          <img src={successGif} alt="sucess gif" style={{ width: "100%" }} />
+          <Typography textAlign="center" paddingLeft={3} paddingTop={2} fontWeight="bold">Thanku!!Your booking is done</Typography>
+         
+        </MuiBox>
+      </Modal>
     </Box>
   );
 };

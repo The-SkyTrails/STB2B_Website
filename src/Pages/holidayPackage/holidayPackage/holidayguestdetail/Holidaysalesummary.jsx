@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-
+import { useDispatch, useSelector } from "react-redux";
 import Link from "@mui/material/Link";
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
+import Custombutton from "../../../Custombuttom/Button";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -17,10 +18,17 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Holidaysalesummary = () => {
+const Holidaysalesummary = ({ childCount, adultCount }) => {
+  const [grandTotal, setgrandTotal] = useState(0);
+  const dispatch = useDispatch();
+  const reducerState = useSelector((state) => state);
+  const onePackage =
+    reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+  const reducerForm = reducerState?.form?.formEntries;
   return (
-    <Box sx={{ flexGrow: 1 }} >
-      <Box py={1}
+    <Box sx={{ flexGrow: 1 }} marginTop={2}>
+      <Box
+        py={1}
         backgroundColor="white"
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
@@ -35,28 +43,38 @@ const Holidaysalesummary = () => {
           display="flex"
           sx={{ fontSize: "12px", fontWeight: "bold", color: "#666666" }}
         >
-          GRAND TOTAL - 2 Adults
+          GRAND TOTAL-:{}
         </Typography>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            marginY: "5px",
+            // alignItems:"center",
+            marginY: "3px",
             marginX: "20px",
           }}
         >
           <Box>
             <Typography
-              sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold" }}
+              sx={{ fontSize: "24px", color: "#252525", fontWeight: "bold" }}
             >
               Price
             </Typography>
           </Box>
           <Box>
             <Typography
-              sx={{ fontSize: "20px", color: "#FF8900", fontWeight: "bold" }}
+              sx={{
+                fontSize: "20px",
+                color: "#FF8900",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
             >
-              ₹55,485
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05 +
+                (reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
             <Typography
               sx={{
@@ -90,7 +108,11 @@ const Holidaysalesummary = () => {
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹55,485
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05 +
+                (reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
           </Box>
         </Box>
@@ -113,26 +135,28 @@ const Holidaysalesummary = () => {
               sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold" }}
             >
               {" "}
-              23,691 x 2 Travellers
+              ₹ Travellers {reducerForm.length - 1} x{" "}
+              {onePackage?.pakage_amount.amount}
             </Typography>
           </Box>
           <Box>
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹47,382
+              ₹{(reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
           </Box>
         </Box>
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             marginY: "8px",
             marginX: "20px",
+            border:"2px solid red"
           }}
         >
-          <Box>
+          <Box >
             <Typography
               sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold" }}
             >
@@ -152,7 +176,7 @@ const Holidaysalesummary = () => {
               - ₹7,382
             </Typography>
           </Box>
-        </Box>
+        </Box> */}
         <Box
           sx={{
             display: "flex",
@@ -178,12 +202,18 @@ const Holidaysalesummary = () => {
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              + ₹1,892
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05}
             </Typography>
             <Typography
               sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold" }}
             >
-              ₹1,892
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05}
             </Typography>
           </Box>
         </Box>
@@ -209,17 +239,21 @@ const Holidaysalesummary = () => {
             <Typography
               sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
             >
-              ₹ 41.40
+              ₹{" "}
+              {(reducerForm.length - 1) *
+                onePackage?.pakage_amount.amount *
+                0.05}
             </Typography>
           </Box>
         </Box>
-        <form action="/Holidayreviewbooking">
-          <Box my={2} textAlign="center">
-            <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
+        {/* <form action="/Holidayreviewbooking"> */}
+        <Box display="flex" justifyContent="center" width={"100%"}>
+          {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
               Proceed to Booking Review
-            </Button>
-          </Box>
-        </form>
+            </Button> */}
+          <Custombutton title={"Proceed to Booking Review"} />
+        </Box>
+        {/* </form> */}
       </Box>
     </Box>
   );

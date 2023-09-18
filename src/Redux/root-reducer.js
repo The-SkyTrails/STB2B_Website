@@ -51,7 +51,6 @@ const appReducer = combineReducers({
   searchOneResult: searchOnePackageReducer,
   hotelSearchResult: hotelReducer,
   updatePackage: updatePackageReducer,
-  packageBookRequest: packageBookingReducer,
   packageBook: getPackageBookingReducer,
   createForex: createForexReducer,
   createForex4Customer: createForex4CustomerReducer,
