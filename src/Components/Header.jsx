@@ -269,7 +269,7 @@ const Header = () => {
   
               <Box display="flex" justifyContent="space-between">
                 <Button variant="contained" type="submit" sx={{ margin: 0.10 }}>
-                  Recharge Wallet
+                    Recharge Wallet
                 </Button>
                 <Button variant="contained"
   
@@ -289,6 +289,6 @@ const Header = () => {
   
   
   );
-};
+}; 
 
 export default Header;
