@@ -52,6 +52,7 @@ const HolidayForm = () => {
           xs={12}
           display="flex"
           justifyContent="center"
+          style={{marginTop:'10px'}}
         >
           <TextField
             className="search__Input"
@@ -75,6 +76,7 @@ const HolidayForm = () => {
             className="holiday_submit"
             onClick={clickUs}
             variant="contained"
+            style={{textAlign:'center'}}
           >
             Search Holiday Package
           </button>

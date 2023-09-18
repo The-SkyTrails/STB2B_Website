@@ -280,10 +280,9 @@ const BusForm = () => {
                 </div>
               )}
             </div>
+            
         </div>
-      </div>
-      <div className='row'>
-      <div className="col-xs-12 col-md-2">
+        <div className="col-xs-12 col-md-2">
           <div className="form_input">
             <label className="form_lable">DEPARTURE</label>
 
@@ -296,12 +295,12 @@ const BusForm = () => {
             ></input>
           </div>
         </div>
-         
       </div>
+     
       <div className='row' >
       <div className="col-xs-12">
           
-            <Box display='flex' justifyContent='center'>
+            <Box>
             <Button
             variant='contained'
               my={4}
@@ -309,6 +308,7 @@ const BusForm = () => {
               type="submit"
               
               sx={{backgroundColor:'#00BDC4',borderRadius:'20px'}}
+              style={{margin:'10px'}}
             >
               Bus Search
             </Button>

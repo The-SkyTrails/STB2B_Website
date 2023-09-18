@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Grid, } from "@mui/material";
+import { Box, Typography, Button, Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -9,27 +9,34 @@ import mainImage from "../../../Images/mainImage.png";
 import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
-import { MdDeleteForever } from 'react-icons/md';
 import "./holidayguestdetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPackageBookingAction } from "../../../Redux/getHolidayBooking/packageBookingAction";
-import { FaPlus } from 'react-icons/fa';
-const Holidayguestinfo = () => {
+import Custombutton from "../../../Custombuttom/Button";
+
+const Holidayguestinfo = ({
+  personList,
+  setPersonList,
+  childCount,
+  setchildCount,
+  adultCount,
+  setadultCount,
+}) => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   console.log("package Req", reducerState);
-  console.log("onePackageee",onePackage)
+  console.log("onePackageee", onePackage);
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
 
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
-  const [personList, setPersonList] = useState([
-    { name: "", dob: "", gender: "" },
-  ]);
+  // const [personList, setPersonList] = useState([
+  //   { name: "", dob: "", gender: "" },
+  // ]);
 
   const handlePersonChange = (e, index) => {
     const { name, value } = e.target;
@@ -38,9 +45,15 @@ const Holidayguestinfo = () => {
     setPersonList(list);
   };
 
-  console.log("personLIs", personList);
-
   const handlePersonRemove = (index) => {
+    const year = +personList[personList.length - 2].dob.substring(0, 4);
+
+    console.log(year);
+    if (year < 2018) {
+      setadultCount((prev) => prev - 1);
+    } else {
+      setchildCount((prev) => prev - 1);
+    }
     const list = [...personList];
     list.splice(index, 1);
     setPersonList(list);
@@ -48,6 +61,12 @@ const Holidayguestinfo = () => {
 
   const handlePersonAdd = () => {
     setPersonList([...personList, { name: "", dob: "", gender: "" }]);
+    const year = +personList[personList.length - 1].dob.substring(0, 4);
+    if (year < 2018) {
+      setadultCount((prev) => prev + 1);
+    } else {
+      setchildCount((prev) => prev + 1);
+    }
   };
 
   const handleBookingPackage = (event) => {
@@ -86,8 +105,6 @@ const Holidayguestinfo = () => {
     event.target.reset();
   };
 
-  console.log("personList", personList);
-
   return (
     <Box>
       <form onSubmit={handleBookingPackage}>
@@ -95,114 +112,115 @@ const Holidayguestinfo = () => {
           <Typography className="holiday_txt">
             {onePackage?.pakage_title}
           </Typography>
-          <Typography className="holiday_txt_b">1 Room - 2 Adults</Typography>
-          <Typography className="holiday_txt_b">
+          {/* <Typography className="holiday_txt_b">
             Feb 28, 2023
             <Typography fontSize="10px" color="#FF8900" px={1}>
               4D/3N
             </Typography>
             Mar 3, 2023 / From New Delhi
-          </Typography>
+          </Typography> */}
         </Box>
         <Box className="main-head" mt={2}>
           <Typography className="holiday_txt">Traveller Details</Typography>
           <Typography className="holiday_txt_b" py={1}>
-            2 Travellers
+            {personList.length - 1} Travellers
             <Typography
               fontSize="14px"
               fontWeight="bold"
               color="#006FFF"
               px={1}
             >
-              - 1 Room | 2 Adults
+              {adultCount} Adults || {childCount} childrens
             </Typography>
           </Typography>
-          <Typography className="holiday_txt_v">Traveller 1 (Adult)</Typography>
+
           <Typography className="Top_txt" py={3}>
             Travellers
           </Typography>
           {personList.map((singleService, index) => (
-        <div key={index} className="services">
-        <Box>
-          <Grid container spacing={1} my={1} style={{ marginBottom: '8px' }}>
-            <Grid item xs={12} sm={12} lg={4} mx={-1.7}>
-              <Box className="topest_field">
-                <label className="label_field">
-                  Name<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                    className="input_decor"
-                    type="text"
-                    placeholder="Enter your name"
-                    name="name"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={12} lg={4} mx={0}>
-              <Box className="topest_field">
-                <label className="label_field">
-                  Date of Birth<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                    className="input_decor"
-                    type="date"
-                    name="dob"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={12} lg={3} mx={-2}>
-              <Box className="topest_field">
-                <label className="label_field">
-                  Gender<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" style={{ display: 'flex', alignItems: 'center' }}>
-                  <select
-                    name="gender"
-                    className="input_decor"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px', backgroundColor: 'transparent' }}
-                  >
-                    <option>Select</option>
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                    <option value="other">Other</option>
-                  </select>
-                </Box>
-              </Box>
-            </Grid>
-            <Box
-              className="second_division"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              {personList.length - 1 === index && personList.length < 9 && (
-                <Button
-                  variant="contained"
-                  type="button"
-                  onClick={handlePersonAdd}
-                  style={{height:'35px',marginTop:'14px',marginRight:'3px',width: '25px'}}
+            <div key={index} className="services" py={1}>
+              <Box>
+                <Grid container spacing={3} my={1}>
+                  <Grid item xs={12} sm={12} lg={4}>
+                    <Box className="topest_field">
+                      <label className="label_field">
+                        {" "}
+                        Name<span style={{ color: "red" }}>*</span>
+                      </label>
+                      <Box className="input_shadow" ml={3}>
+                        <input
+                          className="input_decor"
+                          type="text"
+                          placeholder="Enter your name"
+                          name="name"
+                          onChange={(e) => handlePersonChange(e, index)}
+                        />
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={12} lg={4} py={1}>
+                    <Box className="topest_field">
+                      <label className="label_field">
+                        Date of Birth<span style={{ color: "red" }}>*</span>
+                      </label>
+                      <Box className="input_shadow" ml={3}>
+                        <input
+                          className="input_decor"
+                          type="date"
+                          name="dob"
+                          onChange={(e) => handlePersonChange(e, index)}
+                        />
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} sm={12} lg={3}>
+                    <Box className="topest_field">
+                      <label className="label_field">
+                        Gender<span style={{ color: "red" }}>*</span>
+                      </label>
+                      {/* <input  className="input_decor" type='text' placeholder="Enter your Gender" name="gender" /> */}
+                      <Box className="input_shadow" ml={3}>
+                        <select
+                          name="gender"
+                          className="input_decor"
+                          onChange={(e) => handlePersonChange(e, index)}
+                        >
+                          <option>Select</option>
+                          <option value="female">Female</option>
+                          <option value="male">Male</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </Box>
+                    </Box>
+                  </Grid>
+                </Grid>
+
+                <Box
+                  className="second_division"
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  <FaPlus />
-                </Button>
-              )}
-              {personList.length !== 1 && (
-            
-                 <MdDeleteForever onClick={() => handlePersonRemove(index)} style={{fontSize:'30px',marginTop:'18px'}}/>
-                
-              )}
-            </Box>
-          </Grid>
-        </Box>
-      </div>
-      
-         
+                  {personList.length - 1 === index && personList.length < 9 && (
+                    <Button
+                      variant="contained"
+                      type="button"
+                      onClick={handlePersonAdd}
+                    >
+                      <span>+ Add a Person</span>
+                    </Button>
+                  )}
+                  {personList.length !== 1 && (
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      type="button"
+                      onClick={() => handlePersonRemove(index)}
+                    >
+                      <span>- Remove</span>
+                    </Button>
+                  )}
+                </Box>
+              </Box>
+            </div>
           ))}
 
           <Box py={1}>
@@ -210,57 +228,60 @@ const Holidayguestinfo = () => {
               Please Enter Contact Details
             </Typography>
             <Box mt={2} display="flex">
-             
-
-            
-              <Grid item xs={12} sm={12} lg={4} mx={-1.7}>
-              <Box className="topest_field">
-                <label className="label_field">
-                Email:<span style={{ color: "red" }}>*</span>
-                </label>
-                <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                     className="input_decor"
-                     type="email"
-                     name="email"
-                     id="departure"
-                     // className="deaprture_input"
-                     placeholder="abc@gmail.com"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: "#252525",
+                  fontWeight: "bold",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                }}
+              >
+                Email: *
+              </Typography>
+              <Box className="input_area" ml={2}>
+                <input
+                  className="input_decor"
+                  type="email"
+                  name="email"
+                  id="departure"
+                  // className="deaprture_input"
+                  placeholder="abc@gmail.com"
+                  style={{
+                    textDecoration: "none",
+                    border: "none",
+                    marginTop: "5px",
+                  }}
+                />
               </Box>
-            </Grid>
-
-             
-              <Box className="input_shadow" style={{ display: 'flex', alignItems: 'center' }}>
-                  <select
-                    name="code"
-                    className="input_decor"
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px', backgroundColor: 'transparent' }}
+              <Box className="input_area" mx={1}>
+                <FormControl>
+                  <NativeSelect
+                    defaultValue={0}
+                    inputProps={{
+                      name: "price",
+                    }}
                   >
                     <option value={10}>Mobile Code: *</option>
                     <option value={20}>+91</option>
                     <option value={30}>87</option>
-                  </select>
-                </Box>
-               
-              <Box className="input_shadow" ml={1} style={{ display: 'flex', alignItems: 'center' }}>
-                  <input
-                   className="input_decor"
-                   type="text"
-                   name="phone_number"
-                   // className="deaprture_input"
-                   placeholder="Mobile No. *"
-                     id="departure"
-                     // className="deaprture_input"
-
-                    onChange={(e) => handlePersonChange(e, index)}
-                    style={{ border: 'none', outline: 'none', flex: 1, padding: '8px' }}
-                  />
-                </Box>
+                  </NativeSelect>
+                </FormControl>
+              </Box>
+              <Box className="input_area" mx={1}>
+                <input
+                  className="input_decor"
+                  type="text"
+                  name="phone_number"
+                  // className="deaprture_input"
+                  placeholder="Mobile No. *"
+                  style={{
+                    textDecoration: "none",
+                    border: "none",
+                    marginTop: "5px",
+                  }}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -290,7 +311,7 @@ const Holidayguestinfo = () => {
           <Typography className="holiday_txt" textDecoration="underline">
             Package Itinerary & Inclusions
           </Typography>
-          <Typography className="holiday_txt_b" py={1}>
+          {/* <Typography className="holiday_txt_b" py={1}>
             Itinerary
             <Typography
               fontSize="14px"
@@ -300,7 +321,7 @@ const Holidayguestinfo = () => {
             >
               / 2 Flight / 1 Hotel / 2 Transfers
             </Typography>
-          </Typography>
+          </Typography> */}
           {/* <Box border="1px solid red">
             <Box display="flex" justifyContent="space-between">
               <Typography
@@ -653,15 +674,17 @@ const Holidayguestinfo = () => {
               </Box>
             </Box>
           </Box> */}
-          {onePackage.detailed_ltinerary.map((item,index)=>{
-            return(
+          {onePackage.detailed_ltinerary.map((item, index) => {
+            return (
               <>
-              <Box key={index} >
-                  <Typography sx={{color:"orange",fontWeight:"bold"}}>Day{index+1}</Typography>
+                <Box key={index}>
+                  <Typography sx={{ color: "orange", fontWeight: "bold" }}>
+                    Day{index + 1}
+                  </Typography>
                   <Typography>{item}</Typography>
-              </Box>
+                </Box>
               </>
-            )
+            );
           })}
         </Box>
         <Box className="main-head" mt={2}>
@@ -844,14 +867,16 @@ const Holidayguestinfo = () => {
           </Typography>
         </Box>
         {/* <form action="/Holidayreviewbooking"> */}
-        <Box mt={2} textAlign="center">
-          <Button
-            variant="contained"
-            type="submit"
-            style={{ borderRadius: "10px" }}
-          >
-            Proceed to Booking Review
-          </Button>
+        <Box
+          display="flex"
+          justifyContent="center"
+          width={"100%"}
+          marginTop={2}
+        >
+          {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
+              Proceed to Booking Review
+            </Button> */}
+          <Custombutton title={"Proceed to Bokking Review"} />
         </Box>
       </form>
     </Box>

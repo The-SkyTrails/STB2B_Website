@@ -6,7 +6,7 @@ import HolidayForm from "../holidayform/HolidayForm";
 
 const Holidaystepper = () => {
   return (
-    <div className="flightContainer">
+    <div className="holidayContainer" style={{display:'flex',flexWrap:'wrap'}}>
       <Box
         w="100%"
         display="flex"

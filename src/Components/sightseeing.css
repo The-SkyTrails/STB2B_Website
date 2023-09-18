@@ -1,0 +1,15 @@
+
+
+  @media screen and (max-width: 600px) {
+  
+    .sightContainer{
+        
+      
+        display: flex;
+        flex-wrap: wrap;
+      } 
+    .boxinput{
+        margin-bottom: 30px;
+    }
+  
+  }

@@ -826,7 +826,7 @@ const Bookingdetailpackage = () => {
                 justifyContent="center"
                 type="submit"
               >
-                Book Now
+                Continue
               </Button>
             </Box>
           </form>
