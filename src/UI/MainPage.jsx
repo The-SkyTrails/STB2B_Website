@@ -72,7 +72,7 @@ import { useLocation, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
-
+import Navbar from '../Components/Navbar'
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -112,15 +112,18 @@ const MainPage = () => {
 
   return (
     <>
+   
       {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
         <div className="mainBox">
           {/* header of main dashboard */}
           <div className="header_section">
-            <Header />
+            
+          <Navbar/>
+         
             {/* inner navbar contain all pages */}
-            <InnerNavbar />
+            
           </div>
-
+          
           {/* all routes of inner navbar */}
           <div className="componentsContainer">
             <Routes>

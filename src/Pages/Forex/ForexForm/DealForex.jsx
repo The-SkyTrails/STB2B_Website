@@ -3,7 +3,7 @@ import { Button, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { createForexAction } from "../../../Redux/CreateForxWithMe/actionCreateForex";
 import { useDispatch } from "react-redux";
-
+import './forex.css'
 const DealForex = () => {
   const dispatch = useDispatch();
 
@@ -45,13 +45,13 @@ const DealForex = () => {
     <div className="container">
       <form onSubmit={handleCreateForex}>
         <div className="row">
-          <div className="col-xs-12 col-md-3">
+          <div className="col-xs-12 col-md-2">
             <div className="form_input">
               <label className="form_lable">Enter City</label>
               <input type="text" name="enterCity" onChange={handleChange} />
             </div>
           </div>
-          <div className="col-xs-12 col-md-4">
+          <div className="col-xs-12 col-md-2">
             <div className="form_input">
               <label className="form_lable">Enter Location</label>
               <input
@@ -61,8 +61,6 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-        </div>
-        <div className="row" style={{ display: "flex", alignItems: "center" }}>
           <div className="col-xs-12 col-md-2">
             <div className="form_input">
               <label className="form_lable">Service</label>
@@ -83,6 +81,10 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
+        </div>
+        <div className="row" style={{ display: "flex", alignItems: "center" }}>
+        
+         
           <div className="col-xs-12 col-md-2">
             <div className="form_input">
               <label className="form_lable">Currency</label>
@@ -93,9 +95,7 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-        </div>
 
-        <div className="row">
           <div className="col-xs-12 col-md-2">
             <div className="form_input">
               <label className="form_lable">Commission Type</label>
@@ -125,8 +125,6 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-        </div>
-        <div className="row">
           <div className="col-xs-12 col-md-2">
             <div className="form_input">
               <label className="form_lable">Mobile No.</label>
@@ -139,11 +137,15 @@ const DealForex = () => {
           </div>
         </div>
 
+      
+      
+
         <div className="row">
           <div className="col-xs-12">
             <Typography
               sx={{ fontSize: "16px", color: "#FF8900", fontWeight: "bold" }}
               textAlign="left"
+              className="note"
             >
               Note : Customer KYC Document Required
             </Typography>
@@ -154,8 +156,8 @@ const DealForex = () => {
                 my={4}
                 colorScheme="teal"
                 type="submit"
-                m
-                sx={{ backgroundColor: "#00BDC4", borderRadius: "20px" }}
+                className="btn"
+                sx={{ backgroundColor: "#00BDC4", borderRadius: "20px",marginTop:'-30px' }}
               >
                 Submit
               </Button>

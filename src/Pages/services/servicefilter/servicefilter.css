@@ -42,3 +42,18 @@ padding: 8px;
     border: none;
     box-shadow: 1px 2px 9px grey
 }
+
+@media screen and (max-width: 600px) {
+    .fliter{
+        display: none;
+     }
+     .servicedata{
+         display: flex;
+         flex-wrap: wrap;
+         margin-left: -40px;
+     }
+     .boxdata{
+         margin-bottom: 20px;
+        
+     }
+}

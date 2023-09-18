@@ -6,7 +6,7 @@ import ServicesTotalData from './servicefilter/ServicesTotalData';
 
 const Services = () => {
   return (
-    <div className="flightContainer">
+    <div className="serviceContainer" style={{marginBottom:'20px',backgroundColor:'white', borderRadius:'20px',paddingLeft:'10px'}}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={3}>

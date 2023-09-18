@@ -11,3 +11,13 @@
   width: 100px;
 }
 
+@media screen and (max-width: 600px) {
+  
+  .active-nav {
+   background-color: aqua;
+  border-radius: 5px;
+    width:100px;
+  }
+  
+
+}

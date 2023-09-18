@@ -3,7 +3,7 @@ import React from 'react'
 
 const ServicesTotalData = () => {
   return (
-    <div>
+    <div className='servicedata'>
     <Box p={2}>
       <Typography color="#FF8900" fontSize="18px" fontWeight="bold" textAlign="center">
       Total Open Requests : 0
@@ -18,6 +18,7 @@ const ServicesTotalData = () => {
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
         alignItems="center"
+        className="boxdata"
       >
        <Typography textAlign="center" color="#666666" fontSize="18px">No data available to display</Typography>
       </Box>

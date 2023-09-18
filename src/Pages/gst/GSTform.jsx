@@ -28,7 +28,7 @@ const GSTform = () => {
     };
 
     return (
-        <div className='flightContainer'>
+        <div className='gstContainer' style={{marginBottom:'20px',backgroundColor:'white', borderRadius:'20px',padding:'10px',display:'flex',flexWrap:'wrap'}}>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#252525' }} textAlign='center'>Submit GST Input Invoice</Typography>
             <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: '#252525' }} textAlign='left' my={2}>Details of Receiver (Billed To):</Typography>
             <Box sx={{ flexGrow: 1 }}>

@@ -11,6 +11,7 @@ const ServicesFilter = () => {
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
         alignItems="center"
+        className="fliter"
       >
         <Box p={1}>
           <Typography

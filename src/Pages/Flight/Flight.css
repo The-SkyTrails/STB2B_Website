@@ -4,11 +4,12 @@
     /* height: 100%; */
     border-radius: 20px;
     background: white;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .flightNavBar{
     width: 100%;
- 
     margin-top: 20px;
     }
 .flightNavBarContainer{
@@ -17,3 +18,14 @@
     margin: 20px;
 }
 
+@media screen and (max-width: 600px) {
+  
+  .flightContainer{
+    margin-left: -60px;
+    width:auto;
+  display: flex;
+  flex-wrap: wrap;
+  }
+  
+
+}
