@@ -1,4 +1,5 @@
 import { Typography } from "@material-ui/core";
+import { apiURL } from "../../../Constants/constant";
 import { Grid, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
@@ -10,12 +11,16 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Link from "@mui/material/Link";
 import moment from "moment";
-
+import axios from "axios";
 import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
 
 const HotelForm = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const[cityid,setCityid]=useState("");
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
@@ -71,6 +76,42 @@ const HotelForm = () => {
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
       ?.HotelResults,
   ]);
+  //fetch city Logic implemented below
+  useEffect(() => {
+    const debounceTimer = setTimeout(() => {
+      if (searchTerm) {
+        fetchCities();
+      } else {
+        setResults([]);
+      }
+    }, 300); // Adjust the debounce delay as needed (e.g., 300ms)
+
+    return () => {
+      clearTimeout(debounceTimer);
+    };
+  }, [searchTerm]);
+
+  const fetchCities = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `${apiURL.baseURL}/travvolt/city/hotelCitySearch?keyword=${searchTerm} `
+      );
+      setResults(response.data.data);
+      console.log("cities", response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+      setLoading(false);
+    }
+  };
+
+  const handleResultClick = (city) => {
+    setSearchTerm(city.Destination); // Set the input field's value to the selected city
+    //Below is cityId to send in payload
+    setCityid(city.cityid)
+    setResults([]); // Clear the results
+  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -127,7 +168,7 @@ const HotelForm = () => {
       CheckInDate: formattedDate,
       NoOfNights: formData.get("night"),
       CountryCode: "IN",
-      CityId: formData.get("City"),
+      CityId: cityid,
       ResultCount: null,
       PreferredCurrency: "INR",
       GuestNationality: formData.get("nationality"),
@@ -211,12 +252,12 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} py={2}  alignItems="center">
+          <Grid container spacing={3} py={2} alignItems="center">
             <Grid item md={6} sm={12} xs={12}>
               <Box>
                 <div className="nhotel_form_input">
                   <label className="form_lable">City</label>
-                  <select
+                  {/* <select
                     name="City"
                     value={values.City}
                     onChange={handleInputChange}
@@ -225,7 +266,29 @@ const HotelForm = () => {
                   >
                     <option value="130443">Delhi</option>
                     <option value="101204">Kochi</option>
-                  </select>
+                  </select> */}
+                  <input
+                    name="City"
+                    id=""
+                    type="text"
+                    placeholder="Search for a city..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  
+                  {loading && <div>Loading...</div>}
+                  {results.length > 0 && (
+                    <ul>
+                      {results.map((city,index) => (
+                        <li
+                          key={index}
+                          onClick={() => handleResultClick(city)}
+                        >
+                          {city.Destination}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                   {error && values.City.length < 1 ? (
                     <label
                       style={{
@@ -242,8 +305,8 @@ const HotelForm = () => {
                 </div>
               </Box>
             </Grid>
-            <Grid item md={6} sm={12} xs={12}  >
-              <Box display="flex">
+            <Grid item md={6} sm={12} xs={12}>
+              {/* <Box display="flex">
                 <Box mx={1}>
                   <Typography className="or">OR</Typography>
                 </Box>
@@ -258,7 +321,7 @@ const HotelForm = () => {
                     </Link>
                   </Typography>
                 </Box>
-              </Box>
+              </Box> */}
             </Grid>
           </Grid>
           <Grid container spacing={5} py={2} display="inline-block">
